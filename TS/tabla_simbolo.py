@@ -1,9 +1,9 @@
 
 
-from TS.exception import exepcion
+from TS.Excepcion import exepcion
 
 
-class TablaSimbolos:
+class Tabla_Simbolos:
     def __init__(self, anterior = None):
         self.tabla = {}                                                      #diccionario vacio
         self.anterior = anterior

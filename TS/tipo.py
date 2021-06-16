@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class TIPO(Enum):
+class Tipo(Enum):
     ENTERO = 1
     DECIMAL = 2
     BOOLEANO = 3

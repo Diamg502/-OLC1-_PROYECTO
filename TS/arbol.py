@@ -23,6 +23,9 @@ class Arbol: #AST Arbol sintaxis abstracta
     def setConsola(self,consola):
         self.consola = consola
 
+    def updateConsola(self,cadena):
+        self.consola += str(cadena) + '\n'
+
     def getTsGlobal(self):
         return self.consola
 
