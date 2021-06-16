@@ -19,15 +19,21 @@ yscroll.pack(side=RIGHT, fill=Y)
 #cajas de texto
 caja1=Text(raiz,width=65,height=15)
 caja1.place(x=60,y=100)
+caja1.config(fg= "white",
+             bg= "grey")
 
 caja2=Text(raiz,width=65,height=15)
 caja2.place(x=590, y=100)
+caja2.config(fg= "white",
+             bg= "grey")
 
 #conteo de errores
 linea = Label(raiz, text="Linea")
 linea.place(x=20,y=70)
 caja3=Text(raiz,width=4,height=15)
 caja3.place(x=20, y=100)
+caja3.config(fg= "white",
+             bg= "grey")
 yscroll.config(command=(caja1.yview, caja2.yview))
 
 #Metodos para la interfaz
@@ -110,7 +116,7 @@ def Guardarcomo():
 
 ##Configuracion de la parte visual
 raiz.title("JPR EDITOR - 201700355")
-raiz.iconbitmap('D:/Diego/USAC/Vacas_Junio_2021/Compiladores/Lab/Nuevo_PLY/Proyecto_Junio/logo.ico')
+#raiz.iconbitmap('D:/Diego/USAC/Vacas_Junio_2021/Compiladores/Lab/Nuevo_PLY/Proyecto_Junio/logo.ico')
 raiz.geometry("1150x600")
 raiz.config(bg="black")
 Titulo = Label(raiz, text="JPR EDITOR")
