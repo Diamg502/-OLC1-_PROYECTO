@@ -1,4 +1,4 @@
-from abc import ABC, ABS, abstractmethod
+from abc import ABC, abstractmethod
 
 class Instruccion(ABC):                         #instrucciones que nos servira hacer 
     def __init__(self, fila, columna):

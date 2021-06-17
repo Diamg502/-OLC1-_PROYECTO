@@ -1,4 +1,4 @@
-from tipo import TIPO
+from Tipo import TIPO
 
 
 class Simbolo:

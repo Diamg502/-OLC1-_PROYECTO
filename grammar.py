@@ -132,7 +132,7 @@ precedence = (
 from Abstract.Instruccion import Instruccion
 from Instrucciones.Imprimir import Imprimir
 from Expresiones.Primitivos import Primitivos
-from TS.Tipo import OperadorAritmetico, OperadorLogico, TIPO, OperadorRelacional
+from TS.Tipo import OperadorAritmetico, OperadorLogico, Tipo, OperadorRelacional
 from Expresiones.Aritmetica import Aritmetica
 from Expresiones.Relacional import Relacional
 from Expresiones.Logica import Logica
@@ -300,13 +300,13 @@ def p_tipo(t) :
                 | RSTRING
                 | RBOOLEAN '''
     if t[1].lower() == 'int':
-        t[0] = TIPO.ENTERO
+        t[0] = Tipo.ENTERO
     elif t[1].lower() == 'float':
-        t[0] = TIPO.DECIMAL
+        t[0] = Tipo.DECIMAL
     elif t[1].lower() == 'string':
-        t[0] = TIPO.CADENA
+        t[0] = Tipo.CADENA
     elif t[1].lower() == 'boolean':
-        t[0] = TIPO.BOOLEANO
+        t[0] = Tipo.BOOLEANO
 
 #///////////////////////////////////////EXPRESION//////////////////////////////////////////////////
 
@@ -357,23 +357,23 @@ def p_expresion_identificador(t):
 
 def p_expresion_entero(t):
     '''expresion : ENTERO'''
-    t[0] = Primitivos(TIPO.ENTERO,t[1], t.lineno(1), find_column(input, t.slice[1]))
+    t[0] = Primitivos(Tipo.ENTERO,t[1], t.lineno(1), find_column(input, t.slice[1]))
 
 def p_expresion_decimal(t):
     '''expresion : DECIMAL'''
-    t[0] = Primitivos(TIPO.DECIMAL, t[1], t.lineno(1), find_column(input, t.slice[1]))
+    t[0] = Primitivos(Tipo.DECIMAL, t[1], t.lineno(1), find_column(input, t.slice[1]))
 
 def p_expresion_cadena(t):
     '''expresion : CADENA'''
-    t[0] = Primitivos(TIPO.CADENA,str(t[1]).replace('\\n', '\n'), t.lineno(1), find_column(input, t.slice[1]))
+    t[0] = Primitivos(Tipo.CADENA,str(t[1]).replace('\\n', '\n'), t.lineno(1), find_column(input, t.slice[1]))
 
 def p_expresion_true(t):
     '''expresion : RTRUE'''
-    t[0] = Primitivos(TIPO.BOOLEANO, True, t.lineno(1), find_column(input, t.slice[1]))
+    t[0] = Primitivos(Tipo.BOOLEANO, True, t.lineno(1), find_column(input, t.slice[1]))
 
 def p_expresion_false(t):
     '''expresion : RFALSE'''
-    t[0] = Primitivos(TIPO.BOOLEANO, False, t.lineno(1), find_column(input, t.slice[1]))
+    t[0] = Primitivos(Tipo.BOOLEANO, False, t.lineno(1), find_column(input, t.slice[1]))
 
 import ply.yacc as yacc
 parser = yacc.yacc()
