@@ -29,10 +29,10 @@ class Tabla_Simbolos:
     def actualizarTabla(self, simbolo):                                     #Cambiar el contenido de una variable
         tablaActual = self
         while tablaActual != None:
-            if simbolo.id in self.tabla : 
-                if self.tabla[simbolo.id].getTipo() == simbolo.getTipo(): #para cambiarle el valor a nulo: or simbolo.getTipo == Tipo.NUL-----------------------
-                    self.tabla[simbolo.id].setValor(simbolo.getValor())
-                    self.tabla[simbolo.id].setTipo(simbolo.getTipo())
+            if simbolo.id in tablaActual.tabla : 
+                if tablaActual.tabla[simbolo.id].getTipo() == simbolo.getTipo(): #para cambiarle el valor a nulo: or simbolo.getTipo == Tipo.NUL-----------------------
+                    tablaActual.tabla[simbolo.id].setValor(simbolo.getValor())
+                    tablaActual.tabla[simbolo.id].setTipo(simbolo.getTipo())
                     return None                                                 #Variable Actualizada
                 return Exception("Semantico", "Tipo de dato diferente a la asignacion", simbolo.getFila(), simbolo.getColumna)
             else:

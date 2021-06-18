@@ -28,6 +28,9 @@ class Aritmetica(Instruccion):
             elif self.OperadorIzq.tipo == Tipo.ENTERO and self.OperadorDer.tipo == Tipo.CADENA:
                 self.tipo = Tipo.CADENA
                 return str(self.obtenerVal(self.OperadorIzq.tipo, izq)) + self.obtenerVal(self.OperadorIzq.tipo, der)
+            elif self.OperadorIzq.tipo == Tipo.CADENA and self.OperadorDer.tipo == Tipo.ENTERO:
+                self.tipo = Tipo.CADENA
+                return self.obtenerVal(self.OperadorIzq.tipo, izq) + str(self.obtenerVal(self.OperadorIzq.tipo, der))
             elif self.OperadorIzq.tipo == Tipo.CADENA and self.OperadorDer.tipo == Tipo.CADENA:
                 self.tipo = Tipo.CADENA
                 return self.obtenerVal(self.OperadorIzq.tipo, izq) + self.obtenerVal(self.OperadorIzq.tipo, der)
