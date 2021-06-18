@@ -2,7 +2,7 @@ from Abstract.Instruccion import Instruccion
 from TS.Excepcion import Excepcion
 from TS.Tipo import Tipo, OperadorLogico
 
-class Aritmetica(Instruccion):
+class Logica(Instruccion):
     def __init__(self, operador, OperacionIzq, OperacionDer, fila, columna):
         self.operador = operador
         self.OperadorIzq = OperacionIzq
@@ -27,7 +27,7 @@ class Aritmetica(Instruccion):
             return Excepcion("Semantico", "TIpo Erroneo de operacion para ||.", self.fila,self.columna)
         elif self.operador == OperadorLogico.NOT:                                                     #NOT       AGREGAR TODOS LOS TIPOS            
             if self.OperadorIzq.tipo == Tipo.BOOLEANO:             
-                return not self.obtenerVal(self.OperadorIzq.tipo, der)
+                return not self.obtenerVal(self.OperadorIzq.tipo, izq)
             return Excepcion("Semantico", "TIpo Erroneo de operacion para !.", self.fila,self.columna)
         return Excepcion("Semantico", "TIpo de operacion no especificado.", self.fila,self.columna)
     

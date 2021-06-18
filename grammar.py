@@ -196,7 +196,7 @@ def p_imprimir(t) :
 
 #///////////////////////////////////////DECLARACION//////////////////////////////////////////////////
 
-def p_declaracion(t) :
+def p_declaracion(t) :                                          #MODIFICAR RVAR
     'declaracion_instr     : tipo ID IGUAL expresion'
     t[0] = Declaracion(t[1], t[2], t.lineno(2), find_column(input, t.slice[2]), t[4])
 

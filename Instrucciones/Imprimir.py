@@ -17,6 +17,7 @@ class Imprimir(Instruccion):                            #Se agrega lo que lleva 
             return Excepcion("Semantico", "No se puede imprimir un arreglo completo", self.fila, self.columna)
 
         tree.updateConsola(value)
+        return None
 
     
 

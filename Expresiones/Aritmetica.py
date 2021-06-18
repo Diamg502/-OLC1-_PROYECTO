@@ -28,7 +28,11 @@ class Aritmetica(Instruccion):
             elif self.OperadorIzq.tipo == Tipo.ENTERO and self.OperadorDer.tipo == Tipo.CADENA:
                 self.tipo = Tipo.CADENA
                 return str(self.obtenerVal(self.OperadorIzq.tipo, izq)) + self.obtenerVal(self.OperadorIzq.tipo, der)
+            elif self.OperadorIzq.tipo == Tipo.CADENA and self.OperadorDer.tipo == Tipo.CADENA:
+                self.tipo = Tipo.CADENA
+                return self.obtenerVal(self.OperadorIzq.tipo, izq) + self.obtenerVal(self.OperadorIzq.tipo, der)
             return Excepcion("Semantico", "TIpo Erroneo de operacion para +.", self.fila,self.columna)
+
         elif self.operador == OperadorAritmetico.MENOS:                                                            #RESTA 
             if self.OperadorIzq.tipo == Tipo.ENTERO and self.OperadorDer.tipo == Tipo.ENTERO:
                 self.tipo = Tipo.ENTERO

@@ -26,3 +26,10 @@ class Simbolo:
 
     def setValor(self, valor):
         self.valor = valor
+    
+    def getFila(self, valor):
+        return self.fila
+    
+    def getColumna(self, valor):
+        return self.columna
+    
