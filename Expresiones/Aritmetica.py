@@ -29,12 +29,20 @@ class Aritmetica(Instruccion):
                 self.tipo = Tipo.CADENA
                 return str(self.obtenerVal(self.OperadorIzq.tipo, izq)) + self.obtenerVal(self.OperadorIzq.tipo, der)
             return Excepcion("Semantico", "TIpo Erroneo de operacion para +.", self.fila,self.columna)
-        elif self.operador == OperadorAritmetico.MENOS:                                                           #RESTA 
+        elif self.operador == OperadorAritmetico.MENOS:                                                            #RESTA 
             if self.OperadorIzq.tipo == Tipo.ENTERO and self.OperadorDer.tipo == Tipo.ENTERO:
                 self.tipo = Tipo.ENTERO
                 return self.obtenerVal(self.OperadorIzq.tipo, izq) - self.obtenerVal(self.OperadorIzq.tipo, der)
             return Excepcion("Semantico", "TIpo Erroneo de operacion para -.", self.fila,self.columna)
-        
+        elif self.operador == OperadorAritmetico.UMENOS:                                                           #UMENOS  NEGACION UNARIA
+            if self.OperadorIzq.tipo == Tipo.ENTERO:
+                self.tipo = Tipo.ENTERO
+                return - self.obtenerVal(self.OperadorIzq.tipo, izq)
+            elif self.OperadorIzq.tipo == Tipo.DECIMAL:
+                self.tipo = Tipo.DECIMAL
+                return - self.obtenerVal(self.OperadorIzq.tipo, izq)
+            return Excepcion("Semantico", "TIpo Erroneo de operacion para - unario.", self.fila,self.columna)
+        return Excepcion("Semantico", "TIpo de operacion o especificado.", self.fila,self.columna)
 
     def obtenerVal(self, tipo, val):
         if tipo == Tipo.ENTERO:

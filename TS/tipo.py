@@ -24,7 +24,7 @@ class OperadorRelacional(Enum):
     MAYOR = 2
     MENORQUE = 3
     MAYORQUE = 4
-    IGUAL = 5
+    IGUALIGUAL = 5
     DIFERENTE = 6
 
 class OperadorLogico(Enum):
