@@ -2,6 +2,7 @@ from Abstract.Instruccion import Instruccion
 from TS.Excepcion import Excepcion
 from TS.Tipo import Tipo
 from TS.Tabla_Simbolo import Tabla_Simbolos
+from Instrucciones.Break import Break
 
 class If(Instruccion):
     def __init__(self, condicion, instruccionesIf, instruccionesElse, ElseIf, fila, columna):
@@ -24,6 +25,7 @@ class If(Instruccion):
                     if isinstance(result, Excepcion):
                         tree.getExcepciones().append(result)
                         tree.updateConsola(result.toString())
+                    if isinstance(result, Break): return result
             else:                                                                                           #ELSE
                 if self.instruccionesElse != None:
                     nuevaTabla = Tabla_Simbolos(table)
@@ -35,6 +37,7 @@ class If(Instruccion):
                 elif self.ElseIf != None:
                     result = self.ElseIf.interpretar(tree, table)
                     if isinstance(result, Excepcion): return result
+                    if isinstance(result, Break): return result
 
         else:
             return Excepcion("Semantico", "Tipo de dato no booleado en IF.", self.fila, self.columna)
