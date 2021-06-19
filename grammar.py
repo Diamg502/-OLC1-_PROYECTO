@@ -1,7 +1,11 @@
 ''' 
+José Puac
 VACACIONES DE JUNIO 2020
+
 INTERPRETER SAMPLE  
 '''
+from Nativas.ToLower import ToLower
+from Nativas.ToUpper import ToUpper
 import re
 from TS.Excepcion import Excepcion
 
@@ -20,6 +24,7 @@ reservadas = {
     'break'     : 'RBREAK',
     'main'      : 'RMAIN',
     'func'      : 'RFUNC',
+    'return'    : 'RRETURN',
 }
 
 tokens  = [
@@ -31,6 +36,7 @@ tokens  = [
     'COMA',
     'MAS',
     'MENOS',
+    'POR',
     'MENORQUE',
     'MAYORQUE',
     'IGUALIGUAL',
@@ -53,6 +59,7 @@ t_LLAVEC        = r'}'
 t_COMA          = r','
 t_MAS           = r'\+'
 t_MENOS         = r'-'
+t_POR           = r'\*'
 t_MENORQUE      = r'<'
 t_MAYORQUE      = r'>'
 t_IGUALIGUAL    = r'=='
@@ -123,6 +130,7 @@ precedence = (
     ('right','UNOT'),
     ('left','MENORQUE','MAYORQUE', 'IGUALIGUAL'),
     ('left','MAS','MENOS'),
+    ('left','POR'),
     ('right','UMENOS'),
     )
 
@@ -132,7 +140,7 @@ precedence = (
 from Abstract.Instruccion import Instruccion
 from Instrucciones.Imprimir import Imprimir
 from Expresiones.Primitivos import Primitivos
-from TS.Tipo import OperadorAritmetico, OperadorLogico, Tipo, OperadorRelacional
+from TS.Tipo import OperadorAritmetico, OperadorLogico, TIPO, OperadorRelacional
 from Expresiones.Aritmetica import Aritmetica
 from Expresiones.Relacional import Relacional
 from Expresiones.Logica import Logica
@@ -145,6 +153,7 @@ from Instrucciones.Break import Break
 from Instrucciones.Main import Main
 from Instrucciones.Funcion import Funcion
 from Instrucciones.Llamada import Llamada
+from Instrucciones.Return import Return
 
 def p_init(t) :
     'init            : instrucciones'
@@ -176,7 +185,8 @@ def p_instruccion(t) :
                         | break_instr finins
                         | main_instr
                         | funcion_instr
-                        | llamada_instr finins'''
+                        | llamada_instr finins
+                        | return_instr finins'''
     t[0] = t[1]
 
 def p_finins(t) :
@@ -196,7 +206,7 @@ def p_imprimir(t) :
 
 #///////////////////////////////////////DECLARACION//////////////////////////////////////////////////
 
-def p_declaracion(t) :                                          #MODIFICAR RVAR
+def p_declaracion(t) :
     'declaracion_instr     : tipo ID IGUAL expresion'
     t[0] = Declaracion(t[1], t[2], t.lineno(2), find_column(input, t.slice[2]), t[4])
 
@@ -292,6 +302,12 @@ def p_parametroLL(t) :
     'parametro_llamada     : expresion'
     t[0] = t[1]
 
+#///////////////////////////////////////LLAMADA A FUNCION//////////////////////////////////////////////////
+
+def p_return(t) :
+    'return_instr     : RRETURN expresion'
+    t[0] = Return(t[2], t.lineno(1), find_column(input, t.slice[1]))
+
 #///////////////////////////////////////TIPO//////////////////////////////////////////////////
 
 def p_tipo(t) :
@@ -300,13 +316,13 @@ def p_tipo(t) :
                 | RSTRING
                 | RBOOLEAN '''
     if t[1].lower() == 'int':
-        t[0] = Tipo.ENTERO
+        t[0] = TIPO.ENTERO
     elif t[1].lower() == 'float':
-        t[0] = Tipo.DECIMAL
+        t[0] = TIPO.DECIMAL
     elif t[1].lower() == 'string':
-        t[0] = Tipo.CADENA
+        t[0] = TIPO.CADENA
     elif t[1].lower() == 'boolean':
-        t[0] = Tipo.BOOLEANO
+        t[0] = TIPO.BOOLEANO
 
 #///////////////////////////////////////EXPRESION//////////////////////////////////////////////////
 
@@ -314,6 +330,7 @@ def p_expresion_binaria(t):
     '''
     expresion : expresion MAS expresion
             | expresion MENOS expresion
+            | expresion POR expresion
             | expresion MENORQUE expresion
             | expresion MAYORQUE expresion
             | expresion IGUALIGUAL expresion
@@ -324,6 +341,8 @@ def p_expresion_binaria(t):
         t[0] = Aritmetica(OperadorAritmetico.MAS, t[1],t[3], t.lineno(2), find_column(input, t.slice[2]))
     elif t[2] == '-':
         t[0] = Aritmetica(OperadorAritmetico.MENOS, t[1],t[3], t.lineno(2), find_column(input, t.slice[2]))
+    elif t[2] == '*':
+        t[0] = Aritmetica(OperadorAritmetico.POR, t[1],t[3], t.lineno(2), find_column(input, t.slice[2]))
     elif t[2] == '<':
         t[0] = Relacional(OperadorRelacional.MENORQUE, t[1],t[3], t.lineno(2), find_column(input, t.slice[2]))
     elif t[2] == '>':
@@ -351,29 +370,33 @@ def p_expresion_agrupacion(t):
     '''
     t[0] = t[2]
 
+def p_expresion_llamada(t):
+    '''expresion : llamada_instr'''
+    t[0] = t[1]
+
 def p_expresion_identificador(t):
     '''expresion : ID'''
     t[0] = Identificador(t[1], t.lineno(1), find_column(input, t.slice[1]))
 
 def p_expresion_entero(t):
     '''expresion : ENTERO'''
-    t[0] = Primitivos(Tipo.ENTERO,t[1], t.lineno(1), find_column(input, t.slice[1]))
+    t[0] = Primitivos(TIPO.ENTERO,t[1], t.lineno(1), find_column(input, t.slice[1]))
 
 def p_expresion_decimal(t):
     '''expresion : DECIMAL'''
-    t[0] = Primitivos(Tipo.DECIMAL, t[1], t.lineno(1), find_column(input, t.slice[1]))
+    t[0] = Primitivos(TIPO.DECIMAL, t[1], t.lineno(1), find_column(input, t.slice[1]))
 
 def p_expresion_cadena(t):
     '''expresion : CADENA'''
-    t[0] = Primitivos(Tipo.CADENA,str(t[1]).replace('\\n', '\n'), t.lineno(1), find_column(input, t.slice[1]))
+    t[0] = Primitivos(TIPO.CADENA,str(t[1]).replace('\\n', '\n'), t.lineno(1), find_column(input, t.slice[1]))
 
 def p_expresion_true(t):
     '''expresion : RTRUE'''
-    t[0] = Primitivos(Tipo.BOOLEANO, True, t.lineno(1), find_column(input, t.slice[1]))
+    t[0] = Primitivos(TIPO.BOOLEANO, True, t.lineno(1), find_column(input, t.slice[1]))
 
 def p_expresion_false(t):
     '''expresion : RFALSE'''
-    t[0] = Primitivos(Tipo.BOOLEANO, False, t.lineno(1), find_column(input, t.slice[1]))
+    t[0] = Primitivos(TIPO.BOOLEANO, False, t.lineno(1), find_column(input, t.slice[1]))
 
 import ply.yacc as yacc
 parser = yacc.yacc()
@@ -394,18 +417,34 @@ def parse(inp) :
     input = inp
     return parser.parse(inp)
 
+def crearNativas(ast):          # CREACION Y DECLARACION DE LAS FUNCIONES NATIVAS
+    nombre = "toupper"
+    parametros = [{'tipo':TIPO.CADENA,'identificador':'toUpper##Param1'}]
+    instrucciones = []
+    toUpper = ToUpper(nombre, parametros, instrucciones, -1, -1)
+    ast.addFuncion(toUpper)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
+
+    
+    nombre = "tolower"
+    parametros = [{'tipo':TIPO.CADENA,'identificador':'toLower##Param1'}]
+    instrucciones = []
+    toLower = ToLower(nombre, parametros, instrucciones, -1, -1)
+    ast.addFuncion(toLower)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
+
+
 #INTERFAZ
 
 f = open("./entrada.txt", "r")
 entrada = f.read()
 
 from TS.Arbol import Arbol
-from TS.Tabla_Simbolo import TablaSimbolos
+from TS.TablaSimbolos import TablaSimbolos
 
 instrucciones = parse(entrada) # ARBOL AST
 ast = Arbol(instrucciones)
 TSGlobal = TablaSimbolos()
 ast.setTSglobal(TSGlobal)
+crearNativas(ast)
 for error in errores:                   # CAPTURA DE ERRORES LEXICOS Y SINTACTICOS
     ast.getExcepciones().append(error)
     ast.updateConsola(error.toString())
@@ -438,6 +477,10 @@ for instruccion in ast.getInstrucciones():      # 2DA PASADA (MAIN)
             ast.updateConsola(value.toString())
         if isinstance(value, Break): 
             err = Excepcion("Semantico", "Sentencia BREAK fuera de ciclo", instruccion.fila, instruccion.columna)
+            ast.getExcepciones().append(err)
+            ast.updateConsola(err.toString())
+        if isinstance(value, Return): 
+            err = Excepcion("Semantico", "Sentencia RETURN fuera de ciclo", instruccion.fila, instruccion.columna)
             ast.getExcepciones().append(err)
             ast.updateConsola(err.toString())
 

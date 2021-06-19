@@ -1,7 +1,6 @@
 from enum import Enum
 
-
-class Tipo(Enum):
+class TIPO(Enum):
     ENTERO = 1
     DECIMAL = 2
     BOOLEANO = 3
@@ -20,10 +19,10 @@ class OperadorAritmetico(Enum):
     UMENOS = 7
 
 class OperadorRelacional(Enum):
-    MENOR = 1
-    MAYOR = 2
-    MENORQUE = 3
-    MAYORQUE = 4
+    MENORQUE = 1
+    MAYORQUE = 2
+    MENORIGUAL = 3
+    MAYORIGUAL = 4
     IGUALIGUAL = 5
     DIFERENTE = 6
 
@@ -31,7 +30,3 @@ class OperadorLogico(Enum):
     NOT = 1
     AND = 2
     OR = 3
-    
-
-
-    

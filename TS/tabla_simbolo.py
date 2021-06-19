@@ -8,7 +8,6 @@ class Tabla_Simbolos:
     def __init__(self, anterior = None):
         self.tabla = {}                                                      #diccionario vacio
         self.anterior = anterior
-        self.funciones = []
 
     def setTabla(self, simbolo):                                             #agregar una variable
         if simbolo.id.lower() in self.tabla :                                        #verifica que no se declare una variable mas de una vez

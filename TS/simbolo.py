@@ -1,8 +1,6 @@
-from Tipo import TIPO
-
 
 class Simbolo:
-    def __init__(self, identificador, tipo, fila, columna,valor):
+    def __init__(self, identificador, tipo, fila, columna, valor ):
         self.id = identificador
         self.tipo = tipo
         self.fila = fila
@@ -19,17 +17,16 @@ class Simbolo:
         return self.tipo
 
     def setTipo(self, tipo):
-        self.tipo = tipo
+        self.tipo = tipo  
 
     def getValor(self):
         return self.valor
 
     def setValor(self, valor):
         self.valor = valor
-    
-    def getFila(self, valor):
+
+    def getFila(self):
         return self.fila
     
-    def getColumna(self, valor):
+    def getColumna(self):
         return self.columna
-    

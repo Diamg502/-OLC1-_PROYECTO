@@ -1,7 +1,7 @@
 from Abstract.Instruccion import Instruccion
 from TS.Excepcion import Excepcion
-from TS.Tipo import Tipo
-from TS.Tabla_Simbolo import Tabla_Simbolos
+from TS.Tipo import TIPO
+from TS.TablaSimbolos import TablaSimbolos
 
 class Break(Instruccion):
     def __init__(self, fila, columna):
