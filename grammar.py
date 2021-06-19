@@ -23,6 +23,7 @@ reservadas = {
     'main'      : 'RMAIN',
     'func'      : 'RFUNC',
     'return'    : 'RRETURN',
+    'var'       : 'RVar'
 }
 
 tokens  = [
@@ -205,8 +206,8 @@ def p_imprimir(t) :
 #///////////////////////////////////////DECLARACION//////////////////////////////////////////////////
 
 def p_declaracion(t) :
-    'declaracion_instr     : tipo ID IGUAL expresion'
-    t[0] = Declaracion(t[1], t[2], t.lineno(2), find_column(input, t.slice[2]), t[4])
+    'declaracion_instr     : RVar ID IGUAL expresion'                              
+    t[0] = Declaracion(t[2], t.lineno(2), find_column(input, t.slice[2]), t[4])
 
 #///////////////////////////////////////ASIGNACION//////////////////////////////////////////////////
 
@@ -429,7 +430,7 @@ def crearNativas(ast):          # CREACION Y DECLARACION DE LAS FUNCIONES NATIVA
     toLower = ToLower(nombre, parametros, instrucciones, -1, -1)
     ast.addFuncion(toLower)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
 
-
+'''
 #INTERFAZ
 f = open("./entrada.txt", "r")
 entrada = f.read()
@@ -488,3 +489,4 @@ for instruccion in ast.getInstrucciones():    # 3ERA PASADA (SENTENCIAS FUERA DE
         ast.updateConsola(err.toString())
 
 print(ast.getConsola())
+'''

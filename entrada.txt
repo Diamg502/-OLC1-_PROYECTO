@@ -1,3 +1,5 @@
+#hola esto es un comentario
+
 
 iNt valor1 = 43243;
 int contadorA = 0;

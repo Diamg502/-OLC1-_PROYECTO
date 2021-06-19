@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
+from grammar import *
 
 raiz=Tk()
 menubar = Menu(raiz)
@@ -78,15 +79,74 @@ def nuevoA(): #Nuevo archivo
     
 def Anal(): #analiza
     global nombreArchivo
+    prueba = 0
     verificarArchivo = nombreArchivo.split(".")[-1]
-    if verificarArchivo == "txt":
-        print("Analiznado archivo TXT")
+    #if verificarArchivo == "txt":
+    if prueba == 0:
+        print("Analizando archivo TXT")
+#------------------------------------------------------INTERFAZ CON EL GRAMMY------------------------------
+        #f = open("./entrada.txt", "r")
+        entrada = caja1.get(1.0,END)
 
+        from TS.Arbol import Arbol
+        from TS.TablaSimbolos import TablaSimbolos
+
+        instrucciones = parse(entrada) # ARBOL AST
+        ast = Arbol(instrucciones)
+        TSGlobal = TablaSimbolos()
+        ast.setTSglobal(TSGlobal)
+        crearNativas(ast)
+        for error in errores:                   # CAPTURA DE ERRORES LEXICOS Y SINTACTICOS
+            ast.getExcepciones().append(error)
+            ast.updateConsola(error.toString())
+
+        for instruccion in ast.getInstrucciones():      # 1ERA PASADA (DECLARACIONES Y ASIGNACIONES)
+            if isinstance(instruccion, Funcion):
+                ast.addFuncion(instruccion)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
+            if isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion):
+                value = instruccion.interpretar(ast,TSGlobal)
+                if isinstance(value, Excepcion) :
+                    ast.getExcepciones().append(value)
+                    ast.updateConsola(value.toString())
+                if isinstance(value, Break): 
+                    err = Excepcion("Semantico", "Sentencia BREAK fuera de ciclo", instruccion.fila, instruccion.columna)
+                    ast.getExcepciones().append(err)
+                    ast.updateConsola(err.toString())
+                
+        for instruccion in ast.getInstrucciones():      # 2DA PASADA (MAIN)
+            contador = 0
+            if isinstance(instruccion, Main):
+                contador += 1
+                if contador == 2: # VERIFICAR LA DUPLICIDAD
+                    err = Excepcion("Semantico", "Existen 2 funciones Main", instruccion.fila, instruccion.columna)
+                    ast.getExcepciones().append(err)
+                    ast.updateConsola(err.toString())
+                    break
+                value = instruccion.interpretar(ast,TSGlobal)
+                if isinstance(value, Excepcion) :
+                    ast.getExcepciones().append(value)
+                    ast.updateConsola(value.toString())
+                if isinstance(value, Break): 
+                    err = Excepcion("Semantico", "Sentencia BREAK fuera de ciclo", instruccion.fila, instruccion.columna)
+                    ast.getExcepciones().append(err)
+                    ast.updateConsola(err.toString())
+                if isinstance(value, Return): 
+                    err = Excepcion("Semantico", "Sentencia RETURN fuera de ciclo", instruccion.fila, instruccion.columna)
+                    ast.getExcepciones().append(err)
+                    ast.updateConsola(err.toString())
+
+        for instruccion in ast.getInstrucciones():    # 3ERA PASADA (SENTENCIAS FUERA DE MAIN)
+            if not (isinstance(instruccion, Main) or isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion) or isinstance(instruccion, Funcion)):
+                err = Excepcion("Semantico", "Sentencias fuera de Main", instruccion.fila, instruccion.columna)
+                ast.getExcepciones().append(err)
+                ast.updateConsola(err.toString())
+
+        #print(ast.getConsola())
 
         
-        analizar1(cadena,nombreArchivo)
-        txt=analizar1(cadena,nombreArchivo)
-        caja2.insert("insert",txt)
+        #analizar1(cadena,nombreArchivo)
+        #txt=analizar1(cadena,nombreArchivo)
+        caja2.insert("insert",ast.getConsola())
         
         
 def guardarU():
@@ -94,12 +154,13 @@ def guardarU():
     global ficheroactual
     global teeexto
     if ficheroactual == "":
-        print("hola")
+        Guardarcomo()
     else:
         textt=caja1.get(1.0,END)
         abrirHtml = open(ficheroactual,"w")
         abrirHtml.write(textt)
         abrirHtml.close()
+        messagebox.showinfo(message="Archivo guardado", title="Exito")
 
 def Guardarcomo():
     global teeexto
@@ -112,6 +173,7 @@ def Guardarcomo():
         archivo.write(txtTotal)
         archivo.close()
         teeexto = guardar
+        messagebox.showinfo(message="Archivo guardado", title="Exito")
     else:
         return
 
