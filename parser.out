@@ -1,0 +1,3676 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> init
+Rule 1     init -> instrucciones
+Rule 2     instrucciones -> instrucciones instruccion
+Rule 3     instrucciones -> instruccion
+Rule 4     instruccion -> imprimir_instr finins
+Rule 5     instruccion -> declaracion_instr finins
+Rule 6     instruccion -> asignacion_instr finins
+Rule 7     instruccion -> if_instr
+Rule 8     instruccion -> while_instr
+Rule 9     instruccion -> break_instr finins
+Rule 10    instruccion -> main_instr
+Rule 11    instruccion -> funcion_instr
+Rule 12    instruccion -> llamada_instr finins
+Rule 13    instruccion -> return_instr finins
+Rule 14    finins -> PUNTOCOMA
+Rule 15    finins -> <empty>
+Rule 16    instruccion -> error PUNTOCOMA
+Rule 17    imprimir_instr -> RPRINT PARA expresion PARC
+Rule 18    declaracion_instr -> tipo ID IGUAL expresion
+Rule 19    asignacion_instr -> ID IGUAL expresion
+Rule 20    if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+Rule 21    if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+Rule 22    if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+Rule 23    while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+Rule 24    break_instr -> RBREAK
+Rule 25    main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+Rule 26    funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+Rule 27    funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+Rule 28    parametros -> parametros COMA parametro
+Rule 29    parametros -> parametro
+Rule 30    parametro -> tipo ID
+Rule 31    llamada_instr -> ID PARA PARC
+Rule 32    llamada_instr -> ID PARA parametros_llamada PARC
+Rule 33    parametros_llamada -> parametros_llamada COMA parametro_llamada
+Rule 34    parametros_llamada -> parametro_llamada
+Rule 35    parametro_llamada -> expresion
+Rule 36    return_instr -> RRETURN expresion
+Rule 37    tipo -> RINT
+Rule 38    tipo -> RFLOAT
+Rule 39    tipo -> RSTRING
+Rule 40    tipo -> RBOOLEAN
+Rule 41    expresion -> expresion MAS expresion
+Rule 42    expresion -> expresion MENOS expresion
+Rule 43    expresion -> expresion POR expresion
+Rule 44    expresion -> expresion MENORQUE expresion
+Rule 45    expresion -> expresion MAYORQUE expresion
+Rule 46    expresion -> expresion IGUALIGUAL expresion
+Rule 47    expresion -> expresion AND expresion
+Rule 48    expresion -> expresion OR expresion
+Rule 49    expresion -> MENOS expresion
+Rule 50    expresion -> NOT expresion
+Rule 51    expresion -> PARA expresion PARC
+Rule 52    expresion -> llamada_instr
+Rule 53    expresion -> ID
+Rule 54    expresion -> ENTERO
+Rule 55    expresion -> DECIMAL
+Rule 56    expresion -> CADENA
+Rule 57    expresion -> RTRUE
+Rule 58    expresion -> RFALSE
+
+Terminals, with rules where they appear
+
+AND                  : 47
+CADENA               : 56
+COMA                 : 28 33
+DECIMAL              : 55
+ENTERO               : 54
+ID                   : 18 19 26 27 30 31 32 53
+IGUAL                : 18 19
+IGUALIGUAL           : 46
+LLAVEA               : 20 21 21 22 23 25 26 27
+LLAVEC               : 20 21 21 22 23 25 26 27
+MAS                  : 41
+MAYORQUE             : 45
+MENORQUE             : 44
+MENOS                : 42 49
+NOT                  : 50
+OR                   : 48
+PARA                 : 17 20 21 22 23 25 26 27 31 32 51
+PARC                 : 17 20 21 22 23 25 26 27 31 32 51
+POR                  : 43
+PUNTOCOMA            : 14 16
+RBOOLEAN             : 40
+RBREAK               : 24
+RELSE                : 21 22
+RFALSE               : 58
+RFLOAT               : 38
+RFUNC                : 26 27
+RIF                  : 20 21 22
+RINT                 : 37
+RMAIN                : 25
+RPRINT               : 17
+RRETURN              : 36
+RSTRING              : 39
+RTRUE                : 57
+RWHILE               : 23
+error                : 16
+
+Nonterminals, with rules where they appear
+
+asignacion_instr     : 6
+break_instr          : 9
+declaracion_instr    : 5
+expresion            : 17 18 19 20 21 22 23 35 36 41 41 42 42 43 43 44 44 45 45 46 46 47 47 48 48 49 50 51
+finins               : 4 5 6 9 12 13
+funcion_instr        : 11
+if_instr             : 7 22
+imprimir_instr       : 4
+init                 : 0
+instruccion          : 2 3
+instrucciones        : 1 2 20 21 21 22 23 25 26 27
+llamada_instr        : 12 52
+main_instr           : 10
+parametro            : 28 29
+parametro_llamada    : 33 34
+parametros           : 26 28
+parametros_llamada   : 32 33
+return_instr         : 13
+tipo                 : 18 30
+while_instr          : 8
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . init
+    (1) init -> . instrucciones
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . imprimir_instr finins
+    (5) instruccion -> . declaracion_instr finins
+    (6) instruccion -> . asignacion_instr finins
+    (7) instruccion -> . if_instr
+    (8) instruccion -> . while_instr
+    (9) instruccion -> . break_instr finins
+    (10) instruccion -> . main_instr
+    (11) instruccion -> . funcion_instr
+    (12) instruccion -> . llamada_instr finins
+    (13) instruccion -> . return_instr finins
+    (16) instruccion -> . error PUNTOCOMA
+    (17) imprimir_instr -> . RPRINT PARA expresion PARC
+    (18) declaracion_instr -> . tipo ID IGUAL expresion
+    (19) asignacion_instr -> . ID IGUAL expresion
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (23) while_instr -> . RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (24) break_instr -> . RBREAK
+    (25) main_instr -> . RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+    (26) funcion_instr -> . RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> . RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+    (36) return_instr -> . RRETURN expresion
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    error           shift and go to state 14
+    RPRINT          shift and go to state 15
+    ID              shift and go to state 17
+    RIF             shift and go to state 18
+    RWHILE          shift and go to state 19
+    RBREAK          shift and go to state 20
+    RMAIN           shift and go to state 21
+    RFUNC           shift and go to state 22
+    RRETURN         shift and go to state 23
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    init                           shift and go to state 1
+    instrucciones                  shift and go to state 2
+    instruccion                    shift and go to state 3
+    imprimir_instr                 shift and go to state 4
+    declaracion_instr              shift and go to state 5
+    asignacion_instr               shift and go to state 6
+    if_instr                       shift and go to state 7
+    while_instr                    shift and go to state 8
+    break_instr                    shift and go to state 9
+    main_instr                     shift and go to state 10
+    funcion_instr                  shift and go to state 11
+    llamada_instr                  shift and go to state 12
+    return_instr                   shift and go to state 13
+    tipo                           shift and go to state 16
+
+state 1
+
+    (0) S' -> init .
+
+
+
+state 2
+
+    (1) init -> instrucciones .
+    (2) instrucciones -> instrucciones . instruccion
+    (4) instruccion -> . imprimir_instr finins
+    (5) instruccion -> . declaracion_instr finins
+    (6) instruccion -> . asignacion_instr finins
+    (7) instruccion -> . if_instr
+    (8) instruccion -> . while_instr
+    (9) instruccion -> . break_instr finins
+    (10) instruccion -> . main_instr
+    (11) instruccion -> . funcion_instr
+    (12) instruccion -> . llamada_instr finins
+    (13) instruccion -> . return_instr finins
+    (16) instruccion -> . error PUNTOCOMA
+    (17) imprimir_instr -> . RPRINT PARA expresion PARC
+    (18) declaracion_instr -> . tipo ID IGUAL expresion
+    (19) asignacion_instr -> . ID IGUAL expresion
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (23) while_instr -> . RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (24) break_instr -> . RBREAK
+    (25) main_instr -> . RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+    (26) funcion_instr -> . RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> . RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+    (36) return_instr -> . RRETURN expresion
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    $end            reduce using rule 1 (init -> instrucciones .)
+    error           shift and go to state 14
+    RPRINT          shift and go to state 15
+    ID              shift and go to state 17
+    RIF             shift and go to state 18
+    RWHILE          shift and go to state 19
+    RBREAK          shift and go to state 20
+    RMAIN           shift and go to state 21
+    RFUNC           shift and go to state 22
+    RRETURN         shift and go to state 23
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    instruccion                    shift and go to state 28
+    imprimir_instr                 shift and go to state 4
+    declaracion_instr              shift and go to state 5
+    asignacion_instr               shift and go to state 6
+    if_instr                       shift and go to state 7
+    while_instr                    shift and go to state 8
+    break_instr                    shift and go to state 9
+    main_instr                     shift and go to state 10
+    funcion_instr                  shift and go to state 11
+    llamada_instr                  shift and go to state 12
+    return_instr                   shift and go to state 13
+    tipo                           shift and go to state 16
+
+state 3
+
+    (3) instrucciones -> instruccion .
+
+    error           reduce using rule 3 (instrucciones -> instruccion .)
+    RPRINT          reduce using rule 3 (instrucciones -> instruccion .)
+    ID              reduce using rule 3 (instrucciones -> instruccion .)
+    RIF             reduce using rule 3 (instrucciones -> instruccion .)
+    RWHILE          reduce using rule 3 (instrucciones -> instruccion .)
+    RBREAK          reduce using rule 3 (instrucciones -> instruccion .)
+    RMAIN           reduce using rule 3 (instrucciones -> instruccion .)
+    RFUNC           reduce using rule 3 (instrucciones -> instruccion .)
+    RRETURN         reduce using rule 3 (instrucciones -> instruccion .)
+    RINT            reduce using rule 3 (instrucciones -> instruccion .)
+    RFLOAT          reduce using rule 3 (instrucciones -> instruccion .)
+    RSTRING         reduce using rule 3 (instrucciones -> instruccion .)
+    RBOOLEAN        reduce using rule 3 (instrucciones -> instruccion .)
+    $end            reduce using rule 3 (instrucciones -> instruccion .)
+    LLAVEC          reduce using rule 3 (instrucciones -> instruccion .)
+
+
+state 4
+
+    (4) instruccion -> imprimir_instr . finins
+    (14) finins -> . PUNTOCOMA
+    (15) finins -> .
+
+    PUNTOCOMA       shift and go to state 30
+    error           reduce using rule 15 (finins -> .)
+    RPRINT          reduce using rule 15 (finins -> .)
+    ID              reduce using rule 15 (finins -> .)
+    RIF             reduce using rule 15 (finins -> .)
+    RWHILE          reduce using rule 15 (finins -> .)
+    RBREAK          reduce using rule 15 (finins -> .)
+    RMAIN           reduce using rule 15 (finins -> .)
+    RFUNC           reduce using rule 15 (finins -> .)
+    RRETURN         reduce using rule 15 (finins -> .)
+    RINT            reduce using rule 15 (finins -> .)
+    RFLOAT          reduce using rule 15 (finins -> .)
+    RSTRING         reduce using rule 15 (finins -> .)
+    RBOOLEAN        reduce using rule 15 (finins -> .)
+    $end            reduce using rule 15 (finins -> .)
+    LLAVEC          reduce using rule 15 (finins -> .)
+
+    finins                         shift and go to state 29
+
+state 5
+
+    (5) instruccion -> declaracion_instr . finins
+    (14) finins -> . PUNTOCOMA
+    (15) finins -> .
+
+    PUNTOCOMA       shift and go to state 30
+    error           reduce using rule 15 (finins -> .)
+    RPRINT          reduce using rule 15 (finins -> .)
+    ID              reduce using rule 15 (finins -> .)
+    RIF             reduce using rule 15 (finins -> .)
+    RWHILE          reduce using rule 15 (finins -> .)
+    RBREAK          reduce using rule 15 (finins -> .)
+    RMAIN           reduce using rule 15 (finins -> .)
+    RFUNC           reduce using rule 15 (finins -> .)
+    RRETURN         reduce using rule 15 (finins -> .)
+    RINT            reduce using rule 15 (finins -> .)
+    RFLOAT          reduce using rule 15 (finins -> .)
+    RSTRING         reduce using rule 15 (finins -> .)
+    RBOOLEAN        reduce using rule 15 (finins -> .)
+    $end            reduce using rule 15 (finins -> .)
+    LLAVEC          reduce using rule 15 (finins -> .)
+
+    finins                         shift and go to state 31
+
+state 6
+
+    (6) instruccion -> asignacion_instr . finins
+    (14) finins -> . PUNTOCOMA
+    (15) finins -> .
+
+    PUNTOCOMA       shift and go to state 30
+    error           reduce using rule 15 (finins -> .)
+    RPRINT          reduce using rule 15 (finins -> .)
+    ID              reduce using rule 15 (finins -> .)
+    RIF             reduce using rule 15 (finins -> .)
+    RWHILE          reduce using rule 15 (finins -> .)
+    RBREAK          reduce using rule 15 (finins -> .)
+    RMAIN           reduce using rule 15 (finins -> .)
+    RFUNC           reduce using rule 15 (finins -> .)
+    RRETURN         reduce using rule 15 (finins -> .)
+    RINT            reduce using rule 15 (finins -> .)
+    RFLOAT          reduce using rule 15 (finins -> .)
+    RSTRING         reduce using rule 15 (finins -> .)
+    RBOOLEAN        reduce using rule 15 (finins -> .)
+    $end            reduce using rule 15 (finins -> .)
+    LLAVEC          reduce using rule 15 (finins -> .)
+
+    finins                         shift and go to state 32
+
+state 7
+
+    (7) instruccion -> if_instr .
+
+    error           reduce using rule 7 (instruccion -> if_instr .)
+    RPRINT          reduce using rule 7 (instruccion -> if_instr .)
+    ID              reduce using rule 7 (instruccion -> if_instr .)
+    RIF             reduce using rule 7 (instruccion -> if_instr .)
+    RWHILE          reduce using rule 7 (instruccion -> if_instr .)
+    RBREAK          reduce using rule 7 (instruccion -> if_instr .)
+    RMAIN           reduce using rule 7 (instruccion -> if_instr .)
+    RFUNC           reduce using rule 7 (instruccion -> if_instr .)
+    RRETURN         reduce using rule 7 (instruccion -> if_instr .)
+    RINT            reduce using rule 7 (instruccion -> if_instr .)
+    RFLOAT          reduce using rule 7 (instruccion -> if_instr .)
+    RSTRING         reduce using rule 7 (instruccion -> if_instr .)
+    RBOOLEAN        reduce using rule 7 (instruccion -> if_instr .)
+    $end            reduce using rule 7 (instruccion -> if_instr .)
+    LLAVEC          reduce using rule 7 (instruccion -> if_instr .)
+
+
+state 8
+
+    (8) instruccion -> while_instr .
+
+    error           reduce using rule 8 (instruccion -> while_instr .)
+    RPRINT          reduce using rule 8 (instruccion -> while_instr .)
+    ID              reduce using rule 8 (instruccion -> while_instr .)
+    RIF             reduce using rule 8 (instruccion -> while_instr .)
+    RWHILE          reduce using rule 8 (instruccion -> while_instr .)
+    RBREAK          reduce using rule 8 (instruccion -> while_instr .)
+    RMAIN           reduce using rule 8 (instruccion -> while_instr .)
+    RFUNC           reduce using rule 8 (instruccion -> while_instr .)
+    RRETURN         reduce using rule 8 (instruccion -> while_instr .)
+    RINT            reduce using rule 8 (instruccion -> while_instr .)
+    RFLOAT          reduce using rule 8 (instruccion -> while_instr .)
+    RSTRING         reduce using rule 8 (instruccion -> while_instr .)
+    RBOOLEAN        reduce using rule 8 (instruccion -> while_instr .)
+    $end            reduce using rule 8 (instruccion -> while_instr .)
+    LLAVEC          reduce using rule 8 (instruccion -> while_instr .)
+
+
+state 9
+
+    (9) instruccion -> break_instr . finins
+    (14) finins -> . PUNTOCOMA
+    (15) finins -> .
+
+    PUNTOCOMA       shift and go to state 30
+    error           reduce using rule 15 (finins -> .)
+    RPRINT          reduce using rule 15 (finins -> .)
+    ID              reduce using rule 15 (finins -> .)
+    RIF             reduce using rule 15 (finins -> .)
+    RWHILE          reduce using rule 15 (finins -> .)
+    RBREAK          reduce using rule 15 (finins -> .)
+    RMAIN           reduce using rule 15 (finins -> .)
+    RFUNC           reduce using rule 15 (finins -> .)
+    RRETURN         reduce using rule 15 (finins -> .)
+    RINT            reduce using rule 15 (finins -> .)
+    RFLOAT          reduce using rule 15 (finins -> .)
+    RSTRING         reduce using rule 15 (finins -> .)
+    RBOOLEAN        reduce using rule 15 (finins -> .)
+    $end            reduce using rule 15 (finins -> .)
+    LLAVEC          reduce using rule 15 (finins -> .)
+
+    finins                         shift and go to state 33
+
+state 10
+
+    (10) instruccion -> main_instr .
+
+    error           reduce using rule 10 (instruccion -> main_instr .)
+    RPRINT          reduce using rule 10 (instruccion -> main_instr .)
+    ID              reduce using rule 10 (instruccion -> main_instr .)
+    RIF             reduce using rule 10 (instruccion -> main_instr .)
+    RWHILE          reduce using rule 10 (instruccion -> main_instr .)
+    RBREAK          reduce using rule 10 (instruccion -> main_instr .)
+    RMAIN           reduce using rule 10 (instruccion -> main_instr .)
+    RFUNC           reduce using rule 10 (instruccion -> main_instr .)
+    RRETURN         reduce using rule 10 (instruccion -> main_instr .)
+    RINT            reduce using rule 10 (instruccion -> main_instr .)
+    RFLOAT          reduce using rule 10 (instruccion -> main_instr .)
+    RSTRING         reduce using rule 10 (instruccion -> main_instr .)
+    RBOOLEAN        reduce using rule 10 (instruccion -> main_instr .)
+    $end            reduce using rule 10 (instruccion -> main_instr .)
+    LLAVEC          reduce using rule 10 (instruccion -> main_instr .)
+
+
+state 11
+
+    (11) instruccion -> funcion_instr .
+
+    error           reduce using rule 11 (instruccion -> funcion_instr .)
+    RPRINT          reduce using rule 11 (instruccion -> funcion_instr .)
+    ID              reduce using rule 11 (instruccion -> funcion_instr .)
+    RIF             reduce using rule 11 (instruccion -> funcion_instr .)
+    RWHILE          reduce using rule 11 (instruccion -> funcion_instr .)
+    RBREAK          reduce using rule 11 (instruccion -> funcion_instr .)
+    RMAIN           reduce using rule 11 (instruccion -> funcion_instr .)
+    RFUNC           reduce using rule 11 (instruccion -> funcion_instr .)
+    RRETURN         reduce using rule 11 (instruccion -> funcion_instr .)
+    RINT            reduce using rule 11 (instruccion -> funcion_instr .)
+    RFLOAT          reduce using rule 11 (instruccion -> funcion_instr .)
+    RSTRING         reduce using rule 11 (instruccion -> funcion_instr .)
+    RBOOLEAN        reduce using rule 11 (instruccion -> funcion_instr .)
+    $end            reduce using rule 11 (instruccion -> funcion_instr .)
+    LLAVEC          reduce using rule 11 (instruccion -> funcion_instr .)
+
+
+state 12
+
+    (12) instruccion -> llamada_instr . finins
+    (14) finins -> . PUNTOCOMA
+    (15) finins -> .
+
+    PUNTOCOMA       shift and go to state 30
+    error           reduce using rule 15 (finins -> .)
+    RPRINT          reduce using rule 15 (finins -> .)
+    ID              reduce using rule 15 (finins -> .)
+    RIF             reduce using rule 15 (finins -> .)
+    RWHILE          reduce using rule 15 (finins -> .)
+    RBREAK          reduce using rule 15 (finins -> .)
+    RMAIN           reduce using rule 15 (finins -> .)
+    RFUNC           reduce using rule 15 (finins -> .)
+    RRETURN         reduce using rule 15 (finins -> .)
+    RINT            reduce using rule 15 (finins -> .)
+    RFLOAT          reduce using rule 15 (finins -> .)
+    RSTRING         reduce using rule 15 (finins -> .)
+    RBOOLEAN        reduce using rule 15 (finins -> .)
+    $end            reduce using rule 15 (finins -> .)
+    LLAVEC          reduce using rule 15 (finins -> .)
+
+    finins                         shift and go to state 34
+
+state 13
+
+    (13) instruccion -> return_instr . finins
+    (14) finins -> . PUNTOCOMA
+    (15) finins -> .
+
+    PUNTOCOMA       shift and go to state 30
+    error           reduce using rule 15 (finins -> .)
+    RPRINT          reduce using rule 15 (finins -> .)
+    ID              reduce using rule 15 (finins -> .)
+    RIF             reduce using rule 15 (finins -> .)
+    RWHILE          reduce using rule 15 (finins -> .)
+    RBREAK          reduce using rule 15 (finins -> .)
+    RMAIN           reduce using rule 15 (finins -> .)
+    RFUNC           reduce using rule 15 (finins -> .)
+    RRETURN         reduce using rule 15 (finins -> .)
+    RINT            reduce using rule 15 (finins -> .)
+    RFLOAT          reduce using rule 15 (finins -> .)
+    RSTRING         reduce using rule 15 (finins -> .)
+    RBOOLEAN        reduce using rule 15 (finins -> .)
+    $end            reduce using rule 15 (finins -> .)
+    LLAVEC          reduce using rule 15 (finins -> .)
+
+    finins                         shift and go to state 35
+
+state 14
+
+    (16) instruccion -> error . PUNTOCOMA
+
+    PUNTOCOMA       shift and go to state 36
+
+
+state 15
+
+    (17) imprimir_instr -> RPRINT . PARA expresion PARC
+
+    PARA            shift and go to state 37
+
+
+state 16
+
+    (18) declaracion_instr -> tipo . ID IGUAL expresion
+
+    ID              shift and go to state 38
+
+
+state 17
+
+    (19) asignacion_instr -> ID . IGUAL expresion
+    (31) llamada_instr -> ID . PARA PARC
+    (32) llamada_instr -> ID . PARA parametros_llamada PARC
+
+    IGUAL           shift and go to state 39
+    PARA            shift and go to state 40
+
+
+state 18
+
+    (20) if_instr -> RIF . PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> RIF . PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> RIF . PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+
+    PARA            shift and go to state 41
+
+
+state 19
+
+    (23) while_instr -> RWHILE . PARA expresion PARC LLAVEA instrucciones LLAVEC
+
+    PARA            shift and go to state 42
+
+
+state 20
+
+    (24) break_instr -> RBREAK .
+
+    PUNTOCOMA       reduce using rule 24 (break_instr -> RBREAK .)
+    error           reduce using rule 24 (break_instr -> RBREAK .)
+    RPRINT          reduce using rule 24 (break_instr -> RBREAK .)
+    ID              reduce using rule 24 (break_instr -> RBREAK .)
+    RIF             reduce using rule 24 (break_instr -> RBREAK .)
+    RWHILE          reduce using rule 24 (break_instr -> RBREAK .)
+    RBREAK          reduce using rule 24 (break_instr -> RBREAK .)
+    RMAIN           reduce using rule 24 (break_instr -> RBREAK .)
+    RFUNC           reduce using rule 24 (break_instr -> RBREAK .)
+    RRETURN         reduce using rule 24 (break_instr -> RBREAK .)
+    RINT            reduce using rule 24 (break_instr -> RBREAK .)
+    RFLOAT          reduce using rule 24 (break_instr -> RBREAK .)
+    RSTRING         reduce using rule 24 (break_instr -> RBREAK .)
+    RBOOLEAN        reduce using rule 24 (break_instr -> RBREAK .)
+    $end            reduce using rule 24 (break_instr -> RBREAK .)
+    LLAVEC          reduce using rule 24 (break_instr -> RBREAK .)
+
+
+state 21
+
+    (25) main_instr -> RMAIN . PARA PARC LLAVEA instrucciones LLAVEC
+
+    PARA            shift and go to state 43
+
+
+state 22
+
+    (26) funcion_instr -> RFUNC . ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> RFUNC . ID PARA PARC LLAVEA instrucciones LLAVEC
+
+    ID              shift and go to state 44
+
+
+state 23
+
+    (36) return_instr -> RRETURN . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 45
+    llamada_instr                  shift and go to state 49
+
+state 24
+
+    (37) tipo -> RINT .
+
+    ID              reduce using rule 37 (tipo -> RINT .)
+
+
+state 25
+
+    (38) tipo -> RFLOAT .
+
+    ID              reduce using rule 38 (tipo -> RFLOAT .)
+
+
+state 26
+
+    (39) tipo -> RSTRING .
+
+    ID              reduce using rule 39 (tipo -> RSTRING .)
+
+
+state 27
+
+    (40) tipo -> RBOOLEAN .
+
+    ID              reduce using rule 40 (tipo -> RBOOLEAN .)
+
+
+state 28
+
+    (2) instrucciones -> instrucciones instruccion .
+
+    error           reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    RPRINT          reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    ID              reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    RIF             reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    RWHILE          reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    RBREAK          reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    RMAIN           reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    RFUNC           reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    RRETURN         reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    RINT            reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    RFLOAT          reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    RSTRING         reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    RBOOLEAN        reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    $end            reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+    LLAVEC          reduce using rule 2 (instrucciones -> instrucciones instruccion .)
+
+
+state 29
+
+    (4) instruccion -> imprimir_instr finins .
+
+    error           reduce using rule 4 (instruccion -> imprimir_instr finins .)
+    RPRINT          reduce using rule 4 (instruccion -> imprimir_instr finins .)
+    ID              reduce using rule 4 (instruccion -> imprimir_instr finins .)
+    RIF             reduce using rule 4 (instruccion -> imprimir_instr finins .)
+    RWHILE          reduce using rule 4 (instruccion -> imprimir_instr finins .)
+    RBREAK          reduce using rule 4 (instruccion -> imprimir_instr finins .)
+    RMAIN           reduce using rule 4 (instruccion -> imprimir_instr finins .)
+    RFUNC           reduce using rule 4 (instruccion -> imprimir_instr finins .)
+    RRETURN         reduce using rule 4 (instruccion -> imprimir_instr finins .)
+    RINT            reduce using rule 4 (instruccion -> imprimir_instr finins .)
+    RFLOAT          reduce using rule 4 (instruccion -> imprimir_instr finins .)
+    RSTRING         reduce using rule 4 (instruccion -> imprimir_instr finins .)
+    RBOOLEAN        reduce using rule 4 (instruccion -> imprimir_instr finins .)
+    $end            reduce using rule 4 (instruccion -> imprimir_instr finins .)
+    LLAVEC          reduce using rule 4 (instruccion -> imprimir_instr finins .)
+
+
+state 30
+
+    (14) finins -> PUNTOCOMA .
+
+    error           reduce using rule 14 (finins -> PUNTOCOMA .)
+    RPRINT          reduce using rule 14 (finins -> PUNTOCOMA .)
+    ID              reduce using rule 14 (finins -> PUNTOCOMA .)
+    RIF             reduce using rule 14 (finins -> PUNTOCOMA .)
+    RWHILE          reduce using rule 14 (finins -> PUNTOCOMA .)
+    RBREAK          reduce using rule 14 (finins -> PUNTOCOMA .)
+    RMAIN           reduce using rule 14 (finins -> PUNTOCOMA .)
+    RFUNC           reduce using rule 14 (finins -> PUNTOCOMA .)
+    RRETURN         reduce using rule 14 (finins -> PUNTOCOMA .)
+    RINT            reduce using rule 14 (finins -> PUNTOCOMA .)
+    RFLOAT          reduce using rule 14 (finins -> PUNTOCOMA .)
+    RSTRING         reduce using rule 14 (finins -> PUNTOCOMA .)
+    RBOOLEAN        reduce using rule 14 (finins -> PUNTOCOMA .)
+    $end            reduce using rule 14 (finins -> PUNTOCOMA .)
+    LLAVEC          reduce using rule 14 (finins -> PUNTOCOMA .)
+
+
+state 31
+
+    (5) instruccion -> declaracion_instr finins .
+
+    error           reduce using rule 5 (instruccion -> declaracion_instr finins .)
+    RPRINT          reduce using rule 5 (instruccion -> declaracion_instr finins .)
+    ID              reduce using rule 5 (instruccion -> declaracion_instr finins .)
+    RIF             reduce using rule 5 (instruccion -> declaracion_instr finins .)
+    RWHILE          reduce using rule 5 (instruccion -> declaracion_instr finins .)
+    RBREAK          reduce using rule 5 (instruccion -> declaracion_instr finins .)
+    RMAIN           reduce using rule 5 (instruccion -> declaracion_instr finins .)
+    RFUNC           reduce using rule 5 (instruccion -> declaracion_instr finins .)
+    RRETURN         reduce using rule 5 (instruccion -> declaracion_instr finins .)
+    RINT            reduce using rule 5 (instruccion -> declaracion_instr finins .)
+    RFLOAT          reduce using rule 5 (instruccion -> declaracion_instr finins .)
+    RSTRING         reduce using rule 5 (instruccion -> declaracion_instr finins .)
+    RBOOLEAN        reduce using rule 5 (instruccion -> declaracion_instr finins .)
+    $end            reduce using rule 5 (instruccion -> declaracion_instr finins .)
+    LLAVEC          reduce using rule 5 (instruccion -> declaracion_instr finins .)
+
+
+state 32
+
+    (6) instruccion -> asignacion_instr finins .
+
+    error           reduce using rule 6 (instruccion -> asignacion_instr finins .)
+    RPRINT          reduce using rule 6 (instruccion -> asignacion_instr finins .)
+    ID              reduce using rule 6 (instruccion -> asignacion_instr finins .)
+    RIF             reduce using rule 6 (instruccion -> asignacion_instr finins .)
+    RWHILE          reduce using rule 6 (instruccion -> asignacion_instr finins .)
+    RBREAK          reduce using rule 6 (instruccion -> asignacion_instr finins .)
+    RMAIN           reduce using rule 6 (instruccion -> asignacion_instr finins .)
+    RFUNC           reduce using rule 6 (instruccion -> asignacion_instr finins .)
+    RRETURN         reduce using rule 6 (instruccion -> asignacion_instr finins .)
+    RINT            reduce using rule 6 (instruccion -> asignacion_instr finins .)
+    RFLOAT          reduce using rule 6 (instruccion -> asignacion_instr finins .)
+    RSTRING         reduce using rule 6 (instruccion -> asignacion_instr finins .)
+    RBOOLEAN        reduce using rule 6 (instruccion -> asignacion_instr finins .)
+    $end            reduce using rule 6 (instruccion -> asignacion_instr finins .)
+    LLAVEC          reduce using rule 6 (instruccion -> asignacion_instr finins .)
+
+
+state 33
+
+    (9) instruccion -> break_instr finins .
+
+    error           reduce using rule 9 (instruccion -> break_instr finins .)
+    RPRINT          reduce using rule 9 (instruccion -> break_instr finins .)
+    ID              reduce using rule 9 (instruccion -> break_instr finins .)
+    RIF             reduce using rule 9 (instruccion -> break_instr finins .)
+    RWHILE          reduce using rule 9 (instruccion -> break_instr finins .)
+    RBREAK          reduce using rule 9 (instruccion -> break_instr finins .)
+    RMAIN           reduce using rule 9 (instruccion -> break_instr finins .)
+    RFUNC           reduce using rule 9 (instruccion -> break_instr finins .)
+    RRETURN         reduce using rule 9 (instruccion -> break_instr finins .)
+    RINT            reduce using rule 9 (instruccion -> break_instr finins .)
+    RFLOAT          reduce using rule 9 (instruccion -> break_instr finins .)
+    RSTRING         reduce using rule 9 (instruccion -> break_instr finins .)
+    RBOOLEAN        reduce using rule 9 (instruccion -> break_instr finins .)
+    $end            reduce using rule 9 (instruccion -> break_instr finins .)
+    LLAVEC          reduce using rule 9 (instruccion -> break_instr finins .)
+
+
+state 34
+
+    (12) instruccion -> llamada_instr finins .
+
+    error           reduce using rule 12 (instruccion -> llamada_instr finins .)
+    RPRINT          reduce using rule 12 (instruccion -> llamada_instr finins .)
+    ID              reduce using rule 12 (instruccion -> llamada_instr finins .)
+    RIF             reduce using rule 12 (instruccion -> llamada_instr finins .)
+    RWHILE          reduce using rule 12 (instruccion -> llamada_instr finins .)
+    RBREAK          reduce using rule 12 (instruccion -> llamada_instr finins .)
+    RMAIN           reduce using rule 12 (instruccion -> llamada_instr finins .)
+    RFUNC           reduce using rule 12 (instruccion -> llamada_instr finins .)
+    RRETURN         reduce using rule 12 (instruccion -> llamada_instr finins .)
+    RINT            reduce using rule 12 (instruccion -> llamada_instr finins .)
+    RFLOAT          reduce using rule 12 (instruccion -> llamada_instr finins .)
+    RSTRING         reduce using rule 12 (instruccion -> llamada_instr finins .)
+    RBOOLEAN        reduce using rule 12 (instruccion -> llamada_instr finins .)
+    $end            reduce using rule 12 (instruccion -> llamada_instr finins .)
+    LLAVEC          reduce using rule 12 (instruccion -> llamada_instr finins .)
+
+
+state 35
+
+    (13) instruccion -> return_instr finins .
+
+    error           reduce using rule 13 (instruccion -> return_instr finins .)
+    RPRINT          reduce using rule 13 (instruccion -> return_instr finins .)
+    ID              reduce using rule 13 (instruccion -> return_instr finins .)
+    RIF             reduce using rule 13 (instruccion -> return_instr finins .)
+    RWHILE          reduce using rule 13 (instruccion -> return_instr finins .)
+    RBREAK          reduce using rule 13 (instruccion -> return_instr finins .)
+    RMAIN           reduce using rule 13 (instruccion -> return_instr finins .)
+    RFUNC           reduce using rule 13 (instruccion -> return_instr finins .)
+    RRETURN         reduce using rule 13 (instruccion -> return_instr finins .)
+    RINT            reduce using rule 13 (instruccion -> return_instr finins .)
+    RFLOAT          reduce using rule 13 (instruccion -> return_instr finins .)
+    RSTRING         reduce using rule 13 (instruccion -> return_instr finins .)
+    RBOOLEAN        reduce using rule 13 (instruccion -> return_instr finins .)
+    $end            reduce using rule 13 (instruccion -> return_instr finins .)
+    LLAVEC          reduce using rule 13 (instruccion -> return_instr finins .)
+
+
+state 36
+
+    (16) instruccion -> error PUNTOCOMA .
+
+    error           reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+    RPRINT          reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+    ID              reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+    RIF             reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+    RWHILE          reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+    RBREAK          reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+    RMAIN           reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+    RFUNC           reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+    RRETURN         reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+    RINT            reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+    RFLOAT          reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+    RSTRING         reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+    RBOOLEAN        reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+    $end            reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+    LLAVEC          reduce using rule 16 (instruccion -> error PUNTOCOMA .)
+
+
+state 37
+
+    (17) imprimir_instr -> RPRINT PARA . expresion PARC
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 56
+    llamada_instr                  shift and go to state 49
+
+state 38
+
+    (18) declaracion_instr -> tipo ID . IGUAL expresion
+
+    IGUAL           shift and go to state 57
+
+
+state 39
+
+    (19) asignacion_instr -> ID IGUAL . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 58
+    llamada_instr                  shift and go to state 49
+
+state 40
+
+    (31) llamada_instr -> ID PARA . PARC
+    (32) llamada_instr -> ID PARA . parametros_llamada PARC
+    (33) parametros_llamada -> . parametros_llamada COMA parametro_llamada
+    (34) parametros_llamada -> . parametro_llamada
+    (35) parametro_llamada -> . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    PARC            shift and go to state 59
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    parametros_llamada             shift and go to state 60
+    parametro_llamada              shift and go to state 61
+    expresion                      shift and go to state 62
+    llamada_instr                  shift and go to state 49
+
+state 41
+
+    (20) if_instr -> RIF PARA . expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> RIF PARA . expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> RIF PARA . expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 63
+    llamada_instr                  shift and go to state 49
+
+state 42
+
+    (23) while_instr -> RWHILE PARA . expresion PARC LLAVEA instrucciones LLAVEC
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 64
+    llamada_instr                  shift and go to state 49
+
+state 43
+
+    (25) main_instr -> RMAIN PARA . PARC LLAVEA instrucciones LLAVEC
+
+    PARC            shift and go to state 65
+
+
+state 44
+
+    (26) funcion_instr -> RFUNC ID . PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> RFUNC ID . PARA PARC LLAVEA instrucciones LLAVEC
+
+    PARA            shift and go to state 66
+
+
+state 45
+
+    (36) return_instr -> RRETURN expresion .
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    PUNTOCOMA       reduce using rule 36 (return_instr -> RRETURN expresion .)
+    error           reduce using rule 36 (return_instr -> RRETURN expresion .)
+    RPRINT          reduce using rule 36 (return_instr -> RRETURN expresion .)
+    ID              reduce using rule 36 (return_instr -> RRETURN expresion .)
+    RIF             reduce using rule 36 (return_instr -> RRETURN expresion .)
+    RWHILE          reduce using rule 36 (return_instr -> RRETURN expresion .)
+    RBREAK          reduce using rule 36 (return_instr -> RRETURN expresion .)
+    RMAIN           reduce using rule 36 (return_instr -> RRETURN expresion .)
+    RFUNC           reduce using rule 36 (return_instr -> RRETURN expresion .)
+    RRETURN         reduce using rule 36 (return_instr -> RRETURN expresion .)
+    RINT            reduce using rule 36 (return_instr -> RRETURN expresion .)
+    RFLOAT          reduce using rule 36 (return_instr -> RRETURN expresion .)
+    RSTRING         reduce using rule 36 (return_instr -> RRETURN expresion .)
+    RBOOLEAN        reduce using rule 36 (return_instr -> RRETURN expresion .)
+    $end            reduce using rule 36 (return_instr -> RRETURN expresion .)
+    LLAVEC          reduce using rule 36 (return_instr -> RRETURN expresion .)
+    MAS             shift and go to state 67
+    MENOS           shift and go to state 68
+    POR             shift and go to state 69
+    MENORQUE        shift and go to state 70
+    MAYORQUE        shift and go to state 71
+    IGUALIGUAL      shift and go to state 72
+    AND             shift and go to state 73
+    OR              shift and go to state 74
+
+
+state 46
+
+    (49) expresion -> MENOS . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 75
+    llamada_instr                  shift and go to state 49
+
+state 47
+
+    (50) expresion -> NOT . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 76
+    llamada_instr                  shift and go to state 49
+
+state 48
+
+    (51) expresion -> PARA . expresion PARC
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 77
+    llamada_instr                  shift and go to state 49
+
+state 49
+
+    (52) expresion -> llamada_instr .
+
+    MAS             reduce using rule 52 (expresion -> llamada_instr .)
+    MENOS           reduce using rule 52 (expresion -> llamada_instr .)
+    POR             reduce using rule 52 (expresion -> llamada_instr .)
+    MENORQUE        reduce using rule 52 (expresion -> llamada_instr .)
+    MAYORQUE        reduce using rule 52 (expresion -> llamada_instr .)
+    IGUALIGUAL      reduce using rule 52 (expresion -> llamada_instr .)
+    AND             reduce using rule 52 (expresion -> llamada_instr .)
+    OR              reduce using rule 52 (expresion -> llamada_instr .)
+    PUNTOCOMA       reduce using rule 52 (expresion -> llamada_instr .)
+    error           reduce using rule 52 (expresion -> llamada_instr .)
+    RPRINT          reduce using rule 52 (expresion -> llamada_instr .)
+    ID              reduce using rule 52 (expresion -> llamada_instr .)
+    RIF             reduce using rule 52 (expresion -> llamada_instr .)
+    RWHILE          reduce using rule 52 (expresion -> llamada_instr .)
+    RBREAK          reduce using rule 52 (expresion -> llamada_instr .)
+    RMAIN           reduce using rule 52 (expresion -> llamada_instr .)
+    RFUNC           reduce using rule 52 (expresion -> llamada_instr .)
+    RRETURN         reduce using rule 52 (expresion -> llamada_instr .)
+    RINT            reduce using rule 52 (expresion -> llamada_instr .)
+    RFLOAT          reduce using rule 52 (expresion -> llamada_instr .)
+    RSTRING         reduce using rule 52 (expresion -> llamada_instr .)
+    RBOOLEAN        reduce using rule 52 (expresion -> llamada_instr .)
+    $end            reduce using rule 52 (expresion -> llamada_instr .)
+    LLAVEC          reduce using rule 52 (expresion -> llamada_instr .)
+    PARC            reduce using rule 52 (expresion -> llamada_instr .)
+    COMA            reduce using rule 52 (expresion -> llamada_instr .)
+
+
+state 50
+
+    (53) expresion -> ID .
+    (31) llamada_instr -> ID . PARA PARC
+    (32) llamada_instr -> ID . PARA parametros_llamada PARC
+
+    MAS             reduce using rule 53 (expresion -> ID .)
+    MENOS           reduce using rule 53 (expresion -> ID .)
+    POR             reduce using rule 53 (expresion -> ID .)
+    MENORQUE        reduce using rule 53 (expresion -> ID .)
+    MAYORQUE        reduce using rule 53 (expresion -> ID .)
+    IGUALIGUAL      reduce using rule 53 (expresion -> ID .)
+    AND             reduce using rule 53 (expresion -> ID .)
+    OR              reduce using rule 53 (expresion -> ID .)
+    PUNTOCOMA       reduce using rule 53 (expresion -> ID .)
+    error           reduce using rule 53 (expresion -> ID .)
+    RPRINT          reduce using rule 53 (expresion -> ID .)
+    ID              reduce using rule 53 (expresion -> ID .)
+    RIF             reduce using rule 53 (expresion -> ID .)
+    RWHILE          reduce using rule 53 (expresion -> ID .)
+    RBREAK          reduce using rule 53 (expresion -> ID .)
+    RMAIN           reduce using rule 53 (expresion -> ID .)
+    RFUNC           reduce using rule 53 (expresion -> ID .)
+    RRETURN         reduce using rule 53 (expresion -> ID .)
+    RINT            reduce using rule 53 (expresion -> ID .)
+    RFLOAT          reduce using rule 53 (expresion -> ID .)
+    RSTRING         reduce using rule 53 (expresion -> ID .)
+    RBOOLEAN        reduce using rule 53 (expresion -> ID .)
+    $end            reduce using rule 53 (expresion -> ID .)
+    LLAVEC          reduce using rule 53 (expresion -> ID .)
+    PARC            reduce using rule 53 (expresion -> ID .)
+    COMA            reduce using rule 53 (expresion -> ID .)
+    PARA            shift and go to state 40
+
+
+state 51
+
+    (54) expresion -> ENTERO .
+
+    MAS             reduce using rule 54 (expresion -> ENTERO .)
+    MENOS           reduce using rule 54 (expresion -> ENTERO .)
+    POR             reduce using rule 54 (expresion -> ENTERO .)
+    MENORQUE        reduce using rule 54 (expresion -> ENTERO .)
+    MAYORQUE        reduce using rule 54 (expresion -> ENTERO .)
+    IGUALIGUAL      reduce using rule 54 (expresion -> ENTERO .)
+    AND             reduce using rule 54 (expresion -> ENTERO .)
+    OR              reduce using rule 54 (expresion -> ENTERO .)
+    PUNTOCOMA       reduce using rule 54 (expresion -> ENTERO .)
+    error           reduce using rule 54 (expresion -> ENTERO .)
+    RPRINT          reduce using rule 54 (expresion -> ENTERO .)
+    ID              reduce using rule 54 (expresion -> ENTERO .)
+    RIF             reduce using rule 54 (expresion -> ENTERO .)
+    RWHILE          reduce using rule 54 (expresion -> ENTERO .)
+    RBREAK          reduce using rule 54 (expresion -> ENTERO .)
+    RMAIN           reduce using rule 54 (expresion -> ENTERO .)
+    RFUNC           reduce using rule 54 (expresion -> ENTERO .)
+    RRETURN         reduce using rule 54 (expresion -> ENTERO .)
+    RINT            reduce using rule 54 (expresion -> ENTERO .)
+    RFLOAT          reduce using rule 54 (expresion -> ENTERO .)
+    RSTRING         reduce using rule 54 (expresion -> ENTERO .)
+    RBOOLEAN        reduce using rule 54 (expresion -> ENTERO .)
+    $end            reduce using rule 54 (expresion -> ENTERO .)
+    LLAVEC          reduce using rule 54 (expresion -> ENTERO .)
+    PARC            reduce using rule 54 (expresion -> ENTERO .)
+    COMA            reduce using rule 54 (expresion -> ENTERO .)
+
+
+state 52
+
+    (55) expresion -> DECIMAL .
+
+    MAS             reduce using rule 55 (expresion -> DECIMAL .)
+    MENOS           reduce using rule 55 (expresion -> DECIMAL .)
+    POR             reduce using rule 55 (expresion -> DECIMAL .)
+    MENORQUE        reduce using rule 55 (expresion -> DECIMAL .)
+    MAYORQUE        reduce using rule 55 (expresion -> DECIMAL .)
+    IGUALIGUAL      reduce using rule 55 (expresion -> DECIMAL .)
+    AND             reduce using rule 55 (expresion -> DECIMAL .)
+    OR              reduce using rule 55 (expresion -> DECIMAL .)
+    PUNTOCOMA       reduce using rule 55 (expresion -> DECIMAL .)
+    error           reduce using rule 55 (expresion -> DECIMAL .)
+    RPRINT          reduce using rule 55 (expresion -> DECIMAL .)
+    ID              reduce using rule 55 (expresion -> DECIMAL .)
+    RIF             reduce using rule 55 (expresion -> DECIMAL .)
+    RWHILE          reduce using rule 55 (expresion -> DECIMAL .)
+    RBREAK          reduce using rule 55 (expresion -> DECIMAL .)
+    RMAIN           reduce using rule 55 (expresion -> DECIMAL .)
+    RFUNC           reduce using rule 55 (expresion -> DECIMAL .)
+    RRETURN         reduce using rule 55 (expresion -> DECIMAL .)
+    RINT            reduce using rule 55 (expresion -> DECIMAL .)
+    RFLOAT          reduce using rule 55 (expresion -> DECIMAL .)
+    RSTRING         reduce using rule 55 (expresion -> DECIMAL .)
+    RBOOLEAN        reduce using rule 55 (expresion -> DECIMAL .)
+    $end            reduce using rule 55 (expresion -> DECIMAL .)
+    LLAVEC          reduce using rule 55 (expresion -> DECIMAL .)
+    PARC            reduce using rule 55 (expresion -> DECIMAL .)
+    COMA            reduce using rule 55 (expresion -> DECIMAL .)
+
+
+state 53
+
+    (56) expresion -> CADENA .
+
+    MAS             reduce using rule 56 (expresion -> CADENA .)
+    MENOS           reduce using rule 56 (expresion -> CADENA .)
+    POR             reduce using rule 56 (expresion -> CADENA .)
+    MENORQUE        reduce using rule 56 (expresion -> CADENA .)
+    MAYORQUE        reduce using rule 56 (expresion -> CADENA .)
+    IGUALIGUAL      reduce using rule 56 (expresion -> CADENA .)
+    AND             reduce using rule 56 (expresion -> CADENA .)
+    OR              reduce using rule 56 (expresion -> CADENA .)
+    PUNTOCOMA       reduce using rule 56 (expresion -> CADENA .)
+    error           reduce using rule 56 (expresion -> CADENA .)
+    RPRINT          reduce using rule 56 (expresion -> CADENA .)
+    ID              reduce using rule 56 (expresion -> CADENA .)
+    RIF             reduce using rule 56 (expresion -> CADENA .)
+    RWHILE          reduce using rule 56 (expresion -> CADENA .)
+    RBREAK          reduce using rule 56 (expresion -> CADENA .)
+    RMAIN           reduce using rule 56 (expresion -> CADENA .)
+    RFUNC           reduce using rule 56 (expresion -> CADENA .)
+    RRETURN         reduce using rule 56 (expresion -> CADENA .)
+    RINT            reduce using rule 56 (expresion -> CADENA .)
+    RFLOAT          reduce using rule 56 (expresion -> CADENA .)
+    RSTRING         reduce using rule 56 (expresion -> CADENA .)
+    RBOOLEAN        reduce using rule 56 (expresion -> CADENA .)
+    $end            reduce using rule 56 (expresion -> CADENA .)
+    LLAVEC          reduce using rule 56 (expresion -> CADENA .)
+    PARC            reduce using rule 56 (expresion -> CADENA .)
+    COMA            reduce using rule 56 (expresion -> CADENA .)
+
+
+state 54
+
+    (57) expresion -> RTRUE .
+
+    MAS             reduce using rule 57 (expresion -> RTRUE .)
+    MENOS           reduce using rule 57 (expresion -> RTRUE .)
+    POR             reduce using rule 57 (expresion -> RTRUE .)
+    MENORQUE        reduce using rule 57 (expresion -> RTRUE .)
+    MAYORQUE        reduce using rule 57 (expresion -> RTRUE .)
+    IGUALIGUAL      reduce using rule 57 (expresion -> RTRUE .)
+    AND             reduce using rule 57 (expresion -> RTRUE .)
+    OR              reduce using rule 57 (expresion -> RTRUE .)
+    PUNTOCOMA       reduce using rule 57 (expresion -> RTRUE .)
+    error           reduce using rule 57 (expresion -> RTRUE .)
+    RPRINT          reduce using rule 57 (expresion -> RTRUE .)
+    ID              reduce using rule 57 (expresion -> RTRUE .)
+    RIF             reduce using rule 57 (expresion -> RTRUE .)
+    RWHILE          reduce using rule 57 (expresion -> RTRUE .)
+    RBREAK          reduce using rule 57 (expresion -> RTRUE .)
+    RMAIN           reduce using rule 57 (expresion -> RTRUE .)
+    RFUNC           reduce using rule 57 (expresion -> RTRUE .)
+    RRETURN         reduce using rule 57 (expresion -> RTRUE .)
+    RINT            reduce using rule 57 (expresion -> RTRUE .)
+    RFLOAT          reduce using rule 57 (expresion -> RTRUE .)
+    RSTRING         reduce using rule 57 (expresion -> RTRUE .)
+    RBOOLEAN        reduce using rule 57 (expresion -> RTRUE .)
+    $end            reduce using rule 57 (expresion -> RTRUE .)
+    LLAVEC          reduce using rule 57 (expresion -> RTRUE .)
+    PARC            reduce using rule 57 (expresion -> RTRUE .)
+    COMA            reduce using rule 57 (expresion -> RTRUE .)
+
+
+state 55
+
+    (58) expresion -> RFALSE .
+
+    MAS             reduce using rule 58 (expresion -> RFALSE .)
+    MENOS           reduce using rule 58 (expresion -> RFALSE .)
+    POR             reduce using rule 58 (expresion -> RFALSE .)
+    MENORQUE        reduce using rule 58 (expresion -> RFALSE .)
+    MAYORQUE        reduce using rule 58 (expresion -> RFALSE .)
+    IGUALIGUAL      reduce using rule 58 (expresion -> RFALSE .)
+    AND             reduce using rule 58 (expresion -> RFALSE .)
+    OR              reduce using rule 58 (expresion -> RFALSE .)
+    PUNTOCOMA       reduce using rule 58 (expresion -> RFALSE .)
+    error           reduce using rule 58 (expresion -> RFALSE .)
+    RPRINT          reduce using rule 58 (expresion -> RFALSE .)
+    ID              reduce using rule 58 (expresion -> RFALSE .)
+    RIF             reduce using rule 58 (expresion -> RFALSE .)
+    RWHILE          reduce using rule 58 (expresion -> RFALSE .)
+    RBREAK          reduce using rule 58 (expresion -> RFALSE .)
+    RMAIN           reduce using rule 58 (expresion -> RFALSE .)
+    RFUNC           reduce using rule 58 (expresion -> RFALSE .)
+    RRETURN         reduce using rule 58 (expresion -> RFALSE .)
+    RINT            reduce using rule 58 (expresion -> RFALSE .)
+    RFLOAT          reduce using rule 58 (expresion -> RFALSE .)
+    RSTRING         reduce using rule 58 (expresion -> RFALSE .)
+    RBOOLEAN        reduce using rule 58 (expresion -> RFALSE .)
+    $end            reduce using rule 58 (expresion -> RFALSE .)
+    LLAVEC          reduce using rule 58 (expresion -> RFALSE .)
+    PARC            reduce using rule 58 (expresion -> RFALSE .)
+    COMA            reduce using rule 58 (expresion -> RFALSE .)
+
+
+state 56
+
+    (17) imprimir_instr -> RPRINT PARA expresion . PARC
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    PARC            shift and go to state 78
+    MAS             shift and go to state 67
+    MENOS           shift and go to state 68
+    POR             shift and go to state 69
+    MENORQUE        shift and go to state 70
+    MAYORQUE        shift and go to state 71
+    IGUALIGUAL      shift and go to state 72
+    AND             shift and go to state 73
+    OR              shift and go to state 74
+
+
+state 57
+
+    (18) declaracion_instr -> tipo ID IGUAL . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 79
+    llamada_instr                  shift and go to state 49
+
+state 58
+
+    (19) asignacion_instr -> ID IGUAL expresion .
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    PUNTOCOMA       reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    error           reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    RPRINT          reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    ID              reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    RIF             reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    RWHILE          reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    RBREAK          reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    RMAIN           reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    RFUNC           reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    RRETURN         reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    RINT            reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    RFLOAT          reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    RSTRING         reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    RBOOLEAN        reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    $end            reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    LLAVEC          reduce using rule 19 (asignacion_instr -> ID IGUAL expresion .)
+    MAS             shift and go to state 67
+    MENOS           shift and go to state 68
+    POR             shift and go to state 69
+    MENORQUE        shift and go to state 70
+    MAYORQUE        shift and go to state 71
+    IGUALIGUAL      shift and go to state 72
+    AND             shift and go to state 73
+    OR              shift and go to state 74
+
+
+state 59
+
+    (31) llamada_instr -> ID PARA PARC .
+
+    PUNTOCOMA       reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    error           reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    RPRINT          reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    ID              reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    RIF             reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    RWHILE          reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    RBREAK          reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    RMAIN           reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    RFUNC           reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    RRETURN         reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    RINT            reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    RFLOAT          reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    RSTRING         reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    RBOOLEAN        reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    $end            reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    MAS             reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    MENOS           reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    POR             reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    MENORQUE        reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    MAYORQUE        reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    IGUALIGUAL      reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    AND             reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    OR              reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    LLAVEC          reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    PARC            reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+    COMA            reduce using rule 31 (llamada_instr -> ID PARA PARC .)
+
+
+state 60
+
+    (32) llamada_instr -> ID PARA parametros_llamada . PARC
+    (33) parametros_llamada -> parametros_llamada . COMA parametro_llamada
+
+    PARC            shift and go to state 80
+    COMA            shift and go to state 81
+
+
+state 61
+
+    (34) parametros_llamada -> parametro_llamada .
+
+    PARC            reduce using rule 34 (parametros_llamada -> parametro_llamada .)
+    COMA            reduce using rule 34 (parametros_llamada -> parametro_llamada .)
+
+
+state 62
+
+    (35) parametro_llamada -> expresion .
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    PARC            reduce using rule 35 (parametro_llamada -> expresion .)
+    COMA            reduce using rule 35 (parametro_llamada -> expresion .)
+    MAS             shift and go to state 67
+    MENOS           shift and go to state 68
+    POR             shift and go to state 69
+    MENORQUE        shift and go to state 70
+    MAYORQUE        shift and go to state 71
+    IGUALIGUAL      shift and go to state 72
+    AND             shift and go to state 73
+    OR              shift and go to state 74
+
+
+state 63
+
+    (20) if_instr -> RIF PARA expresion . PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> RIF PARA expresion . PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> RIF PARA expresion . PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    PARC            shift and go to state 82
+    MAS             shift and go to state 67
+    MENOS           shift and go to state 68
+    POR             shift and go to state 69
+    MENORQUE        shift and go to state 70
+    MAYORQUE        shift and go to state 71
+    IGUALIGUAL      shift and go to state 72
+    AND             shift and go to state 73
+    OR              shift and go to state 74
+
+
+state 64
+
+    (23) while_instr -> RWHILE PARA expresion . PARC LLAVEA instrucciones LLAVEC
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    PARC            shift and go to state 83
+    MAS             shift and go to state 67
+    MENOS           shift and go to state 68
+    POR             shift and go to state 69
+    MENORQUE        shift and go to state 70
+    MAYORQUE        shift and go to state 71
+    IGUALIGUAL      shift and go to state 72
+    AND             shift and go to state 73
+    OR              shift and go to state 74
+
+
+state 65
+
+    (25) main_instr -> RMAIN PARA PARC . LLAVEA instrucciones LLAVEC
+
+    LLAVEA          shift and go to state 84
+
+
+state 66
+
+    (26) funcion_instr -> RFUNC ID PARA . parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> RFUNC ID PARA . PARC LLAVEA instrucciones LLAVEC
+    (28) parametros -> . parametros COMA parametro
+    (29) parametros -> . parametro
+    (30) parametro -> . tipo ID
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    PARC            shift and go to state 86
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    parametros                     shift and go to state 85
+    parametro                      shift and go to state 87
+    tipo                           shift and go to state 88
+
+state 67
+
+    (41) expresion -> expresion MAS . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 89
+    llamada_instr                  shift and go to state 49
+
+state 68
+
+    (42) expresion -> expresion MENOS . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 90
+    llamada_instr                  shift and go to state 49
+
+state 69
+
+    (43) expresion -> expresion POR . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 91
+    llamada_instr                  shift and go to state 49
+
+state 70
+
+    (44) expresion -> expresion MENORQUE . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 92
+    llamada_instr                  shift and go to state 49
+
+state 71
+
+    (45) expresion -> expresion MAYORQUE . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 93
+    llamada_instr                  shift and go to state 49
+
+state 72
+
+    (46) expresion -> expresion IGUALIGUAL . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 94
+    llamada_instr                  shift and go to state 49
+
+state 73
+
+    (47) expresion -> expresion AND . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 95
+    llamada_instr                  shift and go to state 49
+
+state 74
+
+    (48) expresion -> expresion OR . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    expresion                      shift and go to state 96
+    llamada_instr                  shift and go to state 49
+
+state 75
+
+    (49) expresion -> MENOS expresion .
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    MAS             reduce using rule 49 (expresion -> MENOS expresion .)
+    MENOS           reduce using rule 49 (expresion -> MENOS expresion .)
+    POR             reduce using rule 49 (expresion -> MENOS expresion .)
+    MENORQUE        reduce using rule 49 (expresion -> MENOS expresion .)
+    MAYORQUE        reduce using rule 49 (expresion -> MENOS expresion .)
+    IGUALIGUAL      reduce using rule 49 (expresion -> MENOS expresion .)
+    AND             reduce using rule 49 (expresion -> MENOS expresion .)
+    OR              reduce using rule 49 (expresion -> MENOS expresion .)
+    PUNTOCOMA       reduce using rule 49 (expresion -> MENOS expresion .)
+    error           reduce using rule 49 (expresion -> MENOS expresion .)
+    RPRINT          reduce using rule 49 (expresion -> MENOS expresion .)
+    ID              reduce using rule 49 (expresion -> MENOS expresion .)
+    RIF             reduce using rule 49 (expresion -> MENOS expresion .)
+    RWHILE          reduce using rule 49 (expresion -> MENOS expresion .)
+    RBREAK          reduce using rule 49 (expresion -> MENOS expresion .)
+    RMAIN           reduce using rule 49 (expresion -> MENOS expresion .)
+    RFUNC           reduce using rule 49 (expresion -> MENOS expresion .)
+    RRETURN         reduce using rule 49 (expresion -> MENOS expresion .)
+    RINT            reduce using rule 49 (expresion -> MENOS expresion .)
+    RFLOAT          reduce using rule 49 (expresion -> MENOS expresion .)
+    RSTRING         reduce using rule 49 (expresion -> MENOS expresion .)
+    RBOOLEAN        reduce using rule 49 (expresion -> MENOS expresion .)
+    $end            reduce using rule 49 (expresion -> MENOS expresion .)
+    LLAVEC          reduce using rule 49 (expresion -> MENOS expresion .)
+    PARC            reduce using rule 49 (expresion -> MENOS expresion .)
+    COMA            reduce using rule 49 (expresion -> MENOS expresion .)
+
+  ! MAS             [ shift and go to state 67 ]
+  ! MENOS           [ shift and go to state 68 ]
+  ! POR             [ shift and go to state 69 ]
+  ! MENORQUE        [ shift and go to state 70 ]
+  ! MAYORQUE        [ shift and go to state 71 ]
+  ! IGUALIGUAL      [ shift and go to state 72 ]
+  ! AND             [ shift and go to state 73 ]
+  ! OR              [ shift and go to state 74 ]
+
+
+state 76
+
+    (50) expresion -> NOT expresion .
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    AND             reduce using rule 50 (expresion -> NOT expresion .)
+    OR              reduce using rule 50 (expresion -> NOT expresion .)
+    PUNTOCOMA       reduce using rule 50 (expresion -> NOT expresion .)
+    error           reduce using rule 50 (expresion -> NOT expresion .)
+    RPRINT          reduce using rule 50 (expresion -> NOT expresion .)
+    ID              reduce using rule 50 (expresion -> NOT expresion .)
+    RIF             reduce using rule 50 (expresion -> NOT expresion .)
+    RWHILE          reduce using rule 50 (expresion -> NOT expresion .)
+    RBREAK          reduce using rule 50 (expresion -> NOT expresion .)
+    RMAIN           reduce using rule 50 (expresion -> NOT expresion .)
+    RFUNC           reduce using rule 50 (expresion -> NOT expresion .)
+    RRETURN         reduce using rule 50 (expresion -> NOT expresion .)
+    RINT            reduce using rule 50 (expresion -> NOT expresion .)
+    RFLOAT          reduce using rule 50 (expresion -> NOT expresion .)
+    RSTRING         reduce using rule 50 (expresion -> NOT expresion .)
+    RBOOLEAN        reduce using rule 50 (expresion -> NOT expresion .)
+    $end            reduce using rule 50 (expresion -> NOT expresion .)
+    LLAVEC          reduce using rule 50 (expresion -> NOT expresion .)
+    PARC            reduce using rule 50 (expresion -> NOT expresion .)
+    COMA            reduce using rule 50 (expresion -> NOT expresion .)
+    MAS             shift and go to state 67
+    MENOS           shift and go to state 68
+    POR             shift and go to state 69
+    MENORQUE        shift and go to state 70
+    MAYORQUE        shift and go to state 71
+    IGUALIGUAL      shift and go to state 72
+
+  ! MAS             [ reduce using rule 50 (expresion -> NOT expresion .) ]
+  ! MENOS           [ reduce using rule 50 (expresion -> NOT expresion .) ]
+  ! POR             [ reduce using rule 50 (expresion -> NOT expresion .) ]
+  ! MENORQUE        [ reduce using rule 50 (expresion -> NOT expresion .) ]
+  ! MAYORQUE        [ reduce using rule 50 (expresion -> NOT expresion .) ]
+  ! IGUALIGUAL      [ reduce using rule 50 (expresion -> NOT expresion .) ]
+  ! AND             [ shift and go to state 73 ]
+  ! OR              [ shift and go to state 74 ]
+
+
+state 77
+
+    (51) expresion -> PARA expresion . PARC
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    PARC            shift and go to state 97
+    MAS             shift and go to state 67
+    MENOS           shift and go to state 68
+    POR             shift and go to state 69
+    MENORQUE        shift and go to state 70
+    MAYORQUE        shift and go to state 71
+    IGUALIGUAL      shift and go to state 72
+    AND             shift and go to state 73
+    OR              shift and go to state 74
+
+
+state 78
+
+    (17) imprimir_instr -> RPRINT PARA expresion PARC .
+
+    PUNTOCOMA       reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    error           reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    RPRINT          reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    ID              reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    RIF             reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    RWHILE          reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    RBREAK          reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    RMAIN           reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    RFUNC           reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    RRETURN         reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    RINT            reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    RFLOAT          reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    RSTRING         reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    RBOOLEAN        reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    $end            reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+    LLAVEC          reduce using rule 17 (imprimir_instr -> RPRINT PARA expresion PARC .)
+
+
+state 79
+
+    (18) declaracion_instr -> tipo ID IGUAL expresion .
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    PUNTOCOMA       reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    error           reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    RPRINT          reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    ID              reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    RIF             reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    RWHILE          reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    RBREAK          reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    RMAIN           reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    RFUNC           reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    RRETURN         reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    RINT            reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    RFLOAT          reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    RSTRING         reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    RBOOLEAN        reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    $end            reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    LLAVEC          reduce using rule 18 (declaracion_instr -> tipo ID IGUAL expresion .)
+    MAS             shift and go to state 67
+    MENOS           shift and go to state 68
+    POR             shift and go to state 69
+    MENORQUE        shift and go to state 70
+    MAYORQUE        shift and go to state 71
+    IGUALIGUAL      shift and go to state 72
+    AND             shift and go to state 73
+    OR              shift and go to state 74
+
+
+state 80
+
+    (32) llamada_instr -> ID PARA parametros_llamada PARC .
+
+    PUNTOCOMA       reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    error           reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    RPRINT          reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    ID              reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    RIF             reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    RWHILE          reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    RBREAK          reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    RMAIN           reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    RFUNC           reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    RRETURN         reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    RINT            reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    RFLOAT          reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    RSTRING         reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    RBOOLEAN        reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    $end            reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    MAS             reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    MENOS           reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    POR             reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    MENORQUE        reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    MAYORQUE        reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    IGUALIGUAL      reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    AND             reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    OR              reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    LLAVEC          reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    PARC            reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+    COMA            reduce using rule 32 (llamada_instr -> ID PARA parametros_llamada PARC .)
+
+
+state 81
+
+    (33) parametros_llamada -> parametros_llamada COMA . parametro_llamada
+    (35) parametro_llamada -> . expresion
+    (41) expresion -> . expresion MAS expresion
+    (42) expresion -> . expresion MENOS expresion
+    (43) expresion -> . expresion POR expresion
+    (44) expresion -> . expresion MENORQUE expresion
+    (45) expresion -> . expresion MAYORQUE expresion
+    (46) expresion -> . expresion IGUALIGUAL expresion
+    (47) expresion -> . expresion AND expresion
+    (48) expresion -> . expresion OR expresion
+    (49) expresion -> . MENOS expresion
+    (50) expresion -> . NOT expresion
+    (51) expresion -> . PARA expresion PARC
+    (52) expresion -> . llamada_instr
+    (53) expresion -> . ID
+    (54) expresion -> . ENTERO
+    (55) expresion -> . DECIMAL
+    (56) expresion -> . CADENA
+    (57) expresion -> . RTRUE
+    (58) expresion -> . RFALSE
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+
+    MENOS           shift and go to state 46
+    NOT             shift and go to state 47
+    PARA            shift and go to state 48
+    ID              shift and go to state 50
+    ENTERO          shift and go to state 51
+    DECIMAL         shift and go to state 52
+    CADENA          shift and go to state 53
+    RTRUE           shift and go to state 54
+    RFALSE          shift and go to state 55
+
+    parametro_llamada              shift and go to state 98
+    expresion                      shift and go to state 62
+    llamada_instr                  shift and go to state 49
+
+state 82
+
+    (20) if_instr -> RIF PARA expresion PARC . LLAVEA instrucciones LLAVEC
+    (21) if_instr -> RIF PARA expresion PARC . LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> RIF PARA expresion PARC . LLAVEA instrucciones LLAVEC RELSE if_instr
+
+    LLAVEA          shift and go to state 99
+
+
+state 83
+
+    (23) while_instr -> RWHILE PARA expresion PARC . LLAVEA instrucciones LLAVEC
+
+    LLAVEA          shift and go to state 100
+
+
+state 84
+
+    (25) main_instr -> RMAIN PARA PARC LLAVEA . instrucciones LLAVEC
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . imprimir_instr finins
+    (5) instruccion -> . declaracion_instr finins
+    (6) instruccion -> . asignacion_instr finins
+    (7) instruccion -> . if_instr
+    (8) instruccion -> . while_instr
+    (9) instruccion -> . break_instr finins
+    (10) instruccion -> . main_instr
+    (11) instruccion -> . funcion_instr
+    (12) instruccion -> . llamada_instr finins
+    (13) instruccion -> . return_instr finins
+    (16) instruccion -> . error PUNTOCOMA
+    (17) imprimir_instr -> . RPRINT PARA expresion PARC
+    (18) declaracion_instr -> . tipo ID IGUAL expresion
+    (19) asignacion_instr -> . ID IGUAL expresion
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (23) while_instr -> . RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (24) break_instr -> . RBREAK
+    (25) main_instr -> . RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+    (26) funcion_instr -> . RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> . RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+    (36) return_instr -> . RRETURN expresion
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    error           shift and go to state 14
+    RPRINT          shift and go to state 15
+    ID              shift and go to state 17
+    RIF             shift and go to state 18
+    RWHILE          shift and go to state 19
+    RBREAK          shift and go to state 20
+    RMAIN           shift and go to state 21
+    RFUNC           shift and go to state 22
+    RRETURN         shift and go to state 23
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    instrucciones                  shift and go to state 101
+    instruccion                    shift and go to state 3
+    imprimir_instr                 shift and go to state 4
+    declaracion_instr              shift and go to state 5
+    asignacion_instr               shift and go to state 6
+    if_instr                       shift and go to state 7
+    while_instr                    shift and go to state 8
+    break_instr                    shift and go to state 9
+    main_instr                     shift and go to state 10
+    funcion_instr                  shift and go to state 11
+    llamada_instr                  shift and go to state 12
+    return_instr                   shift and go to state 13
+    tipo                           shift and go to state 16
+
+state 85
+
+    (26) funcion_instr -> RFUNC ID PARA parametros . PARC LLAVEA instrucciones LLAVEC
+    (28) parametros -> parametros . COMA parametro
+
+    PARC            shift and go to state 102
+    COMA            shift and go to state 103
+
+
+state 86
+
+    (27) funcion_instr -> RFUNC ID PARA PARC . LLAVEA instrucciones LLAVEC
+
+    LLAVEA          shift and go to state 104
+
+
+state 87
+
+    (29) parametros -> parametro .
+
+    PARC            reduce using rule 29 (parametros -> parametro .)
+    COMA            reduce using rule 29 (parametros -> parametro .)
+
+
+state 88
+
+    (30) parametro -> tipo . ID
+
+    ID              shift and go to state 105
+
+
+state 89
+
+    (41) expresion -> expresion MAS expresion .
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    MAS             reduce using rule 41 (expresion -> expresion MAS expresion .)
+    MENOS           reduce using rule 41 (expresion -> expresion MAS expresion .)
+    MENORQUE        reduce using rule 41 (expresion -> expresion MAS expresion .)
+    MAYORQUE        reduce using rule 41 (expresion -> expresion MAS expresion .)
+    IGUALIGUAL      reduce using rule 41 (expresion -> expresion MAS expresion .)
+    AND             reduce using rule 41 (expresion -> expresion MAS expresion .)
+    OR              reduce using rule 41 (expresion -> expresion MAS expresion .)
+    PUNTOCOMA       reduce using rule 41 (expresion -> expresion MAS expresion .)
+    error           reduce using rule 41 (expresion -> expresion MAS expresion .)
+    RPRINT          reduce using rule 41 (expresion -> expresion MAS expresion .)
+    ID              reduce using rule 41 (expresion -> expresion MAS expresion .)
+    RIF             reduce using rule 41 (expresion -> expresion MAS expresion .)
+    RWHILE          reduce using rule 41 (expresion -> expresion MAS expresion .)
+    RBREAK          reduce using rule 41 (expresion -> expresion MAS expresion .)
+    RMAIN           reduce using rule 41 (expresion -> expresion MAS expresion .)
+    RFUNC           reduce using rule 41 (expresion -> expresion MAS expresion .)
+    RRETURN         reduce using rule 41 (expresion -> expresion MAS expresion .)
+    RINT            reduce using rule 41 (expresion -> expresion MAS expresion .)
+    RFLOAT          reduce using rule 41 (expresion -> expresion MAS expresion .)
+    RSTRING         reduce using rule 41 (expresion -> expresion MAS expresion .)
+    RBOOLEAN        reduce using rule 41 (expresion -> expresion MAS expresion .)
+    $end            reduce using rule 41 (expresion -> expresion MAS expresion .)
+    LLAVEC          reduce using rule 41 (expresion -> expresion MAS expresion .)
+    PARC            reduce using rule 41 (expresion -> expresion MAS expresion .)
+    COMA            reduce using rule 41 (expresion -> expresion MAS expresion .)
+    POR             shift and go to state 69
+
+  ! POR             [ reduce using rule 41 (expresion -> expresion MAS expresion .) ]
+  ! MAS             [ shift and go to state 67 ]
+  ! MENOS           [ shift and go to state 68 ]
+  ! MENORQUE        [ shift and go to state 70 ]
+  ! MAYORQUE        [ shift and go to state 71 ]
+  ! IGUALIGUAL      [ shift and go to state 72 ]
+  ! AND             [ shift and go to state 73 ]
+  ! OR              [ shift and go to state 74 ]
+
+
+state 90
+
+    (42) expresion -> expresion MENOS expresion .
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    MAS             reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    MENOS           reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    MENORQUE        reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    MAYORQUE        reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    IGUALIGUAL      reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    AND             reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    OR              reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    PUNTOCOMA       reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    error           reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    RPRINT          reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    ID              reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    RIF             reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    RWHILE          reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    RBREAK          reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    RMAIN           reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    RFUNC           reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    RRETURN         reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    RINT            reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    RFLOAT          reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    RSTRING         reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    RBOOLEAN        reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    $end            reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    LLAVEC          reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    PARC            reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    COMA            reduce using rule 42 (expresion -> expresion MENOS expresion .)
+    POR             shift and go to state 69
+
+  ! POR             [ reduce using rule 42 (expresion -> expresion MENOS expresion .) ]
+  ! MAS             [ shift and go to state 67 ]
+  ! MENOS           [ shift and go to state 68 ]
+  ! MENORQUE        [ shift and go to state 70 ]
+  ! MAYORQUE        [ shift and go to state 71 ]
+  ! IGUALIGUAL      [ shift and go to state 72 ]
+  ! AND             [ shift and go to state 73 ]
+  ! OR              [ shift and go to state 74 ]
+
+
+state 91
+
+    (43) expresion -> expresion POR expresion .
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    MAS             reduce using rule 43 (expresion -> expresion POR expresion .)
+    MENOS           reduce using rule 43 (expresion -> expresion POR expresion .)
+    POR             reduce using rule 43 (expresion -> expresion POR expresion .)
+    MENORQUE        reduce using rule 43 (expresion -> expresion POR expresion .)
+    MAYORQUE        reduce using rule 43 (expresion -> expresion POR expresion .)
+    IGUALIGUAL      reduce using rule 43 (expresion -> expresion POR expresion .)
+    AND             reduce using rule 43 (expresion -> expresion POR expresion .)
+    OR              reduce using rule 43 (expresion -> expresion POR expresion .)
+    PUNTOCOMA       reduce using rule 43 (expresion -> expresion POR expresion .)
+    error           reduce using rule 43 (expresion -> expresion POR expresion .)
+    RPRINT          reduce using rule 43 (expresion -> expresion POR expresion .)
+    ID              reduce using rule 43 (expresion -> expresion POR expresion .)
+    RIF             reduce using rule 43 (expresion -> expresion POR expresion .)
+    RWHILE          reduce using rule 43 (expresion -> expresion POR expresion .)
+    RBREAK          reduce using rule 43 (expresion -> expresion POR expresion .)
+    RMAIN           reduce using rule 43 (expresion -> expresion POR expresion .)
+    RFUNC           reduce using rule 43 (expresion -> expresion POR expresion .)
+    RRETURN         reduce using rule 43 (expresion -> expresion POR expresion .)
+    RINT            reduce using rule 43 (expresion -> expresion POR expresion .)
+    RFLOAT          reduce using rule 43 (expresion -> expresion POR expresion .)
+    RSTRING         reduce using rule 43 (expresion -> expresion POR expresion .)
+    RBOOLEAN        reduce using rule 43 (expresion -> expresion POR expresion .)
+    $end            reduce using rule 43 (expresion -> expresion POR expresion .)
+    LLAVEC          reduce using rule 43 (expresion -> expresion POR expresion .)
+    PARC            reduce using rule 43 (expresion -> expresion POR expresion .)
+    COMA            reduce using rule 43 (expresion -> expresion POR expresion .)
+
+  ! MAS             [ shift and go to state 67 ]
+  ! MENOS           [ shift and go to state 68 ]
+  ! POR             [ shift and go to state 69 ]
+  ! MENORQUE        [ shift and go to state 70 ]
+  ! MAYORQUE        [ shift and go to state 71 ]
+  ! IGUALIGUAL      [ shift and go to state 72 ]
+  ! AND             [ shift and go to state 73 ]
+  ! OR              [ shift and go to state 74 ]
+
+
+state 92
+
+    (44) expresion -> expresion MENORQUE expresion .
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    MENORQUE        reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    MAYORQUE        reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    IGUALIGUAL      reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    AND             reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    OR              reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    PUNTOCOMA       reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    error           reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    RPRINT          reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    ID              reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    RIF             reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    RWHILE          reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    RBREAK          reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    RMAIN           reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    RFUNC           reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    RRETURN         reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    RINT            reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    RFLOAT          reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    RSTRING         reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    RBOOLEAN        reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    $end            reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    LLAVEC          reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    PARC            reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    COMA            reduce using rule 44 (expresion -> expresion MENORQUE expresion .)
+    MAS             shift and go to state 67
+    MENOS           shift and go to state 68
+    POR             shift and go to state 69
+
+  ! MAS             [ reduce using rule 44 (expresion -> expresion MENORQUE expresion .) ]
+  ! MENOS           [ reduce using rule 44 (expresion -> expresion MENORQUE expresion .) ]
+  ! POR             [ reduce using rule 44 (expresion -> expresion MENORQUE expresion .) ]
+  ! MENORQUE        [ shift and go to state 70 ]
+  ! MAYORQUE        [ shift and go to state 71 ]
+  ! IGUALIGUAL      [ shift and go to state 72 ]
+  ! AND             [ shift and go to state 73 ]
+  ! OR              [ shift and go to state 74 ]
+
+
+state 93
+
+    (45) expresion -> expresion MAYORQUE expresion .
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    MENORQUE        reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    MAYORQUE        reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    IGUALIGUAL      reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    AND             reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    OR              reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    PUNTOCOMA       reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    error           reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    RPRINT          reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    ID              reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    RIF             reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    RWHILE          reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    RBREAK          reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    RMAIN           reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    RFUNC           reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    RRETURN         reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    RINT            reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    RFLOAT          reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    RSTRING         reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    RBOOLEAN        reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    $end            reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    LLAVEC          reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    PARC            reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    COMA            reduce using rule 45 (expresion -> expresion MAYORQUE expresion .)
+    MAS             shift and go to state 67
+    MENOS           shift and go to state 68
+    POR             shift and go to state 69
+
+  ! MAS             [ reduce using rule 45 (expresion -> expresion MAYORQUE expresion .) ]
+  ! MENOS           [ reduce using rule 45 (expresion -> expresion MAYORQUE expresion .) ]
+  ! POR             [ reduce using rule 45 (expresion -> expresion MAYORQUE expresion .) ]
+  ! MENORQUE        [ shift and go to state 70 ]
+  ! MAYORQUE        [ shift and go to state 71 ]
+  ! IGUALIGUAL      [ shift and go to state 72 ]
+  ! AND             [ shift and go to state 73 ]
+  ! OR              [ shift and go to state 74 ]
+
+
+state 94
+
+    (46) expresion -> expresion IGUALIGUAL expresion .
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    MENORQUE        reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    MAYORQUE        reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    IGUALIGUAL      reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    AND             reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    OR              reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    PUNTOCOMA       reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    error           reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    RPRINT          reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    ID              reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    RIF             reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    RWHILE          reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    RBREAK          reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    RMAIN           reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    RFUNC           reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    RRETURN         reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    RINT            reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    RFLOAT          reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    RSTRING         reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    RBOOLEAN        reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    $end            reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    LLAVEC          reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    PARC            reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    COMA            reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .)
+    MAS             shift and go to state 67
+    MENOS           shift and go to state 68
+    POR             shift and go to state 69
+
+  ! MAS             [ reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .) ]
+  ! MENOS           [ reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .) ]
+  ! POR             [ reduce using rule 46 (expresion -> expresion IGUALIGUAL expresion .) ]
+  ! MENORQUE        [ shift and go to state 70 ]
+  ! MAYORQUE        [ shift and go to state 71 ]
+  ! IGUALIGUAL      [ shift and go to state 72 ]
+  ! AND             [ shift and go to state 73 ]
+  ! OR              [ shift and go to state 74 ]
+
+
+state 95
+
+    (47) expresion -> expresion AND expresion .
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    AND             reduce using rule 47 (expresion -> expresion AND expresion .)
+    OR              reduce using rule 47 (expresion -> expresion AND expresion .)
+    PUNTOCOMA       reduce using rule 47 (expresion -> expresion AND expresion .)
+    error           reduce using rule 47 (expresion -> expresion AND expresion .)
+    RPRINT          reduce using rule 47 (expresion -> expresion AND expresion .)
+    ID              reduce using rule 47 (expresion -> expresion AND expresion .)
+    RIF             reduce using rule 47 (expresion -> expresion AND expresion .)
+    RWHILE          reduce using rule 47 (expresion -> expresion AND expresion .)
+    RBREAK          reduce using rule 47 (expresion -> expresion AND expresion .)
+    RMAIN           reduce using rule 47 (expresion -> expresion AND expresion .)
+    RFUNC           reduce using rule 47 (expresion -> expresion AND expresion .)
+    RRETURN         reduce using rule 47 (expresion -> expresion AND expresion .)
+    RINT            reduce using rule 47 (expresion -> expresion AND expresion .)
+    RFLOAT          reduce using rule 47 (expresion -> expresion AND expresion .)
+    RSTRING         reduce using rule 47 (expresion -> expresion AND expresion .)
+    RBOOLEAN        reduce using rule 47 (expresion -> expresion AND expresion .)
+    $end            reduce using rule 47 (expresion -> expresion AND expresion .)
+    LLAVEC          reduce using rule 47 (expresion -> expresion AND expresion .)
+    PARC            reduce using rule 47 (expresion -> expresion AND expresion .)
+    COMA            reduce using rule 47 (expresion -> expresion AND expresion .)
+    MAS             shift and go to state 67
+    MENOS           shift and go to state 68
+    POR             shift and go to state 69
+    MENORQUE        shift and go to state 70
+    MAYORQUE        shift and go to state 71
+    IGUALIGUAL      shift and go to state 72
+
+  ! MAS             [ reduce using rule 47 (expresion -> expresion AND expresion .) ]
+  ! MENOS           [ reduce using rule 47 (expresion -> expresion AND expresion .) ]
+  ! POR             [ reduce using rule 47 (expresion -> expresion AND expresion .) ]
+  ! MENORQUE        [ reduce using rule 47 (expresion -> expresion AND expresion .) ]
+  ! MAYORQUE        [ reduce using rule 47 (expresion -> expresion AND expresion .) ]
+  ! IGUALIGUAL      [ reduce using rule 47 (expresion -> expresion AND expresion .) ]
+  ! AND             [ shift and go to state 73 ]
+  ! OR              [ shift and go to state 74 ]
+
+
+state 96
+
+    (48) expresion -> expresion OR expresion .
+    (41) expresion -> expresion . MAS expresion
+    (42) expresion -> expresion . MENOS expresion
+    (43) expresion -> expresion . POR expresion
+    (44) expresion -> expresion . MENORQUE expresion
+    (45) expresion -> expresion . MAYORQUE expresion
+    (46) expresion -> expresion . IGUALIGUAL expresion
+    (47) expresion -> expresion . AND expresion
+    (48) expresion -> expresion . OR expresion
+
+    OR              reduce using rule 48 (expresion -> expresion OR expresion .)
+    PUNTOCOMA       reduce using rule 48 (expresion -> expresion OR expresion .)
+    error           reduce using rule 48 (expresion -> expresion OR expresion .)
+    RPRINT          reduce using rule 48 (expresion -> expresion OR expresion .)
+    ID              reduce using rule 48 (expresion -> expresion OR expresion .)
+    RIF             reduce using rule 48 (expresion -> expresion OR expresion .)
+    RWHILE          reduce using rule 48 (expresion -> expresion OR expresion .)
+    RBREAK          reduce using rule 48 (expresion -> expresion OR expresion .)
+    RMAIN           reduce using rule 48 (expresion -> expresion OR expresion .)
+    RFUNC           reduce using rule 48 (expresion -> expresion OR expresion .)
+    RRETURN         reduce using rule 48 (expresion -> expresion OR expresion .)
+    RINT            reduce using rule 48 (expresion -> expresion OR expresion .)
+    RFLOAT          reduce using rule 48 (expresion -> expresion OR expresion .)
+    RSTRING         reduce using rule 48 (expresion -> expresion OR expresion .)
+    RBOOLEAN        reduce using rule 48 (expresion -> expresion OR expresion .)
+    $end            reduce using rule 48 (expresion -> expresion OR expresion .)
+    LLAVEC          reduce using rule 48 (expresion -> expresion OR expresion .)
+    PARC            reduce using rule 48 (expresion -> expresion OR expresion .)
+    COMA            reduce using rule 48 (expresion -> expresion OR expresion .)
+    MAS             shift and go to state 67
+    MENOS           shift and go to state 68
+    POR             shift and go to state 69
+    MENORQUE        shift and go to state 70
+    MAYORQUE        shift and go to state 71
+    IGUALIGUAL      shift and go to state 72
+    AND             shift and go to state 73
+
+  ! MAS             [ reduce using rule 48 (expresion -> expresion OR expresion .) ]
+  ! MENOS           [ reduce using rule 48 (expresion -> expresion OR expresion .) ]
+  ! POR             [ reduce using rule 48 (expresion -> expresion OR expresion .) ]
+  ! MENORQUE        [ reduce using rule 48 (expresion -> expresion OR expresion .) ]
+  ! MAYORQUE        [ reduce using rule 48 (expresion -> expresion OR expresion .) ]
+  ! IGUALIGUAL      [ reduce using rule 48 (expresion -> expresion OR expresion .) ]
+  ! AND             [ reduce using rule 48 (expresion -> expresion OR expresion .) ]
+  ! OR              [ shift and go to state 74 ]
+
+
+state 97
+
+    (51) expresion -> PARA expresion PARC .
+
+    MAS             reduce using rule 51 (expresion -> PARA expresion PARC .)
+    MENOS           reduce using rule 51 (expresion -> PARA expresion PARC .)
+    POR             reduce using rule 51 (expresion -> PARA expresion PARC .)
+    MENORQUE        reduce using rule 51 (expresion -> PARA expresion PARC .)
+    MAYORQUE        reduce using rule 51 (expresion -> PARA expresion PARC .)
+    IGUALIGUAL      reduce using rule 51 (expresion -> PARA expresion PARC .)
+    AND             reduce using rule 51 (expresion -> PARA expresion PARC .)
+    OR              reduce using rule 51 (expresion -> PARA expresion PARC .)
+    PUNTOCOMA       reduce using rule 51 (expresion -> PARA expresion PARC .)
+    error           reduce using rule 51 (expresion -> PARA expresion PARC .)
+    RPRINT          reduce using rule 51 (expresion -> PARA expresion PARC .)
+    ID              reduce using rule 51 (expresion -> PARA expresion PARC .)
+    RIF             reduce using rule 51 (expresion -> PARA expresion PARC .)
+    RWHILE          reduce using rule 51 (expresion -> PARA expresion PARC .)
+    RBREAK          reduce using rule 51 (expresion -> PARA expresion PARC .)
+    RMAIN           reduce using rule 51 (expresion -> PARA expresion PARC .)
+    RFUNC           reduce using rule 51 (expresion -> PARA expresion PARC .)
+    RRETURN         reduce using rule 51 (expresion -> PARA expresion PARC .)
+    RINT            reduce using rule 51 (expresion -> PARA expresion PARC .)
+    RFLOAT          reduce using rule 51 (expresion -> PARA expresion PARC .)
+    RSTRING         reduce using rule 51 (expresion -> PARA expresion PARC .)
+    RBOOLEAN        reduce using rule 51 (expresion -> PARA expresion PARC .)
+    $end            reduce using rule 51 (expresion -> PARA expresion PARC .)
+    LLAVEC          reduce using rule 51 (expresion -> PARA expresion PARC .)
+    PARC            reduce using rule 51 (expresion -> PARA expresion PARC .)
+    COMA            reduce using rule 51 (expresion -> PARA expresion PARC .)
+
+
+state 98
+
+    (33) parametros_llamada -> parametros_llamada COMA parametro_llamada .
+
+    PARC            reduce using rule 33 (parametros_llamada -> parametros_llamada COMA parametro_llamada .)
+    COMA            reduce using rule 33 (parametros_llamada -> parametros_llamada COMA parametro_llamada .)
+
+
+state 99
+
+    (20) if_instr -> RIF PARA expresion PARC LLAVEA . instrucciones LLAVEC
+    (21) if_instr -> RIF PARA expresion PARC LLAVEA . instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> RIF PARA expresion PARC LLAVEA . instrucciones LLAVEC RELSE if_instr
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . imprimir_instr finins
+    (5) instruccion -> . declaracion_instr finins
+    (6) instruccion -> . asignacion_instr finins
+    (7) instruccion -> . if_instr
+    (8) instruccion -> . while_instr
+    (9) instruccion -> . break_instr finins
+    (10) instruccion -> . main_instr
+    (11) instruccion -> . funcion_instr
+    (12) instruccion -> . llamada_instr finins
+    (13) instruccion -> . return_instr finins
+    (16) instruccion -> . error PUNTOCOMA
+    (17) imprimir_instr -> . RPRINT PARA expresion PARC
+    (18) declaracion_instr -> . tipo ID IGUAL expresion
+    (19) asignacion_instr -> . ID IGUAL expresion
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (23) while_instr -> . RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (24) break_instr -> . RBREAK
+    (25) main_instr -> . RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+    (26) funcion_instr -> . RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> . RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+    (36) return_instr -> . RRETURN expresion
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    error           shift and go to state 14
+    RPRINT          shift and go to state 15
+    ID              shift and go to state 17
+    RIF             shift and go to state 18
+    RWHILE          shift and go to state 19
+    RBREAK          shift and go to state 20
+    RMAIN           shift and go to state 21
+    RFUNC           shift and go to state 22
+    RRETURN         shift and go to state 23
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    instrucciones                  shift and go to state 106
+    if_instr                       shift and go to state 7
+    instruccion                    shift and go to state 3
+    imprimir_instr                 shift and go to state 4
+    declaracion_instr              shift and go to state 5
+    asignacion_instr               shift and go to state 6
+    while_instr                    shift and go to state 8
+    break_instr                    shift and go to state 9
+    main_instr                     shift and go to state 10
+    funcion_instr                  shift and go to state 11
+    llamada_instr                  shift and go to state 12
+    return_instr                   shift and go to state 13
+    tipo                           shift and go to state 16
+
+state 100
+
+    (23) while_instr -> RWHILE PARA expresion PARC LLAVEA . instrucciones LLAVEC
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . imprimir_instr finins
+    (5) instruccion -> . declaracion_instr finins
+    (6) instruccion -> . asignacion_instr finins
+    (7) instruccion -> . if_instr
+    (8) instruccion -> . while_instr
+    (9) instruccion -> . break_instr finins
+    (10) instruccion -> . main_instr
+    (11) instruccion -> . funcion_instr
+    (12) instruccion -> . llamada_instr finins
+    (13) instruccion -> . return_instr finins
+    (16) instruccion -> . error PUNTOCOMA
+    (17) imprimir_instr -> . RPRINT PARA expresion PARC
+    (18) declaracion_instr -> . tipo ID IGUAL expresion
+    (19) asignacion_instr -> . ID IGUAL expresion
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (23) while_instr -> . RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (24) break_instr -> . RBREAK
+    (25) main_instr -> . RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+    (26) funcion_instr -> . RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> . RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+    (36) return_instr -> . RRETURN expresion
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    error           shift and go to state 14
+    RPRINT          shift and go to state 15
+    ID              shift and go to state 17
+    RIF             shift and go to state 18
+    RWHILE          shift and go to state 19
+    RBREAK          shift and go to state 20
+    RMAIN           shift and go to state 21
+    RFUNC           shift and go to state 22
+    RRETURN         shift and go to state 23
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    instrucciones                  shift and go to state 107
+    instruccion                    shift and go to state 3
+    imprimir_instr                 shift and go to state 4
+    declaracion_instr              shift and go to state 5
+    asignacion_instr               shift and go to state 6
+    if_instr                       shift and go to state 7
+    while_instr                    shift and go to state 8
+    break_instr                    shift and go to state 9
+    main_instr                     shift and go to state 10
+    funcion_instr                  shift and go to state 11
+    llamada_instr                  shift and go to state 12
+    return_instr                   shift and go to state 13
+    tipo                           shift and go to state 16
+
+state 101
+
+    (25) main_instr -> RMAIN PARA PARC LLAVEA instrucciones . LLAVEC
+    (2) instrucciones -> instrucciones . instruccion
+    (4) instruccion -> . imprimir_instr finins
+    (5) instruccion -> . declaracion_instr finins
+    (6) instruccion -> . asignacion_instr finins
+    (7) instruccion -> . if_instr
+    (8) instruccion -> . while_instr
+    (9) instruccion -> . break_instr finins
+    (10) instruccion -> . main_instr
+    (11) instruccion -> . funcion_instr
+    (12) instruccion -> . llamada_instr finins
+    (13) instruccion -> . return_instr finins
+    (16) instruccion -> . error PUNTOCOMA
+    (17) imprimir_instr -> . RPRINT PARA expresion PARC
+    (18) declaracion_instr -> . tipo ID IGUAL expresion
+    (19) asignacion_instr -> . ID IGUAL expresion
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (23) while_instr -> . RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (24) break_instr -> . RBREAK
+    (25) main_instr -> . RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+    (26) funcion_instr -> . RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> . RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+    (36) return_instr -> . RRETURN expresion
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    LLAVEC          shift and go to state 108
+    error           shift and go to state 14
+    RPRINT          shift and go to state 15
+    ID              shift and go to state 17
+    RIF             shift and go to state 18
+    RWHILE          shift and go to state 19
+    RBREAK          shift and go to state 20
+    RMAIN           shift and go to state 21
+    RFUNC           shift and go to state 22
+    RRETURN         shift and go to state 23
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    instruccion                    shift and go to state 28
+    imprimir_instr                 shift and go to state 4
+    declaracion_instr              shift and go to state 5
+    asignacion_instr               shift and go to state 6
+    if_instr                       shift and go to state 7
+    while_instr                    shift and go to state 8
+    break_instr                    shift and go to state 9
+    main_instr                     shift and go to state 10
+    funcion_instr                  shift and go to state 11
+    llamada_instr                  shift and go to state 12
+    return_instr                   shift and go to state 13
+    tipo                           shift and go to state 16
+
+state 102
+
+    (26) funcion_instr -> RFUNC ID PARA parametros PARC . LLAVEA instrucciones LLAVEC
+
+    LLAVEA          shift and go to state 109
+
+
+state 103
+
+    (28) parametros -> parametros COMA . parametro
+    (30) parametro -> . tipo ID
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    parametro                      shift and go to state 110
+    tipo                           shift and go to state 88
+
+state 104
+
+    (27) funcion_instr -> RFUNC ID PARA PARC LLAVEA . instrucciones LLAVEC
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . imprimir_instr finins
+    (5) instruccion -> . declaracion_instr finins
+    (6) instruccion -> . asignacion_instr finins
+    (7) instruccion -> . if_instr
+    (8) instruccion -> . while_instr
+    (9) instruccion -> . break_instr finins
+    (10) instruccion -> . main_instr
+    (11) instruccion -> . funcion_instr
+    (12) instruccion -> . llamada_instr finins
+    (13) instruccion -> . return_instr finins
+    (16) instruccion -> . error PUNTOCOMA
+    (17) imprimir_instr -> . RPRINT PARA expresion PARC
+    (18) declaracion_instr -> . tipo ID IGUAL expresion
+    (19) asignacion_instr -> . ID IGUAL expresion
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (23) while_instr -> . RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (24) break_instr -> . RBREAK
+    (25) main_instr -> . RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+    (26) funcion_instr -> . RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> . RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+    (36) return_instr -> . RRETURN expresion
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    error           shift and go to state 14
+    RPRINT          shift and go to state 15
+    ID              shift and go to state 17
+    RIF             shift and go to state 18
+    RWHILE          shift and go to state 19
+    RBREAK          shift and go to state 20
+    RMAIN           shift and go to state 21
+    RFUNC           shift and go to state 22
+    RRETURN         shift and go to state 23
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    instrucciones                  shift and go to state 111
+    instruccion                    shift and go to state 3
+    imprimir_instr                 shift and go to state 4
+    declaracion_instr              shift and go to state 5
+    asignacion_instr               shift and go to state 6
+    if_instr                       shift and go to state 7
+    while_instr                    shift and go to state 8
+    break_instr                    shift and go to state 9
+    main_instr                     shift and go to state 10
+    funcion_instr                  shift and go to state 11
+    llamada_instr                  shift and go to state 12
+    return_instr                   shift and go to state 13
+    tipo                           shift and go to state 16
+
+state 105
+
+    (30) parametro -> tipo ID .
+
+    PARC            reduce using rule 30 (parametro -> tipo ID .)
+    COMA            reduce using rule 30 (parametro -> tipo ID .)
+
+
+state 106
+
+    (20) if_instr -> RIF PARA expresion PARC LLAVEA instrucciones . LLAVEC
+    (21) if_instr -> RIF PARA expresion PARC LLAVEA instrucciones . LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> RIF PARA expresion PARC LLAVEA instrucciones . LLAVEC RELSE if_instr
+    (2) instrucciones -> instrucciones . instruccion
+    (4) instruccion -> . imprimir_instr finins
+    (5) instruccion -> . declaracion_instr finins
+    (6) instruccion -> . asignacion_instr finins
+    (7) instruccion -> . if_instr
+    (8) instruccion -> . while_instr
+    (9) instruccion -> . break_instr finins
+    (10) instruccion -> . main_instr
+    (11) instruccion -> . funcion_instr
+    (12) instruccion -> . llamada_instr finins
+    (13) instruccion -> . return_instr finins
+    (16) instruccion -> . error PUNTOCOMA
+    (17) imprimir_instr -> . RPRINT PARA expresion PARC
+    (18) declaracion_instr -> . tipo ID IGUAL expresion
+    (19) asignacion_instr -> . ID IGUAL expresion
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (23) while_instr -> . RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (24) break_instr -> . RBREAK
+    (25) main_instr -> . RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+    (26) funcion_instr -> . RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> . RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+    (36) return_instr -> . RRETURN expresion
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    LLAVEC          shift and go to state 112
+    error           shift and go to state 14
+    RPRINT          shift and go to state 15
+    ID              shift and go to state 17
+    RIF             shift and go to state 18
+    RWHILE          shift and go to state 19
+    RBREAK          shift and go to state 20
+    RMAIN           shift and go to state 21
+    RFUNC           shift and go to state 22
+    RRETURN         shift and go to state 23
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    if_instr                       shift and go to state 7
+    instruccion                    shift and go to state 28
+    imprimir_instr                 shift and go to state 4
+    declaracion_instr              shift and go to state 5
+    asignacion_instr               shift and go to state 6
+    while_instr                    shift and go to state 8
+    break_instr                    shift and go to state 9
+    main_instr                     shift and go to state 10
+    funcion_instr                  shift and go to state 11
+    llamada_instr                  shift and go to state 12
+    return_instr                   shift and go to state 13
+    tipo                           shift and go to state 16
+
+state 107
+
+    (23) while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones . LLAVEC
+    (2) instrucciones -> instrucciones . instruccion
+    (4) instruccion -> . imprimir_instr finins
+    (5) instruccion -> . declaracion_instr finins
+    (6) instruccion -> . asignacion_instr finins
+    (7) instruccion -> . if_instr
+    (8) instruccion -> . while_instr
+    (9) instruccion -> . break_instr finins
+    (10) instruccion -> . main_instr
+    (11) instruccion -> . funcion_instr
+    (12) instruccion -> . llamada_instr finins
+    (13) instruccion -> . return_instr finins
+    (16) instruccion -> . error PUNTOCOMA
+    (17) imprimir_instr -> . RPRINT PARA expresion PARC
+    (18) declaracion_instr -> . tipo ID IGUAL expresion
+    (19) asignacion_instr -> . ID IGUAL expresion
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (23) while_instr -> . RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (24) break_instr -> . RBREAK
+    (25) main_instr -> . RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+    (26) funcion_instr -> . RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> . RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+    (36) return_instr -> . RRETURN expresion
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    LLAVEC          shift and go to state 113
+    error           shift and go to state 14
+    RPRINT          shift and go to state 15
+    ID              shift and go to state 17
+    RIF             shift and go to state 18
+    RWHILE          shift and go to state 19
+    RBREAK          shift and go to state 20
+    RMAIN           shift and go to state 21
+    RFUNC           shift and go to state 22
+    RRETURN         shift and go to state 23
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    instruccion                    shift and go to state 28
+    imprimir_instr                 shift and go to state 4
+    declaracion_instr              shift and go to state 5
+    asignacion_instr               shift and go to state 6
+    if_instr                       shift and go to state 7
+    while_instr                    shift and go to state 8
+    break_instr                    shift and go to state 9
+    main_instr                     shift and go to state 10
+    funcion_instr                  shift and go to state 11
+    llamada_instr                  shift and go to state 12
+    return_instr                   shift and go to state 13
+    tipo                           shift and go to state 16
+
+state 108
+
+    (25) main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .
+
+    error           reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+    RPRINT          reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+    ID              reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+    RIF             reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+    RWHILE          reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+    RBREAK          reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+    RMAIN           reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+    RFUNC           reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+    RRETURN         reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+    RINT            reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+    RFLOAT          reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+    RSTRING         reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+    RBOOLEAN        reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+    $end            reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+    LLAVEC          reduce using rule 25 (main_instr -> RMAIN PARA PARC LLAVEA instrucciones LLAVEC .)
+
+
+state 109
+
+    (26) funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA . instrucciones LLAVEC
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . imprimir_instr finins
+    (5) instruccion -> . declaracion_instr finins
+    (6) instruccion -> . asignacion_instr finins
+    (7) instruccion -> . if_instr
+    (8) instruccion -> . while_instr
+    (9) instruccion -> . break_instr finins
+    (10) instruccion -> . main_instr
+    (11) instruccion -> . funcion_instr
+    (12) instruccion -> . llamada_instr finins
+    (13) instruccion -> . return_instr finins
+    (16) instruccion -> . error PUNTOCOMA
+    (17) imprimir_instr -> . RPRINT PARA expresion PARC
+    (18) declaracion_instr -> . tipo ID IGUAL expresion
+    (19) asignacion_instr -> . ID IGUAL expresion
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (23) while_instr -> . RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (24) break_instr -> . RBREAK
+    (25) main_instr -> . RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+    (26) funcion_instr -> . RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> . RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+    (36) return_instr -> . RRETURN expresion
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    error           shift and go to state 14
+    RPRINT          shift and go to state 15
+    ID              shift and go to state 17
+    RIF             shift and go to state 18
+    RWHILE          shift and go to state 19
+    RBREAK          shift and go to state 20
+    RMAIN           shift and go to state 21
+    RFUNC           shift and go to state 22
+    RRETURN         shift and go to state 23
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    instrucciones                  shift and go to state 114
+    instruccion                    shift and go to state 3
+    imprimir_instr                 shift and go to state 4
+    declaracion_instr              shift and go to state 5
+    asignacion_instr               shift and go to state 6
+    if_instr                       shift and go to state 7
+    while_instr                    shift and go to state 8
+    break_instr                    shift and go to state 9
+    main_instr                     shift and go to state 10
+    funcion_instr                  shift and go to state 11
+    llamada_instr                  shift and go to state 12
+    return_instr                   shift and go to state 13
+    tipo                           shift and go to state 16
+
+state 110
+
+    (28) parametros -> parametros COMA parametro .
+
+    PARC            reduce using rule 28 (parametros -> parametros COMA parametro .)
+    COMA            reduce using rule 28 (parametros -> parametros COMA parametro .)
+
+
+state 111
+
+    (27) funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones . LLAVEC
+    (2) instrucciones -> instrucciones . instruccion
+    (4) instruccion -> . imprimir_instr finins
+    (5) instruccion -> . declaracion_instr finins
+    (6) instruccion -> . asignacion_instr finins
+    (7) instruccion -> . if_instr
+    (8) instruccion -> . while_instr
+    (9) instruccion -> . break_instr finins
+    (10) instruccion -> . main_instr
+    (11) instruccion -> . funcion_instr
+    (12) instruccion -> . llamada_instr finins
+    (13) instruccion -> . return_instr finins
+    (16) instruccion -> . error PUNTOCOMA
+    (17) imprimir_instr -> . RPRINT PARA expresion PARC
+    (18) declaracion_instr -> . tipo ID IGUAL expresion
+    (19) asignacion_instr -> . ID IGUAL expresion
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (23) while_instr -> . RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (24) break_instr -> . RBREAK
+    (25) main_instr -> . RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+    (26) funcion_instr -> . RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> . RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+    (36) return_instr -> . RRETURN expresion
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    LLAVEC          shift and go to state 115
+    error           shift and go to state 14
+    RPRINT          shift and go to state 15
+    ID              shift and go to state 17
+    RIF             shift and go to state 18
+    RWHILE          shift and go to state 19
+    RBREAK          shift and go to state 20
+    RMAIN           shift and go to state 21
+    RFUNC           shift and go to state 22
+    RRETURN         shift and go to state 23
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    instruccion                    shift and go to state 28
+    imprimir_instr                 shift and go to state 4
+    declaracion_instr              shift and go to state 5
+    asignacion_instr               shift and go to state 6
+    if_instr                       shift and go to state 7
+    while_instr                    shift and go to state 8
+    break_instr                    shift and go to state 9
+    main_instr                     shift and go to state 10
+    funcion_instr                  shift and go to state 11
+    llamada_instr                  shift and go to state 12
+    return_instr                   shift and go to state 13
+    tipo                           shift and go to state 16
+
+state 112
+
+    (20) if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .
+    (21) if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC . RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC . RELSE if_instr
+
+    error           reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RPRINT          reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    ID              reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RIF             reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RWHILE          reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RBREAK          reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RMAIN           reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RFUNC           reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RRETURN         reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RINT            reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RFLOAT          reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RSTRING         reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RBOOLEAN        reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    $end            reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    LLAVEC          reduce using rule 20 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RELSE           shift and go to state 116
+
+
+state 113
+
+    (23) while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .
+
+    error           reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RPRINT          reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    ID              reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RIF             reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RWHILE          reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RBREAK          reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RMAIN           reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RFUNC           reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RRETURN         reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RINT            reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RFLOAT          reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RSTRING         reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    RBOOLEAN        reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    $end            reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+    LLAVEC          reduce using rule 23 (while_instr -> RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC .)
+
+
+state 114
+
+    (26) funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones . LLAVEC
+    (2) instrucciones -> instrucciones . instruccion
+    (4) instruccion -> . imprimir_instr finins
+    (5) instruccion -> . declaracion_instr finins
+    (6) instruccion -> . asignacion_instr finins
+    (7) instruccion -> . if_instr
+    (8) instruccion -> . while_instr
+    (9) instruccion -> . break_instr finins
+    (10) instruccion -> . main_instr
+    (11) instruccion -> . funcion_instr
+    (12) instruccion -> . llamada_instr finins
+    (13) instruccion -> . return_instr finins
+    (16) instruccion -> . error PUNTOCOMA
+    (17) imprimir_instr -> . RPRINT PARA expresion PARC
+    (18) declaracion_instr -> . tipo ID IGUAL expresion
+    (19) asignacion_instr -> . ID IGUAL expresion
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (23) while_instr -> . RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (24) break_instr -> . RBREAK
+    (25) main_instr -> . RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+    (26) funcion_instr -> . RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> . RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+    (36) return_instr -> . RRETURN expresion
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    LLAVEC          shift and go to state 117
+    error           shift and go to state 14
+    RPRINT          shift and go to state 15
+    ID              shift and go to state 17
+    RIF             shift and go to state 18
+    RWHILE          shift and go to state 19
+    RBREAK          shift and go to state 20
+    RMAIN           shift and go to state 21
+    RFUNC           shift and go to state 22
+    RRETURN         shift and go to state 23
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    instruccion                    shift and go to state 28
+    imprimir_instr                 shift and go to state 4
+    declaracion_instr              shift and go to state 5
+    asignacion_instr               shift and go to state 6
+    if_instr                       shift and go to state 7
+    while_instr                    shift and go to state 8
+    break_instr                    shift and go to state 9
+    main_instr                     shift and go to state 10
+    funcion_instr                  shift and go to state 11
+    llamada_instr                  shift and go to state 12
+    return_instr                   shift and go to state 13
+    tipo                           shift and go to state 16
+
+state 115
+
+    (27) funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .
+
+    error           reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+    RPRINT          reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+    ID              reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+    RIF             reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+    RWHILE          reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+    RBREAK          reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+    RMAIN           reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+    RFUNC           reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+    RRETURN         reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+    RINT            reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+    RFLOAT          reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+    RSTRING         reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+    RBOOLEAN        reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+    $end            reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+    LLAVEC          reduce using rule 27 (funcion_instr -> RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC .)
+
+
+state 116
+
+    (21) if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE . LLAVEA instrucciones LLAVEC
+    (22) if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE . if_instr
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+
+    LLAVEA          shift and go to state 118
+    RIF             shift and go to state 18
+
+    if_instr                       shift and go to state 119
+
+state 117
+
+    (26) funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .
+
+    error           reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+    RPRINT          reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+    ID              reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+    RIF             reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+    RWHILE          reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+    RBREAK          reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+    RMAIN           reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+    RFUNC           reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+    RRETURN         reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+    RINT            reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+    RFLOAT          reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+    RSTRING         reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+    RBOOLEAN        reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+    $end            reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+    LLAVEC          reduce using rule 26 (funcion_instr -> RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC .)
+
+
+state 118
+
+    (21) if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA . instrucciones LLAVEC
+    (2) instrucciones -> . instrucciones instruccion
+    (3) instrucciones -> . instruccion
+    (4) instruccion -> . imprimir_instr finins
+    (5) instruccion -> . declaracion_instr finins
+    (6) instruccion -> . asignacion_instr finins
+    (7) instruccion -> . if_instr
+    (8) instruccion -> . while_instr
+    (9) instruccion -> . break_instr finins
+    (10) instruccion -> . main_instr
+    (11) instruccion -> . funcion_instr
+    (12) instruccion -> . llamada_instr finins
+    (13) instruccion -> . return_instr finins
+    (16) instruccion -> . error PUNTOCOMA
+    (17) imprimir_instr -> . RPRINT PARA expresion PARC
+    (18) declaracion_instr -> . tipo ID IGUAL expresion
+    (19) asignacion_instr -> . ID IGUAL expresion
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (23) while_instr -> . RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (24) break_instr -> . RBREAK
+    (25) main_instr -> . RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+    (26) funcion_instr -> . RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> . RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+    (36) return_instr -> . RRETURN expresion
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    error           shift and go to state 14
+    RPRINT          shift and go to state 15
+    ID              shift and go to state 17
+    RIF             shift and go to state 18
+    RWHILE          shift and go to state 19
+    RBREAK          shift and go to state 20
+    RMAIN           shift and go to state 21
+    RFUNC           shift and go to state 22
+    RRETURN         shift and go to state 23
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    instrucciones                  shift and go to state 120
+    instruccion                    shift and go to state 3
+    imprimir_instr                 shift and go to state 4
+    declaracion_instr              shift and go to state 5
+    asignacion_instr               shift and go to state 6
+    if_instr                       shift and go to state 7
+    while_instr                    shift and go to state 8
+    break_instr                    shift and go to state 9
+    main_instr                     shift and go to state 10
+    funcion_instr                  shift and go to state 11
+    llamada_instr                  shift and go to state 12
+    return_instr                   shift and go to state 13
+    tipo                           shift and go to state 16
+
+state 119
+
+    (22) if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .
+
+    error           reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+    RPRINT          reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+    ID              reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+    RIF             reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+    RWHILE          reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+    RBREAK          reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+    RMAIN           reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+    RFUNC           reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+    RRETURN         reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+    RINT            reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+    RFLOAT          reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+    RSTRING         reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+    RBOOLEAN        reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+    $end            reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+    LLAVEC          reduce using rule 22 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr .)
+
+
+state 120
+
+    (21) if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones . LLAVEC
+    (2) instrucciones -> instrucciones . instruccion
+    (4) instruccion -> . imprimir_instr finins
+    (5) instruccion -> . declaracion_instr finins
+    (6) instruccion -> . asignacion_instr finins
+    (7) instruccion -> . if_instr
+    (8) instruccion -> . while_instr
+    (9) instruccion -> . break_instr finins
+    (10) instruccion -> . main_instr
+    (11) instruccion -> . funcion_instr
+    (12) instruccion -> . llamada_instr finins
+    (13) instruccion -> . return_instr finins
+    (16) instruccion -> . error PUNTOCOMA
+    (17) imprimir_instr -> . RPRINT PARA expresion PARC
+    (18) declaracion_instr -> . tipo ID IGUAL expresion
+    (19) asignacion_instr -> . ID IGUAL expresion
+    (20) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (21) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC
+    (22) if_instr -> . RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE if_instr
+    (23) while_instr -> . RWHILE PARA expresion PARC LLAVEA instrucciones LLAVEC
+    (24) break_instr -> . RBREAK
+    (25) main_instr -> . RMAIN PARA PARC LLAVEA instrucciones LLAVEC
+    (26) funcion_instr -> . RFUNC ID PARA parametros PARC LLAVEA instrucciones LLAVEC
+    (27) funcion_instr -> . RFUNC ID PARA PARC LLAVEA instrucciones LLAVEC
+    (31) llamada_instr -> . ID PARA PARC
+    (32) llamada_instr -> . ID PARA parametros_llamada PARC
+    (36) return_instr -> . RRETURN expresion
+    (37) tipo -> . RINT
+    (38) tipo -> . RFLOAT
+    (39) tipo -> . RSTRING
+    (40) tipo -> . RBOOLEAN
+
+    LLAVEC          shift and go to state 121
+    error           shift and go to state 14
+    RPRINT          shift and go to state 15
+    ID              shift and go to state 17
+    RIF             shift and go to state 18
+    RWHILE          shift and go to state 19
+    RBREAK          shift and go to state 20
+    RMAIN           shift and go to state 21
+    RFUNC           shift and go to state 22
+    RRETURN         shift and go to state 23
+    RINT            shift and go to state 24
+    RFLOAT          shift and go to state 25
+    RSTRING         shift and go to state 26
+    RBOOLEAN        shift and go to state 27
+
+    instruccion                    shift and go to state 28
+    imprimir_instr                 shift and go to state 4
+    declaracion_instr              shift and go to state 5
+    asignacion_instr               shift and go to state 6
+    if_instr                       shift and go to state 7
+    while_instr                    shift and go to state 8
+    break_instr                    shift and go to state 9
+    main_instr                     shift and go to state 10
+    funcion_instr                  shift and go to state 11
+    llamada_instr                  shift and go to state 12
+    return_instr                   shift and go to state 13
+    tipo                           shift and go to state 16
+
+state 121
+
+    (21) if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .
+
+    error           reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+    RPRINT          reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+    ID              reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+    RIF             reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+    RWHILE          reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+    RBREAK          reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+    RMAIN           reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+    RFUNC           reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+    RRETURN         reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+    RINT            reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+    RFLOAT          reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+    RSTRING         reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+    RBOOLEAN        reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+    $end            reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+    LLAVEC          reduce using rule 21 (if_instr -> RIF PARA expresion PARC LLAVEA instrucciones LLAVEC RELSE LLAVEA instrucciones LLAVEC .)
+
