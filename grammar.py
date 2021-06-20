@@ -95,10 +95,16 @@ def t_CADENA(t):
     t.value = t.value[1:-1] # remuevo las comillas
     return t
 
+#Comentario multilinea //...
+def t_COMENTARIO_MULTIPLE(t):
+    r'\#\*(.|\n)*?\*\#'
+    t.lexer.lineno += 1
+
 # Comentario simple // ...
 def t_COMENTARIO_SIMPLE(t):
     r'\#.*\n'
     t.lexer.lineno += 1
+
 
 # Caracteres ignorados
 t_ignore = " \t"
@@ -208,6 +214,10 @@ def p_imprimir(t) :
 def p_declaracion(t) :
     'declaracion_instr     : RVar ID IGUAL expresion'                              
     t[0] = Declaracion(t[2], t.lineno(2), find_column(input, t.slice[2]), t[4])
+
+def p_declaracion2(t) :
+    'declaracion_instr     : RVar ID'                              
+    t[0] = Declaracion(t[2], t.lineno(2), find_column(input, t.slice[2]))
 
 #///////////////////////////////////////ASIGNACION//////////////////////////////////////////////////
 

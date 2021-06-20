@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
 from grammar import *
+from tkinter import scrolledtext
 
 raiz=Tk()
 menubar = Menu(raiz)
@@ -24,23 +25,28 @@ yscroll = Scrollbar(raiz)
 yscroll.pack(side=RIGHT, fill=Y)
 
 #cajas de texto
-caja1=Text(raiz,width=65,height=15)
+caja1=scrolledtext.ScrolledText(raiz,width=65,height=25)
+#caja1=Text(raiz,width=65,height=25)
 caja1.place(x=60,y=100)
-caja1.config(fg= "white",
-             bg= "grey")
+caja1.tag_config('reservada', foreground='blue')
+caja1.tag_config('cadena', foreground='orange')
+caja1.tag_config('numero', foreground='#C90FF2')
+caja1.tag_config('comentario', foreground='gray')
+caja1.tag_config('normal', foreground='black')
 
-caja2=Text(raiz,width=65,height=15)
+caja2=scrolledtext.ScrolledText(raiz,width=65,height=25)
 caja2.place(x=590, y=100)
 caja2.config(fg= "white",
-             bg= "grey")
+             bg= "black")
 
 #conteo de errores
 linea = Label(raiz, text="Linea")
 linea.place(x=20,y=70)
-caja3=Text(raiz,width=4,height=15)
-caja3.place(x=20, y=100)
+#caja3=Text(raiz,width=4,height=25)
+caja3=scrolledtext.ScrolledText(raiz,width=4,height=25)
+caja3.place(x=8, y=100)
 caja3.config(fg= "white",
-             bg= "grey")
+             bg= "black")
 yscroll.config(command=(caja1.yview, caja2.yview))
 
 #Metodos para la interfaz
@@ -64,7 +70,7 @@ def Abrir(): #abrir archivo
         fichero.close()
     else:
         return
-    
+
 
 def nuevoA(): #Nuevo archivo
     if messagebox.askyesno(message="¿Desea continuar?", title="ALERTA") == TRUE:
@@ -78,6 +84,7 @@ def nuevoA(): #Nuevo archivo
         caja3.delete(1.0,END)
     
 def Anal(): #analiza
+    caja2.delete(1.0,END)
     global nombreArchivo
     prueba = 0
     verificarArchivo = nombreArchivo.split(".")[-1]
@@ -100,46 +107,49 @@ def Anal(): #analiza
             ast.getExcepciones().append(error)
             ast.updateConsola(error.toString())
 
-        for instruccion in ast.getInstrucciones():      # 1ERA PASADA (DECLARACIONES Y ASIGNACIONES)
-            if isinstance(instruccion, Funcion):
-                ast.addFuncion(instruccion)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
-            if isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion):
-                value = instruccion.interpretar(ast,TSGlobal)
-                if isinstance(value, Excepcion) :
-                    ast.getExcepciones().append(value)
-                    ast.updateConsola(value.toString())
-                if isinstance(value, Break): 
-                    err = Excepcion("Semantico", "Sentencia BREAK fuera de ciclo", instruccion.fila, instruccion.columna)
-                    ast.getExcepciones().append(err)
-                    ast.updateConsola(err.toString())
-                
-        for instruccion in ast.getInstrucciones():      # 2DA PASADA (MAIN)
-            contador = 0
-            if isinstance(instruccion, Main):
-                contador += 1
-                if contador == 2: # VERIFICAR LA DUPLICIDAD
-                    err = Excepcion("Semantico", "Existen 2 funciones Main", instruccion.fila, instruccion.columna)
-                    ast.getExcepciones().append(err)
-                    ast.updateConsola(err.toString())
-                    break
-                value = instruccion.interpretar(ast,TSGlobal)
-                if isinstance(value, Excepcion) :
-                    ast.getExcepciones().append(value)
-                    ast.updateConsola(value.toString())
-                if isinstance(value, Break): 
-                    err = Excepcion("Semantico", "Sentencia BREAK fuera de ciclo", instruccion.fila, instruccion.columna)
-                    ast.getExcepciones().append(err)
-                    ast.updateConsola(err.toString())
-                if isinstance(value, Return): 
-                    err = Excepcion("Semantico", "Sentencia RETURN fuera de ciclo", instruccion.fila, instruccion.columna)
-                    ast.getExcepciones().append(err)
-                    ast.updateConsola(err.toString())
+        if ast.getInstrucciones() != None:
+            for instruccion in ast.getInstrucciones():      # 1ERA PASADA (DECLARACIONES Y ASIGNACIONES)
+                if isinstance(instruccion, Funcion):
+                    ast.addFuncion(instruccion)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
+                if isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion):
+                    value = instruccion.interpretar(ast,TSGlobal)
+                    if isinstance(value, Excepcion) :
+                        ast.getExcepciones().append(value)
+                        ast.updateConsola(value.toString())
+                    if isinstance(value, Break): 
+                        err = Excepcion("Semantico", "Sentencia BREAK fuera de ciclo", instruccion.fila, instruccion.columna)
+                        ast.getExcepciones().append(err)
+                        ast.updateConsola(err.toString())
 
-        for instruccion in ast.getInstrucciones():    # 3ERA PASADA (SENTENCIAS FUERA DE MAIN)
-            if not (isinstance(instruccion, Main) or isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion) or isinstance(instruccion, Funcion)):
-                err = Excepcion("Semantico", "Sentencias fuera de Main", instruccion.fila, instruccion.columna)
-                ast.getExcepciones().append(err)
-                ast.updateConsola(err.toString())
+        if ast.getInstrucciones() != None:     
+            for instruccion in ast.getInstrucciones():      # 2DA PASADA (MAIN)
+                contador = 0
+                if isinstance(instruccion, Main):
+                    contador += 1
+                    if contador == 2: # VERIFICAR LA DUPLICIDAD
+                        err = Excepcion("Semantico", "Existen 2 funciones Main", instruccion.fila, instruccion.columna)
+                        ast.getExcepciones().append(err)
+                        ast.updateConsola(err.toString())
+                        break
+                    value = instruccion.interpretar(ast,TSGlobal)
+                    if isinstance(value, Excepcion) :
+                        ast.getExcepciones().append(value)
+                        ast.updateConsola(value.toString())
+                    if isinstance(value, Break): 
+                        err = Excepcion("Semantico", "Sentencia BREAK fuera de ciclo", instruccion.fila, instruccion.columna)
+                        ast.getExcepciones().append(err)
+                        ast.updateConsola(err.toString())
+                    if isinstance(value, Return): 
+                        err = Excepcion("Semantico", "Sentencia RETURN fuera de ciclo", instruccion.fila, instruccion.columna)
+                        ast.getExcepciones().append(err)
+                        ast.updateConsola(err.toString())
+
+        if ast.getInstrucciones() != None:
+            for instruccion in ast.getInstrucciones():    # 3ERA PASADA (SENTENCIAS FUERA DE MAIN)
+                if not (isinstance(instruccion, Main) or isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion) or isinstance(instruccion, Funcion)):
+                    err = Excepcion("Semantico", "Sentencias fuera de Main", instruccion.fila, instruccion.columna)
+                    ast.getExcepciones().append(err)
+                    ast.updateConsola(err.toString())
 
         #print(ast.getConsola())
 
@@ -177,6 +187,127 @@ def Guardarcomo():
     else:
         return
 
+def recorrerInput(i):  #Funcion para obtener palabrvas reservadas, signos, numeros, etc
+    lista = []
+    val = ''
+    valAux = ''
+    counter = 0
+    while counter < len(i):
+            if re.search(r"[a-z|0-9|.|A-Z]", i[counter]):
+                val += i[counter]
+            elif i[counter] == "\"":
+                if len(val) != 0:
+                    l = []
+                    l.append("cadena")
+                    l.append(val)
+                    lista.append(l)
+                    val = ''
+                val = i[counter]
+                counter += 1
+                
+                while counter < len(i):
+                    if i[counter] == "\"":
+                        val += i[counter]
+                        l = []
+                        l.append("cadena")
+                        l.append(val)
+                        lista.append(l)
+                        val = ''
+                        break
+                    val += i[counter]
+                    counter += 1
+            elif i[counter] == "#":
+                if len(val) != 0:
+                    l = []
+                    l.append("comentario")
+                    l.append(val)
+                    lista.append(l)
+                    val = ''
+                val = i[counter]
+                counter += 1
+                if i[counter] == "*":
+                   while counter < len(i):
+                        if i[counter] == "#":
+                            val += i[counter]
+                            l = []
+                            l.append("comentario")
+                            l.append(val)
+                            lista.append(l)
+                            val = ''
+                            break
+                        val += i[counter]
+                        counter += 1 
+                else:    
+                    while counter < len(i):
+                        if i[counter] == "\n":
+                            val += i[counter]
+                            l = []
+                            l.append("comentario")
+                            l.append(val)
+                            lista.append(l)
+                            val = ''
+                            break
+                        val += i[counter]
+                        counter += 1
+            elif i[counter] == "\'":
+                if len(val) != 0:
+                    l = []
+                    l.append("variable")
+                    l.append(val)
+                    lista.append(l)
+                    val = ''
+                val = i[counter]
+                counter += 1
+                while counter < len(i):
+                    if i[counter] == "\'":
+                        val += i[counter]
+                        l = []
+                        l.append("cadena")
+                        l.append(val)
+                        lista.append(l)
+                        val = ''
+                        break
+                    val += i[counter]
+                    counter += 1
+            else:
+                if len(val) != 0:
+                    l = []
+                    l.append("variable")
+                    l.append(val)
+                    lista.append(l)
+                    val = ''
+                l = []
+                l.append("normal")
+                l.append(i[counter])
+                lista.append(l)
+            counter +=1
+    
+    for s in lista:
+        if s[1] == 'var' or s[1] == 'func' or s[1] == 'break' or s[1] == 'false' or s[1] == 'true' or s[1] == 'while' or s[1] == 'else' or s[1] == 'if' or s[1] == 'null' or s[1] == 'boolean' or s[1] == 'string' or s[1] == 'int' or s[1] == 'float' or s[1] == 'char' or s[1] == 'print' or s[1] == 'main':
+            s[0] = 'reservada'
+        elif re.search(r'\d+',s[1]):
+            if re.search(r'\".*?\"',s[1]):
+                s[0] = 'cadena'
+            elif re.search(r'\#((\(.|\n)\\#)|(.\n))',s[1]):
+                s[0] = 'comentario'
+            elif re.search(r'[a-z|A-Z]',s[1]):
+                s[0]= "normal"
+            else:
+                s[0] = 'numero'
+        elif re.search(r'\d+\.\d+',s[1]):
+            if re.search(r'\".*?\"',s[1]):
+                s[0] = 'cadena'
+            elif re.search(r'\#((\(.|\n)\\#)|(.\n))',s[1]):
+                s[0] = 'comentario'
+            elif  re.search(r'[a-z|A-Z]',s[1]):
+                s[0]= "normal"
+            else:
+                s[0] = 'numero'
+        elif re.search(r'\".*?\"',s[1]):
+            s[0] = 'cadena'
+        elif re.search(r'\#((\(.|\n)\\#)|(.\n))',s[1]):
+            s[0] = 'comentario'
+    return lista
 
 ##Configuracion de la parte visual
 raiz.title("JPR EDITOR - 201700355")

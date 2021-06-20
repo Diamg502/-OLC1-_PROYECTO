@@ -1,3 +1,4 @@
+from TS.Tipo import TIPO
 from TS.Excepcion import Excepcion
 from Abstract.Instruccion import Instruccion
 from TS.Simbolo import Simbolo
@@ -11,13 +12,20 @@ class Declaracion(Instruccion):
         self.columna = columna
 
     def interpretar(self, tree, table):
-        value = self.expresion.interpretar(tree, table) # Valor a asignar a la variable
-        if isinstance(value, Excepcion): return value
+        if self.expresion != None:
+            value = self.expresion.interpretar(tree, table) # Valor a asignar a la variable
+            if isinstance(value, Excepcion): return value
+            simbolo = Simbolo(str(self.identificador), self.expresion.tipo, self.fila, self.columna, value)
+            result = table.setTabla(simbolo)
+            if isinstance(result, Excepcion): return result
+            return None
+        else:
+            #value = self.expresion.interpretar(tree, table) # Valor a asignar a la variable
+            value = "Null"
+            if isinstance(value, Excepcion): return value
+            simbolo = Simbolo(str(self.identificador), TIPO.NULO, self.fila, self.columna, None)
+            result = table.setTabla(simbolo)
+            if isinstance(result, Excepcion): return result
+            return None
 
-        simbolo = Simbolo(str(self.identificador), self.expresion.tipo, self.fila, self.columna, value)
-
-        result = table.setTabla(simbolo)
-
-        if isinstance(result, Excepcion): return result
-        return None
 
