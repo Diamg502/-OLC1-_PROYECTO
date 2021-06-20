@@ -36,6 +36,7 @@ tokens  = [
     'MAS',
     'MENOS',
     'POR',
+    'DIVI',
     'MENORQUE',
     'MAYORQUE',
     'IGUALIGUAL',
@@ -46,6 +47,7 @@ tokens  = [
     'DECIMAL',
     'ENTERO',
     'CADENA',
+    'CHAR',
     'ID'
 ] + list(reservadas.values())
 
@@ -59,6 +61,7 @@ t_COMA          = r','
 t_MAS           = r'\+'
 t_MENOS         = r'-'
 t_POR           = r'\*'
+t_DIVI          = r'\/'
 t_MENORQUE      = r'<'
 t_MAYORQUE      = r'>'
 t_IGUALIGUAL    = r'=='
@@ -92,6 +95,11 @@ def t_ID(t):
 
 def t_CADENA(t):
     r'(\".*?\")'
+    t.value = t.value[1:-1] # remuevo las comillas
+    return t
+
+def t_CHAR(t):
+    r'\'(\\\'|\\"|\\t|\\n|\\\\|[^\'\\])\''
     t.value = t.value[1:-1] # remuevo las comillas
     return t
 
@@ -136,6 +144,7 @@ precedence = (
     ('left','MENORQUE','MAYORQUE', 'IGUALIGUAL'),
     ('left','MAS','MENOS'),
     ('left','POR'),
+    ('left','DIVI'),
     ('right','UMENOS'),
     )
 
@@ -340,6 +349,7 @@ def p_expresion_binaria(t):
     expresion : expresion MAS expresion
             | expresion MENOS expresion
             | expresion POR expresion
+            | expresion DIVI expresion
             | expresion MENORQUE expresion
             | expresion MAYORQUE expresion
             | expresion IGUALIGUAL expresion
@@ -352,6 +362,8 @@ def p_expresion_binaria(t):
         t[0] = Aritmetica(OperadorAritmetico.MENOS, t[1],t[3], t.lineno(2), find_column(input, t.slice[2]))
     elif t[2] == '*':
         t[0] = Aritmetica(OperadorAritmetico.POR, t[1],t[3], t.lineno(2), find_column(input, t.slice[2]))
+    elif t[2] == '/':
+        t[0] = Aritmetica(OperadorAritmetico.DIV, t[1],t[3], t.lineno(2), find_column(input, t.slice[2]))
     elif t[2] == '<':
         t[0] = Relacional(OperadorRelacional.MENORQUE, t[1],t[3], t.lineno(2), find_column(input, t.slice[2]))
     elif t[2] == '>':
@@ -394,6 +406,10 @@ def p_expresion_entero(t):
 def p_expresion_decimal(t):
     '''expresion : DECIMAL'''
     t[0] = Primitivos(TIPO.DECIMAL, t[1], t.lineno(1), find_column(input, t.slice[1]))
+
+def p_expresion_char(t):
+    '''expresion : CHAR'''
+    t[0] = Primitivos(TIPO.CHARACTER, str(t[1]).replace('\\n', '\n'), t.lineno(1), find_column(input, t.slice[1]))
 
 def p_expresion_cadena(t):
     '''expresion : CADENA'''
