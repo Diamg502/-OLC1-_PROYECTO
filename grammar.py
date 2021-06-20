@@ -33,6 +33,8 @@ tokens  = [
     'LLAVEA',
     'LLAVEC',
     'COMA',
+    'INCC',
+    'DECC',
     'MAS',
     'MENOS',
     'POR',
@@ -62,6 +64,8 @@ t_PARC          = r'\)'
 t_LLAVEA        = r'{'
 t_LLAVEC        = r'}'
 t_COMA          = r','
+t_INCC          = r'\+\+'
+t_DECC          = r'--'
 t_MAS           = r'\+'
 t_MENOS         = r'-'
 t_POR           = r'\*'
@@ -104,11 +108,24 @@ def t_ID(t):
 def t_CADENA(t):
     r'(\".*?\")'
     t.value = t.value[1:-1] # remuevo las comillas
+
+    t.value = t.value.replace('\\t','\t')
+    t.value = t.value.replace('\\n','\n')
+    t.value = t.value.replace('\\"','\"')
+    t.value = t.value.replace("\\'","\'")
+    t.value = t.value.replace('\\\\','\\')
+
     return t
 
 def t_CHAR(t):
     r'\'(\\\'|\\"|\\t|\\n|\\\\|[^\'\\])\''
     t.value = t.value[1:-1] # remuevo las comillas
+    #print
+    t.value = t.value.replace('\\t','\t')
+    t.value = t.value.replace('\\n','\n')
+    t.value = t.value.replace('\\"','\"')
+    t.value = t.value.replace("\\'","\'")
+    t.value = t.value.replace('\\\\','\\')
     return t
 
 #Comentario multilinea //...
@@ -155,6 +172,7 @@ precedence = (
     ('left','DIVI'),
     ('left','ELEV'),
     ('right','UMENOS'),
+    ('left', 'INCC','DECC')
     )
 
 # Definición de la gramática
@@ -177,6 +195,7 @@ from Instrucciones.Main import Main
 from Instrucciones.Funcion import Funcion
 from Instrucciones.Llamada import Llamada
 from Instrucciones.Return import Return
+from Instrucciones.MasMenos import MasMenos
 
 def p_init(t) :
     'init            : instrucciones'
@@ -203,6 +222,7 @@ def p_instruccion(t) :
     '''instruccion      : imprimir_instr finins
                         | declaracion_instr finins
                         | asignacion_instr finins
+                        | masmenos_instr finins
                         | if_instr
                         | while_instr
                         | break_instr finins
@@ -405,6 +425,16 @@ def p_expresion_unaria(t):
         t[0] = Aritmetica(OperadorAritmetico.UMENOS, t[2],None, t.lineno(1), find_column(input, t.slice[1]))
     elif t[1] == '!':
         t[0] = Logica(OperadorLogico.NOT, t[2],None, t.lineno(1), find_column(input, t.slice[1]))
+
+def p_expresion_unaria_der(t):
+    '''
+    masmenos_instr : expresion INCC
+                   | expresion DECC
+    '''
+    if t[1] == '++':
+        t[0] = MasMenos(t[1],None,OperadorAritmetico.INC,t.lineno(2),find_column(input,t.slice[2]))
+    elif t[1] == '--':
+        t[0] = MasMenos(t[1],None,OperadorAritmetico.DEC,t.lineno(2),find_column(input,t.slice[2]))
 
 def p_expresion_agrupacion(t):
     '''
