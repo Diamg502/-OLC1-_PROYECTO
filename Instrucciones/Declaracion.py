@@ -23,7 +23,7 @@ class Declaracion(Instruccion):
             #value = self.expresion.interpretar(tree, table) # Valor a asignar a la variable
             value = "Null"
             if isinstance(value, Excepcion): return value
-            simbolo = Simbolo(str(self.identificador), TIPO.NULO, self.fila, self.columna, None)
+            simbolo = Simbolo(str(self.identificador), TIPO.NULO, self.fila, self.columna, value)
             result = table.setTabla(simbolo)
             if isinstance(result, Excepcion): return result
             return None
