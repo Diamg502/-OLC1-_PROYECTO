@@ -18,3 +18,9 @@ class Identificador(Instruccion):
         self.tipo = simbolo.getTipo()
         
         return simbolo.getValor()
+
+    def getTipo(self):
+        return self.tipo
+
+    def getID(self):
+        return self.identificador

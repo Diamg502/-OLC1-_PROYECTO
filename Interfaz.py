@@ -3,6 +3,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 from grammar import *
 from tkinter import scrolledtext
+import webbrowser
 
 raiz=Tk()
 menubar = Menu(raiz)
@@ -15,6 +16,7 @@ herramientasreporte = Menu(menubar)                                      #Accion
 cadena = "vacio"
 nombreArchivo = ""
 ficheroactual=""
+todaTabla = ""
 
 teeexto=""
 
@@ -86,6 +88,7 @@ def nuevoA(): #Nuevo archivo
 def Anal(): #analiza
     caja2.delete(1.0,END)
     global nombreArchivo
+    global todaTabla
     prueba = 0
     verificarArchivo = nombreArchivo.split(".")[-1]
     #if verificarArchivo == "txt":
@@ -152,6 +155,8 @@ def Anal(): #analiza
                     ast.updateConsola(err.toString())
 
         #print(ast.getConsola())
+        lista = ast.getExcepciones()
+        #print(lista[0].descripcion)
 
         
         #analizar1(cadena,nombreArchivo)
@@ -321,6 +326,46 @@ Titulo.config(fg= "blue",
 Titulo.place(x=500,y=35)
 
 
+def ErroresTb():
+    global todaTabla
+    global teeexto
+    global ficheroactual
+    txtTotal=caja1.get(1.0,END)
+    guardar = filedialog.asksaveasfile(initialdir= "/", title="Selec file",defaultextension=".html"
+                    , filetypes = (("Archivo html","*.html"),("Archivo txt","*.txt"),("all files","*.*")))
+    teeexto = guardar.name
+    if guardar != None:
+        archivo = open(guardar.name,"w")
+        inicio = """<html> 
+        <head></head> 
+        <body><p>REPORTE DE ERRORES</p>       
+        <table class="default">
+        <tr>
+            <th>#</th>
+            <th>Tipo de Error</th>
+            <th>Descripcion</th>
+            <th>Línea</th>
+            <th>Columna</th>
+        </tr>"""
+
+        totaTabla ="""
+        <tr>
+            <td>Celda 4</td>
+            <td>Celda 5</td>
+            <td>Celda 6</td>
+            <td>Celda 6</td>
+            <td>Celda 6</td>
+        </tr>"""
+
+        finalt = """</table>
+        </body> </html>"""
+        archivo.write(inicio+todaTabla+finalt)
+        archivo.close()
+        #messagebox.showinfo(message="Reporte Generado", title="Exito")
+        webbrowser.open_new_tab(teeexto)
+    else:
+        return
+
 
 #----------------------------------MENU DE ARCHIVO-----------------------------------------------
 filemenu.add_command(label = "Nuevo", command = nuevoA)
@@ -337,7 +382,7 @@ menubar.add_cascade(label="Herramientas", menu=herramientasmenu)
 #-----------------------------------ANALIZAR--------------------------------------------------
 menubar.add_command(label = "Analizar", command=Anal)
 #-------------------------------------REPORTES-------------------------------------------------
-herramientasreporte.add_command(label = "Reportes Lexicos", command = raiz.quit)
+herramientasreporte.add_command(label = "Reportes Errores", command = ErroresTb)
 herramientasreporte.add_command(label = "Reportes ARBOL AST", command=raiz.quit)
 herramientasreporte.add_command(label = "Reportes de Tabla de Simbolos", command=raiz.quit)
 menubar.add_cascade(label="Reportes", menu=herramientasreporte)

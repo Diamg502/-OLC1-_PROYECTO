@@ -2,6 +2,10 @@
 VACACIONES DE JUNIO 2020
 INTERPRETER SAMPLE  
 '''
+from Instrucciones.Case import Case
+from Instrucciones.MasMenos import MasMenos
+from Instrucciones.Default import Default
+from Instrucciones.For import For
 from Nativas.ToLower import ToLower
 from Nativas.ToUpper import ToUpper
 import re
@@ -15,6 +19,7 @@ reservadas = {
     'boolean'   : 'RBOOLEAN',
     'print'     : 'RPRINT',
     'if'        : 'RIF',
+    'for'       : 'RFOR',
     'else'      : 'RELSE',
     'while'     : 'RWHILE',
     'true'      : 'RTRUE',
@@ -23,18 +28,22 @@ reservadas = {
     'main'      : 'RMAIN',
     'func'      : 'RFUNC',
     'return'    : 'RRETURN',
+    'switch'    : 'RSWITCH',
+    'case'      : 'RCASE',
+    'default'   : 'RDEFAULT',
     'var'       : 'RVar',
 }
 
 tokens  = [
     'PUNTOCOMA',
+    'DOSPUNTOS',
     'PARA',
     'PARC',
     'LLAVEA',
     'LLAVEC',
     'COMA',
-    'INCC',
-    'DECC',
+    'MASPLUS',
+    'MENOSPLUS',
     'MAS',
     'MENOS',
     'POR',
@@ -59,13 +68,14 @@ tokens  = [
 
 # Tokens
 t_PUNTOCOMA     = r';'
+t_DOSPUNTOS     = r':'
 t_PARA          = r'\('
 t_PARC          = r'\)'
 t_LLAVEA        = r'{'
 t_LLAVEC        = r'}'
 t_COMA          = r','
-t_INCC          = r'\+\+'
-t_DECC          = r'--'
+t_MASPLUS       = r'\+\+'
+t_MENOSPLUS     = r'--'
 t_MAS           = r'\+'
 t_MENOS         = r'-'
 t_POR           = r'\*'
@@ -172,7 +182,7 @@ precedence = (
     ('left','DIVI'),
     ('left','ELEV'),
     ('right','UMENOS'),
-    ('left', 'INCC','DECC')
+    ('left', 'MASPLUS','MENOSPLUS')
     )
 
 # Definición de la gramática
@@ -195,7 +205,8 @@ from Instrucciones.Main import Main
 from Instrucciones.Funcion import Funcion
 from Instrucciones.Llamada import Llamada
 from Instrucciones.Return import Return
-from Instrucciones.MasMenos import MasMenos
+from Instrucciones.For import For
+from Instrucciones.Switch import Switch
 
 def p_init(t) :
     'init            : instrucciones'
@@ -222,13 +233,15 @@ def p_instruccion(t) :
     '''instruccion      : imprimir_instr finins
                         | declaracion_instr finins
                         | asignacion_instr finins
-                        | masmenos_instr finins
                         | if_instr
                         | while_instr
                         | break_instr finins
+                        | for_instr
+                        | switch_instr
                         | main_instr
                         | funcion_instr
                         | llamada_instr finins
+                        | inc_decre_instr finins
                         | return_instr finins'''
     t[0] = t[1]
 
@@ -288,6 +301,69 @@ def p_while(t) :
 def p_break(t) :
     'break_instr     : RBREAK'
     t[0] = Break(t.lineno(1), find_column(input, t.slice[1]))
+
+#///////////////////////////////////////FOR//////////////////////////////////////////////////
+
+def p_for(t) :          #for (       var i = 0       ;      i<3       ;       i++            )    {       instruccion       }    
+    'for_instr       : RFOR PARA inicializacion_inst PUNTOCOMA expresion PUNTOCOMA avance_inst PARC   LLAVEA instrucciones LLAVEC'
+    t[0] = For(t[5], t[10], t[7],t[3], t.lineno(1), find_column(input, t.slice[1]))
+
+
+#/////////////////////////////////////////////////////////INICIALIZACION//////////////////////////
+def p_inicializacion(t):
+    '''inicializacion_inst    :  declaracion_instr
+                              |  asignacion_instr
+       '''
+    t[0]=t[1]
+#//////////////////////////////////////////////////////////////AVANCE////////////////////////////////
+def p_avance(t):
+    '''avance_inst          :   asignacion_instr
+                            |   inc_decre_instr
+    '''       
+    t[0]=t[1]
+
+#///////////////////////////////////////////////////SWITCH///////////////////////////////////////////////////////////////
+def p_switch3(t):
+     '''switch_instr    : RSWITCH PARA expresion PARC LLAVEA default_instr LLAVEC
+     '''
+     t[0]= Switch(t[3],None,t[7],t.lineno(1), find_column(input, t.slice[1]))
+
+def p_switch2(t):
+    '''switch_instr    : RSWITCH PARA expresion PARC LLAVEA casos_casos_instr LLAVEC
+    '''
+    t[0]= Switch(t[3],t[6],None,t.lineno(1), find_column(input, t.slice[1]))
+
+def p_switch(t):
+    '''switch_instr    : RSWITCH PARA expresion PARC LLAVEA casos_casos_instr default_instr LLAVEC
+     '''
+    t[0]= Switch(t[3],t[6],t[7],t.lineno(1), find_column(input, t.slice[1]))
+
+
+#//////////////////////////////////////////////////////CASE///////////////////////////////////////////////////////////////
+
+def p_casoes_casos_caso(t) :
+    'casos_casos_instr    : casos_casos_instr caso_str'
+    if t[2] != "":
+        t[1].append(t[2])
+    t[0] = t[1]
+
+def p_casos_caso(t) :
+    'casos_casos_instr    : caso_str'
+    if t[1] == "":
+        t[0] = []
+    else:    
+        t[0] = [t[1]]
+
+def p_instruccion_caso(t) :
+    '''caso_str         : RCASE expresion DOSPUNTOS instrucciones'''
+    t[0] = Case(t[2],t[4],t.lineno(1), find_column(input, t.slice[1]))
+
+
+#/////////////////////////////////////////////////////DEFAULT//////////////////////////////////////////////////////////////
+def p_default(t):
+    'default_instr   : RDEFAULT DOSPUNTOS instrucciones'
+    t[0] = t[3]
+
 
 #///////////////////////////////////////MAIN//////////////////////////////////////////////////
 
@@ -426,15 +502,27 @@ def p_expresion_unaria(t):
     elif t[1] == '!':
         t[0] = Logica(OperadorLogico.NOT, t[2],None, t.lineno(1), find_column(input, t.slice[1]))
 
+def p_incremento_decre(t):
+    '''
+    inc_decre_instr  :  ID MASPLUS
+                     |  ID MENOSPLUS
+
+    '''
+    if t[2] == '++':
+        t[0] = MasMenos(OperadorAritmetico.INC,Identificador(t[1],t.lineno(1),find_column(input,t.slice[1])),t.lineno(1),find_column(input,t.slice[1]))
+    elif t[2] == '--':
+        t[0] = MasMenos(OperadorAritmetico.DEC,Identificador(t[1],t.lineno(1),find_column(input,t.slice[1])),t.lineno(1),find_column(input,t.slice[1]))
+
 def p_expresion_unaria_der(t):
     '''
-    masmenos_instr : expresion INCC
-                   | expresion DECC
+    expresion : expresion MASPLUS
+              | expresion MENOSPLUS
     '''
-    if t[1] == '++':
-        t[0] = MasMenos(t[1],None,OperadorAritmetico.INC,t.lineno(2),find_column(input,t.slice[2]))
-    elif t[1] == '--':
-        t[0] = MasMenos(t[1],None,OperadorAritmetico.DEC,t.lineno(2),find_column(input,t.slice[2]))
+    if t[2] == '++':
+        t[0] = Aritmetica(OperadorAritmetico.INC,t[1],None,t.lineno(2),find_column(input,t.slice[2]))
+    elif t[2] == '--':
+        t[0] = Aritmetica(OperadorAritmetico.DEC,t[1],None,t.lineno(2),find_column(input,t.slice[2]))
+
 
 def p_expresion_agrupacion(t):
     '''

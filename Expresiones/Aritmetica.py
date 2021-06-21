@@ -1,6 +1,10 @@
+from TS.TablaSimbolos import TablaSimbolos
+from TS.Simbolo import Simbolo
+from Expresiones.Identificador import Identificador
 from Abstract.Instruccion import Instruccion
 from TS.Excepcion import Excepcion
 from TS.Tipo import TIPO, OperadorAritmetico
+from Instrucciones.MasMenos import MasMenos
 
 class Aritmetica(Instruccion):
     def __init__(self, operador, OperacionIzq, OperacionDer, fila, columna):
@@ -185,6 +189,41 @@ class Aritmetica(Instruccion):
             return Excepcion("Semantico", "Tipo Erroneo de operacion para ^.", self.fila, self.columna)
 
 
+#---------------------------------------------------------------INCREMENTO-----------------------------------------------------------
+        elif self.operador in (OperadorAritmetico.INC,OperadorAritmetico.DEC): #INCREMENTA
+            if isinstance(self.OperacionIzq, Identificador):
+
+                value = self.OperacionIzq.interpretar(tree, table) # Valor a asignar a la variable
+
+                if isinstance(value, Excepcion): return value
+
+                if self.OperacionIzq.getTipo() in (TIPO.ENTERO, TIPO.DECIMAL):
+
+                    if self.operador == OperadorAritmetico.INC:
+                        symbol = Simbolo(self.OperacionIzq.getID(),self.OperacionIzq.getTipo(),self.fila,self.columna,value+1)
+                    elif self.operador == OperadorAritmetico.DEC:
+                        symbol = Simbolo(self.OperacionIzq.getID(),self.OperacionIzq.getTipo(),self.fila,self.columna,value-1)
+                        
+                    result = table.actualizarTabla(symbol)
+
+                    if isinstance(result,Excepcion): return result
+
+                    self.tipo = self.OperacionIzq.getTipo()
+                    return symbol.getValor()
+                else:
+                    return Excepcion("Semantico", "Tipo de OPERADOR Diferente en Asignacion", self.getFila(), self.getColumna())
+            else:
+                return Excepcion("Semantico", "Tipo de VARIABLE Diferente en Asignacion", self.getFila(), self.getColumna())
+#---------------------------------------------------------------DECREMENTO-----------------------------------------------------------
+        elif self.operador == OperadorAritmetico.DEC: #INCREMENTA
+            if self.OperacionDer.tipo == TIPO.ENTERO:                         #ENTERO AND ENTERO
+                self.tipo = TIPO.DECIMAL                                                                                    #RETORNA UN ENTERO
+                return MasMenos(self.operador.getID(),self.operador,self.fila,self.columna)
+            elif self.OperacionDer.tipo == TIPO.DECIMAL:                         #ENTERO AND DOUBLE
+                self.tipo = TIPO.DECIMAL                                                                                    #RETORNA UN ENTERO
+                return MasMenos(self.operador.getID(),self.operador,self.fila,self.columna)
+            return Excepcion("Semantico", "Tipo Erroneo de operacion para ++.", self.fila, self.columna)
+
 #---------------------------------------------------------------NEGACION UNARIA---------------------------
         elif self.operador == OperadorAritmetico.UMENOS: #NEGACION UNARIA
             if self.OperacionIzq.tipo == TIPO.ENTERO:
@@ -195,6 +234,8 @@ class Aritmetica(Instruccion):
                 return - self.obtenerVal(self.OperacionIzq.tipo, izq)
             return Excepcion("Semantico", "Tipo Erroneo de operacion para - unario.", self.fila, self.columna)
         return Excepcion("Semantico", "Tipo de Operacion no Especificado.", self.fila, self.columna)
+
+
 
     def obtenerVal(self, tipo, val):
         if tipo == TIPO.ENTERO:
