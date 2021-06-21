@@ -48,6 +48,7 @@ tokens  = [
     'MENOS',
     'POR',
     'DIVI',
+    'MOD',
     'ELEV',
     'MENORQUE',
     'MAYORQUE',
@@ -80,6 +81,7 @@ t_MAS           = r'\+'
 t_MENOS         = r'-'
 t_POR           = r'\*'
 t_DIVI          = r'\/'
+t_MOD           = r'%'
 t_ELEV          = r'\*\*'
 t_MENORQUE      = r'<'
 t_MAYORQUE      = r'>'
@@ -180,6 +182,7 @@ precedence = (
     ('left','MAS','MENOS'),
     ('left','POR'),
     ('left','DIVI'),
+    ('left','MOD'),
     ('left','ELEV'),
     ('right','UMENOS'),
     ('left', 'MASPLUS','MENOSPLUS')
@@ -455,6 +458,7 @@ def p_expresion_binaria(t):
             | expresion MENOS expresion
             | expresion POR expresion
             | expresion DIVI expresion
+            | expresion MOD expresion
             | expresion ELEV expresion
             | expresion MENORQUE expresion
             | expresion MAYORQUE expresion
@@ -473,6 +477,8 @@ def p_expresion_binaria(t):
         t[0] = Aritmetica(OperadorAritmetico.POR, t[1],t[3], t.lineno(2), find_column(input, t.slice[2]))
     elif t[2] == '/':
         t[0] = Aritmetica(OperadorAritmetico.DIV, t[1],t[3], t.lineno(2), find_column(input, t.slice[2]))
+    elif t[2] == '%':
+        t[0] = Aritmetica(OperadorAritmetico.MOD, t[1],t[3], t.lineno(2), find_column(input, t.slice[2]))
     elif t[2] == '**':
         t[0] = Aritmetica(OperadorAritmetico.POT, t[1],t[3], t.lineno(2), find_column(input, t.slice[2]))
     elif t[2] == '<':

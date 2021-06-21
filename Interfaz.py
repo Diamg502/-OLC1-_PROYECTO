@@ -340,7 +340,7 @@ def ErroresTb():
         inicio = """<html> 
         <head></head> 
         <body><p>REPORTE DE ERRORES</p>       
-        <table class="default">
+        <table border="1">
         <tr>
             <th>#</th>
             <th>Tipo de Error</th>

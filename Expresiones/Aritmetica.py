@@ -188,7 +188,33 @@ class Aritmetica(Instruccion):
                 return aux
             return Excepcion("Semantico", "Tipo Erroneo de operacion para ^.", self.fila, self.columna)
 
-
+#--------------------------------------------------------MODULO*------------------------------------------
+        elif self.operador == OperadorAritmetico.MOD: #MODULO
+            if self.OperacionIzq.tipo == TIPO.ENTERO and self.OperacionDer.tipo == TIPO.ENTERO:                         #ENTERO AND ENTERO
+                self.tipo = TIPO.DECIMAL                                                                                    #RETORNA UN ENTERO
+                if self.obtenerVal(self.OperacionDer.tipo,der)==0:
+                    return Excepcion("Matematico", "imposible dividir entre 0.", self.fila, self.columna)
+                else:
+                    return self.obtenerVal(self.OperacionIzq.tipo, izq) % self.obtenerVal(self.OperacionDer.tipo, der)
+            elif self.OperacionIzq.tipo == TIPO.ENTERO and self.OperacionDer.tipo == TIPO.DECIMAL:                         #ENTERO AND DOUBLE
+                self.tipo = TIPO.DECIMAL    
+                if self.obtenerVal(self.OperacionDer.tipo,der)==0:
+                    return Excepcion("Matematico", "imposible dividir entre 0.", self.fila, self.columna)
+                else:                                                                                #RETORNA UN ENTERO
+                    return self.obtenerVal(self.OperacionIzq.tipo, izq) % self.obtenerVal(self.OperacionDer.tipo, der)
+            elif self.OperacionIzq.tipo == TIPO.DECIMAL and self.OperacionDer.tipo == TIPO.ENTERO:                         #DOUBLE AND ENTERO
+                self.tipo = TIPO.DECIMAL  
+                if self.obtenerVal(self.OperacionDer.tipo,der)==0:
+                    return Excepcion("Matematico", "imposible dividir entre 0.", self.fila, self.columna)
+                else:                                                                                  #RETORNA UN ENTERO
+                    return self.obtenerVal(self.OperacionIzq.tipo, izq) % self.obtenerVal(self.OperacionDer.tipo, der)
+            elif self.OperacionIzq.tipo == TIPO.DECIMAL and self.OperacionDer.tipo == TIPO.DECIMAL:                         #DOUBLE AND DOUBLE
+                self.tipo = TIPO.DECIMAL  
+                if self.obtenerVal(self.OperacionDer.tipo,der)==0:
+                    return Excepcion("Matematico", "imposible dividir entre 0.", self.fila, self.columna)
+                else:                                                                                  #RETORNA UN ENTERO
+                    return self.obtenerVal(self.OperacionIzq.tipo, izq) % self.obtenerVal(self.OperacionDer.tipo, der)
+            return Excepcion("Semantico", "Tipo Erroneo de operacion para /.", self.fila, self.columna)
 #---------------------------------------------------------------INCREMENTO-----------------------------------------------------------
         elif self.operador in (OperadorAritmetico.INC,OperadorAritmetico.DEC): #INCREMENTA
             if isinstance(self.OperacionIzq, Identificador):
