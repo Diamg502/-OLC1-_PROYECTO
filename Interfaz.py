@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
 from grammar import *
+from TS.Arbol import Arbol
+from TS.TablaSimbolos import TablaSimbolos
 from tkinter import scrolledtext
 import webbrowser
 
@@ -57,6 +59,7 @@ def Abrir(): #abrir archivo
     global teeexto
     global nombreArchivo
     global ficheroactual
+    conteo = ""
     caja2.delete(1.0,END)
     caja1.delete(1.0,END)
     file = filedialog.askopenfilename(filetypes =[('Archivo TXT', '*.txt'),('Archivo XML', '*.xml'),('Archivo JS', '*.js'),('Archivo RMT', '*.rmt')])
@@ -70,6 +73,9 @@ def Abrir(): #abrir archivo
         caja1.delete(1.0,END)
         caja1.insert("insert",muchoTexto)
         fichero.close()
+        for i in range(len(muchoTexto)):
+            conteo = conteo + str(i) +"\n"
+        caja3.insert("insert",conteo)
     else:
         return
 
@@ -93,13 +99,10 @@ def Anal(): #analiza
     verificarArchivo = nombreArchivo.split(".")[-1]
     #if verificarArchivo == "txt":
     if prueba == 0:
-        print("Analizando archivo TXT")
+        print("Analizando archivo TXT \n")
 #------------------------------------------------------INTERFAZ CON EL GRAMMY------------------------------
         #f = open("./entrada.txt", "r")
         entrada = caja1.get(1.0,END)
-
-        from TS.Arbol import Arbol
-        from TS.TablaSimbolos import TablaSimbolos
 
         instrucciones = parse(entrada) # ARBOL AST
         ast = Arbol(instrucciones)
@@ -109,7 +112,7 @@ def Anal(): #analiza
         for error in errores:                   # CAPTURA DE ERRORES LEXICOS Y SINTACTICOS
             ast.getExcepciones().append(error)
             ast.updateConsola(error.toString())
-
+            
         if ast.getInstrucciones() != None:
             for instruccion in ast.getInstrucciones():      # 1ERA PASADA (DECLARACIONES Y ASIGNACIONES)
                 if isinstance(instruccion, Funcion):
@@ -153,15 +156,13 @@ def Anal(): #analiza
                     err = Excepcion("Semantico", "Sentencias fuera de Main", instruccion.fila, instruccion.columna)
                     ast.getExcepciones().append(err)
                     ast.updateConsola(err.toString())
-
         #print(ast.getConsola())
-        lista = ast.getExcepciones()
-        #print(lista[0].descripcion)
-
-        
         #analizar1(cadena,nombreArchivo)
         #txt=analizar1(cadena,nombreArchivo)
         caja2.insert("insert",ast.getConsola())
+        lista = ast.getExcepciones()
+        for i in range(len(lista)):
+            todaTabla = todaTabla +"<tr>\n <td>"+ str(i) + "</td>\n <td>"+ str(lista[i].tipo) +"</td>\n <td>"+ lista[i].descripcion +"</td>\n <td>"+ str(lista[i].fila) + "</td>\n <td>"+ str(lista[i].columna) +"</td>\n </tr>"
         
         
 def guardarU():
@@ -347,16 +348,6 @@ def ErroresTb():
             <th>Línea</th>
             <th>Columna</th>
         </tr>"""
-
-        totaTabla ="""
-        <tr>
-            <td>Celda 4</td>
-            <td>Celda 5</td>
-            <td>Celda 6</td>
-            <td>Celda 6</td>
-            <td>Celda 6</td>
-        </tr>"""
-
         finalt = """</table>
         </body> </html>"""
         archivo.write(inicio+todaTabla+finalt)
