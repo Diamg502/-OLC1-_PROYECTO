@@ -383,5 +383,5 @@ menubar.add_command(label = "Ayuda", command = raiz.quit)
 menubar.add_command(label = "Salir", command = raiz.quit)
 
 
-#bucle de la aplicacion
+#------------------------------------------BUCLE DE LA APLICACION--------------------------
 raiz.mainloop()
