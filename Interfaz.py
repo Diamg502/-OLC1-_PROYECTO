@@ -62,7 +62,7 @@ def Abrir(): #abrir archivo
     conteo = ""
     caja2.delete(1.0,END)
     caja1.delete(1.0,END)
-    file = filedialog.askopenfilename(filetypes =[('Archivo TXT', '*.txt'),('Archivo XML', '*.xml'),('Archivo JS', '*.js'),('Archivo RMT', '*.rmt')])
+    file = filedialog.askopenfilename(filetypes =[('Archivo TXT', '*.txt'),('Archivo XML', '*.xml'),('Archivo JPR', '*.jpr'),('Archivo RMT', '*.rmt')])
     if file != "":
         fichero = open(file)
         ficheroactual=file
@@ -183,7 +183,7 @@ def Guardarcomo():
     global ficheroactual
     txtTotal=caja1.get(1.0,END)
     guardar = filedialog.asksaveasfile(initialdir= "/", title="Selec file",defaultextension=".txt"
-                    , filetypes = (("Archivo txt","*.txt"),("Archivo xml","*.xml"),("all files","*.*")))
+                    , filetypes = (("Archivo txt","*.txt"),("Archivo JPR","*.jpr"),("all files","*.*")))
     if guardar != None:
         archivo = open(guardar.name,"w")
         archivo.write(txtTotal)

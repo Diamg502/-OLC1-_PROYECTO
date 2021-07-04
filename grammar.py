@@ -32,6 +32,7 @@ reservadas = {
     'case'      : 'RCASE',
     'default'   : 'RDEFAULT',
     'var'       : 'RVar',
+    'read'      : 'RREAD'
 }
 
 tokens  = [
@@ -210,6 +211,8 @@ from Instrucciones.Llamada import Llamada
 from Instrucciones.Return import Return
 from Instrucciones.For import For
 from Instrucciones.Switch import Switch
+from Expresiones.Read import Read
+from Expresiones.Casteo import Casteo
 
 def p_init(t) :
     'init            : instrucciones'
@@ -567,6 +570,14 @@ def p_expresion_true(t):
 def p_expresion_false(t):
     '''expresion : RFALSE'''
     t[0] = Primitivos(TIPO.BOOLEANO, False, t.lineno(1), find_column(input, t.slice[1]))
+
+def p_expresion_read(t):
+    '''expresion : RREAD PARA PARC'''
+    t[0] = Read(t.lineno(1), find_column(input, t.slice[1]))
+
+def p_expresion_cast(t):
+    '''expresion : PARA tipo PARC expresion'''
+    t[0] = Casteo(t[2], t[4], t.lineno(1), find_column(input, t.slice[1]))
 
 import ply.yacc as yacc
 parser = yacc.yacc()
