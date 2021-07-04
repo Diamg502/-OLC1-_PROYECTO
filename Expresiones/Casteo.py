@@ -73,12 +73,12 @@ class Casteo(Instruccion):
         if self.tipo == TIPO.CHARACTER:                                                                            
                 if self.expresion.tipo == TIPO.ENTERO:                                                           #DECIMAL A CADENA
                     try:
-                        return str(self.obtenerVal(self.expresion.tipo, val))                                      #SE PASA A DECIMAL CON FLOAT
+                        return ord(self.obtenerVal(self.expresion.tipo, val))                                      #SE PASA A DECIMAL CON FLOAT
                     except:
                          return Excepcion("Semantico", "NO SE PUEDE CASTEAR para char.", self.fila, self.columna)
                 return Excepcion("Semantico", "Tipo Erroneo de casteo para CHAR.", self.fila, self.columna)
 
-#------------------------------------------CARACTER(CHAR)-----------------------------------------------------------
+#------------------------------------------BOOLEANO-----------------------------------------------------------
 
         if self.tipo == TIPO.BOOLEANO:                                                                            
                 if self.expresion.tipo == TIPO.CADENA:                                                           #DECIMAL A CADENA

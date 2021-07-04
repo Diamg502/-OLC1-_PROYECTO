@@ -119,7 +119,7 @@ def Anal(): #analiza
             for instruccion in ast.getInstrucciones():      # 1ERA PASADA (DECLARACIONES Y ASIGNACIONES)
                 if isinstance(instruccion, Funcion):
                     ast.addFuncion(instruccion)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
-                if isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion):
+                if isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion) or isinstance(instruccion, DeclaracionArr1) or isinstance(instruccion, ModificarArreglo):
                     value = instruccion.interpretar(ast,TSGlobal)
                     if isinstance(value, Excepcion) :
                         ast.getExcepciones().append(value)
@@ -154,7 +154,7 @@ def Anal(): #analiza
 
         if ast.getInstrucciones() != None:
             for instruccion in ast.getInstrucciones():    # 3ERA PASADA (SENTENCIAS FUERA DE MAIN)
-                if not (isinstance(instruccion, Main) or isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion) or isinstance(instruccion, Funcion)):
+                if not (isinstance(instruccion, Main) or isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion) or isinstance(instruccion, Funcion) or isinstance(instruccion, DeclaracionArr1) or isinstance(instruccion, ModificarArreglo)):
                     err = Excepcion("Semantico", "Sentencias fuera de Main", instruccion.fila, instruccion.columna)
                     ast.getExcepciones().append(err)
                     ast.updateConsola(err.toString())
