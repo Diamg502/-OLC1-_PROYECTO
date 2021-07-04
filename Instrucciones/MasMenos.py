@@ -1,3 +1,4 @@
+from Abstract.NodoAST import NodoAST
 from TS.Tipo import OperadorAritmetico, TIPO
 from TS.Excepcion import Excepcion
 from Abstract.Instruccion import Instruccion
@@ -39,6 +40,13 @@ class MasMenos(Instruccion):
         else:
             return Excepcion("Semantico", "Tipo de VARIABLE Diferente en Asignacion", self.getFila(), self.getColumna())
 
+    def getNodo(self):
+        nodo = NodoAST("INCREMENTO")
+        nodo.agregarHijo(str(self.identificador))
+        nodo.agregarHijoNodo(self.expresion.getNodo())
+        return nodo
+
+    
     def set_exp(self,exp):
         self.expresion = exp
 

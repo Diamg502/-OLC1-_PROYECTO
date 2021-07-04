@@ -5,6 +5,8 @@ class Arbol:
         self.excepciones = []
         self.consola = ""
         self.TSglobal = None
+        self.dot = ""
+        self.contador = 0
 
     def getInstrucciones(self):
         return self.instrucciones
@@ -44,3 +46,20 @@ class Arbol:
     
     def addFuncion(self, funcion):
         self.funciones.append(funcion)
+
+    def getDot(self, raiz):   #DECUELVE EL STRING DE LA GRAFICA EN GRAPFYZ
+        self.dot = ""
+        self.dot += "digraph {\n"
+        self.dot += "n0[label=\"" + raiz.getValor().remplace("\"","\\\"")+"\"];\n"
+        self.contador = 1
+        self.recorrerAST("n0",raiz)
+        self.dot += "}"
+        return self.dot
+
+    def recorrerAST(self, idpadre, nodopadre):
+        for hijo in nodopadre.getHijos():
+            nombreHijo = "n"+str(self.c)
+            self.dot += nombreHijo + "[label=\"" + hijo.getValor().remplace("\"","\\\"")+"\"];\n"
+            self.dot += idpadre + "->" + nombreHijo + ";\n"
+            self.contador += 1
+            self.recorrerAST(nombreHijo, hijo)

@@ -1,3 +1,5 @@
+import os
+from Abstract.NodoAST import NodoAST
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
@@ -156,6 +158,23 @@ def Anal(): #analiza
                     err = Excepcion("Semantico", "Sentencias fuera de Main", instruccion.fila, instruccion.columna)
                     ast.getExcepciones().append(err)
                     ast.updateConsola(err.toString())
+
+        init = NodoAST("RAIZ")
+        instr = NodoAST("INSTRUCCIONES")
+
+        #for instruccion in ast.getInstrucciones():
+        #    instr.agregarHijoNodo(instruccion.getNodo())
+        #init.agregarHijoNodo(instr)
+        #grafo = ast.getDot(init)  #DEVUELVE EL CODIGO GRAPGHIZ DEL AST
+
+        #dirname = os.path.dirname(__file__)
+        #direcc = os.path.join(dirname, 'ast.dot')
+        #arch = open(direcc, "w+")
+        #arch.write(grafo)
+        #arch.close()
+        #os.system('dot -T pdf -o ast.pdf ast.dot')
+
+
         #print(ast.getConsola())
         #analizar1(cadena,nombreArchivo)
         #txt=analizar1(cadena,nombreArchivo)
@@ -164,7 +183,7 @@ def Anal(): #analiza
         for i in range(len(lista)):
             todaTabla = todaTabla +"<tr>\n <td>"+ str(i) + "</td>\n <td>"+ str(lista[i].tipo) +"</td>\n <td>"+ lista[i].descripcion +"</td>\n <td>"+ str(lista[i].fila) + "</td>\n <td>"+ str(lista[i].columna) +"</td>\n </tr>"
         
-        
+
 def guardarU():
     global nombreArchivo
     global ficheroactual

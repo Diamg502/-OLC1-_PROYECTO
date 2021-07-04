@@ -1,3 +1,4 @@
+from Abstract.NodoAST import NodoAST
 from Abstract.Instruccion import Instruccion
 from TS.Excepcion import Excepcion
 from TS.TablaSimbolos import TablaSimbolos
@@ -38,4 +39,21 @@ class Switch(Instruccion):
                 if isinstance(result, Break): return None
                 if isinstance(result, Return): return result
             pass
+
+    def getNodo(self):                                      #VERIFICAR DESPUES
+        nodo = NodoAST("SWITCH")
+        nodo.agregarHijoNodo(self.expresion.getNodo())
+
+        casos = NodoAST("SWITCH CASOS")
+        for instr in self.casos:
+            casos.agregarHijoNodo(instr.getNodo())
+        nodo.agregarHijoNodo(casos)
+
+        if self.default != None:
+            default = NodoAST("INSTRUCCIONES ELSE ")
+            for instr in self.default:
+                default.agregarHijoNodo(instr.getNodo())
+            nodo.agregarHijoNodo(default)   
+
+        return nodo        
     

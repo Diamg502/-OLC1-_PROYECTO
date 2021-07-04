@@ -1,3 +1,4 @@
+from Abstract.NodoAST import NodoAST
 from TS.TablaSimbolos import TablaSimbolos
 from TS.Simbolo import Simbolo
 from Expresiones.Identificador import Identificador
@@ -262,6 +263,18 @@ class Aritmetica(Instruccion):
         return Excepcion("Semantico", "Tipo de Operacion no Especificado.", self.fila, self.columna)
 
 
+
+    def getNodo(self):                                             #OBTENCION DE DATOS
+        nodo = NodoAST("ARITMETICA")
+        if self.OperacionDer != None:
+            nodo.agregarHijoNodo(self.OperacionIzq.getNodo())
+            nodo.agregarHijo(str(self.operador))                         #AGREGAR + - 
+            nodo.agregarHijoNodo(self.OperacionDer.getNodo())
+        else:
+            nodo.agregarHijo(str(self.operador))                         #AGREGAR + - 
+            nodo.agregarHijoNodo(self.OperacionIzq.getNodo())
+
+        return nodo
 
     def obtenerVal(self, tipo, val):
         if tipo == TIPO.ENTERO:
