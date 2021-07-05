@@ -27,6 +27,9 @@ class Llamada(Instruccion):
                 resultExpresion = expresion.interpretar(tree, table)
                 if isinstance(resultExpresion, Excepcion): return resultExpresion
 
+                if (result.parametros[contador]['identificador'].lower()=="length##param1") or (result.parametros[contador]['identificador'].lower()=="length##param2"):
+                    result.parametros[contador]["tipo"] = expresion.tipo
+
                 if result.parametros[contador]["tipo"] == expresion.tipo:  # VERIFICACION DE TIPO
                     # CREACION DE SIMBOLO E INGRESARLO A LA TABLA DE SIMBOLOS
                     simbolo = Simbolo(str(result.parametros[contador]['identificador']).lower(), result.parametros[contador]['tipo'],self.arreglo, self.fila, self.columna, resultExpresion)

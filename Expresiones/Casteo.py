@@ -48,7 +48,7 @@ class Casteo(Instruccion):
                          return Excepcion("Semantico", "NO SE PUEDE CASTEAR para int.", self.fila, self.columna)  
                 elif self.expresion.tipo == TIPO.CHARACTER:                                                         #CARACTER A STRING(CADENA)
                     try:
-                        return int(self.obtenerVal(self.expresion.tipo, val))                                        #SE PASA A CADENA CON STR  
+                        return ord(self.obtenerVal(self.expresion.tipo, val))                                        #SE PASA A CADENA CON STR  
                     except:
                          return Excepcion("Semantico", "NO SE PUEDE CASTEAR para int.", self.fila, self.columna) 
                 return Excepcion("Semantico", "Tipo Erroneo de casteo para int.", self.fila, self.columna)   
@@ -73,7 +73,7 @@ class Casteo(Instruccion):
         if self.tipo == TIPO.CHARACTER:                                                                            
                 if self.expresion.tipo == TIPO.ENTERO:                                                           #DECIMAL A CADENA
                     try:
-                        return ord(self.obtenerVal(self.expresion.tipo, val))                                      #SE PASA A DECIMAL CON FLOAT
+                        return str(chr(self.obtenerVal(self.expresion.tipo, val)))                                      #SE PASA A DECIMAL CON FLOAT
                     except:
                          return Excepcion("Semantico", "NO SE PUEDE CASTEAR para char.", self.fila, self.columna)
                 return Excepcion("Semantico", "Tipo Erroneo de casteo para CHAR.", self.fila, self.columna)

@@ -1,7 +1,7 @@
 class NodoAST():
     def __init__(self, valor):
         self.valor = valor
-        self.hijo = []
+        self.hijos = []
 
     def setHijos(self, hijos):              #Agregar hijo normal
         self.hijos = hijos
@@ -14,10 +14,10 @@ class NodoAST():
             self.hijos.append(hijo)
 
     def agregarHijoNodo(self, hijo):
-        self.hijo.append(hijo)
+        self.hijos.append(hijo)
 
     def agregarPrimerHijo(self, valorHijo):         #AGREGAR NODO AL INICIO DEtodo
-        self.hijo.insert(0, NodoAST(valorHijo))
+        self.hijos.insert(0, NodoAST(valorHijo))
 
     def agregarPrimerHijoNodo(self, hijo):
         self.hijos.insert(0,hijo)

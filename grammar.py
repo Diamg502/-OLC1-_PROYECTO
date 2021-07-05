@@ -2,12 +2,17 @@
 VACACIONES DE JUNIO 2020
 INTERPRETER SAMPLE  
 '''
+from os import truncate
 from Instrucciones.Case import Case
 from Instrucciones.MasMenos import MasMenos
 from Instrucciones.Default import Default
 from Instrucciones.For import For
 from Nativas.ToLower import ToLower
 from Nativas.ToUpper import ToUpper
+from Nativas.Truncate import Truncate
+from Nativas.TypeOf import TypeOf
+from Nativas.Round import Round
+from Nativas.Length import Length
 import re
 from TS.Excepcion import Excepcion
 
@@ -15,6 +20,7 @@ errores = []
 reservadas = {
     'int'       : 'RINT',
     'float'     : 'RFLOAT',
+    'char'      : 'RCHAR',
     'string'    : 'RSTRING',
     'boolean'   : 'RBOOLEAN',
     'print'     : 'RPRINT',
@@ -33,6 +39,7 @@ reservadas = {
     'default'   : 'RDEFAULT',
     'var'       : 'RVar',
     'read'      : 'RREAD',
+    'continue'  : 'RCONTINUE',
     'new'       : 'RNEW'
 }
 
@@ -210,6 +217,7 @@ from Instrucciones.Asignacion import Asignacion
 from Instrucciones.If import If
 from Instrucciones.While import While
 from Instrucciones.Break import Break
+from Instrucciones.Continue import Continue
 from Instrucciones.Main import Main
 from Instrucciones.Funcion import Funcion
 from Instrucciones.Llamada import Llamada
@@ -250,6 +258,7 @@ def p_instruccion(t) :
                         | if_instr
                         | while_instr
                         | break_instr finins
+                        | continue_instr finish
                         | for_instr
                         | switch_instr
                         | main_instr
@@ -352,6 +361,12 @@ def p_while(t) :
 def p_break(t) :
     'break_instr     : RBREAK'
     t[0] = Break(t.lineno(1), find_column(input, t.slice[1]))
+
+#///////////////////////////////////////CONTINUE//////////////////////////////////////////////////
+
+def p_continue(t) :
+    'continue_instr     : RCONTINUE'
+    t[0] = Continue(t.lineno(1), find_column(input, t.slice[1]))
 
 #///////////////////////////////////////FOR//////////////////////////////////////////////////
 
@@ -488,6 +503,7 @@ def p_tipo(t) :
     '''tipo     : RINT
                 | RFLOAT
                 | RSTRING
+                | RCHAR
                 | RBOOLEAN '''
     if t[1].lower() == 'int':
         t[0] = TIPO.ENTERO
@@ -497,6 +513,9 @@ def p_tipo(t) :
         t[0] = TIPO.CADENA
     elif t[1].lower() == 'boolean':
         t[0] = TIPO.BOOLEANO
+    elif t[1].lower() == 'char':
+        t[0] = TIPO.CHARACTER
+
 
 #///////////////////////////////////////EXPRESION//////////////////////////////////////////////////
 
@@ -660,3 +679,27 @@ def crearNativas(ast):          # CREACION Y DECLARACION DE LAS FUNCIONES NATIVA
     instrucciones = []
     toLower = ToLower(nombre, parametros, instrucciones, -1, -1)
     ast.addFuncion(toLower)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
+
+    nombre = "truncate"
+    parametros = [{'tipo':TIPO.DECIMAL,'identificador':'truncate##Param1'}]
+    instrucciones = []
+    truncate = Truncate(nombre, parametros, instrucciones, -1, -1)
+    ast.addFuncion(truncate)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
+
+    nombre = "typeof"
+    parametros = [{'tipo':TIPO,'identificador':'typeof##Param1'}]
+    instrucciones = []
+    typeof = TypeOf(nombre, parametros, instrucciones, -1, -1)
+    ast.addFuncion(typeof)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
+
+    nombre = "round"
+    parametros = [{'tipo':TIPO.DECIMAL,'identificador':'round##Param1'}]
+    instrucciones = []
+    round = Round(nombre, parametros, instrucciones, -1, -1)
+    ast.addFuncion(round)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
+
+    nombre = "length"
+    parametros = [{'tipo':TIPO.CADENA,'identificador':'length##Param1'}]
+    instrucciones = []
+    length = Length(nombre, parametros, instrucciones, -1, -1)
+    ast.addFuncion(length)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)

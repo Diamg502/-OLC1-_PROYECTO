@@ -3,7 +3,9 @@ class Arbol:
         self.instrucciones = instrucciones
         self.funciones = []
         self.excepciones = []
-        self.consola = ""
+        self.consola = ""      #SALIDA
+        self.entrada = ""      #ENTRADA
+        self.output = ""       #SALIDA EXCLUSIVA
         self.TSglobal = None
         self.dot = ""
         self.contador = 0
@@ -29,6 +31,21 @@ class Arbol:
     def updateConsola(self,cadena):
         self.consola += str(cadena) + '\n'
 
+#------------------------------nuevo-----
+    def set_SalidaTexto(self,output):
+        self.output = output
+
+    def get_SalidaTexto(self):
+        return self.output
+
+    def setEntradaTexto(self,entrada):
+        self.entrada = entrada
+
+    def getEntradaTexto(self):
+        return self.entrada
+#---------------------------------------------
+
+
     def getTSGlobal(self):
         return self.TSglobal
     
@@ -50,7 +67,7 @@ class Arbol:
     def getDot(self, raiz):   #DECUELVE EL STRING DE LA GRAFICA EN GRAPFYZ
         self.dot = ""
         self.dot += "digraph {\n"
-        self.dot += "n0[label=\"" + raiz.getValor().remplace("\"","\\\"")+"\"];\n"
+        self.dot += "n0[label=\"" + raiz.getValor().replace("\"","\\\"")+"\"];\n"
         self.contador = 1
         self.recorrerAST("n0",raiz)
         self.dot += "}"
@@ -58,8 +75,8 @@ class Arbol:
 
     def recorrerAST(self, idpadre, nodopadre):
         for hijo in nodopadre.getHijos():
-            nombreHijo = "n"+str(self.c)
-            self.dot += nombreHijo + "[label=\"" + hijo.getValor().remplace("\"","\\\"")+"\"];\n"
+            nombreHijo = "n"+str(self.contador)
+            self.dot += nombreHijo + "[label=\"" + hijo.getValor().replace("\"","\\\"")+"\"];\n"
             self.dot += idpadre + "->" + nombreHijo + ";\n"
             self.contador += 1
             self.recorrerAST(nombreHijo, hijo)

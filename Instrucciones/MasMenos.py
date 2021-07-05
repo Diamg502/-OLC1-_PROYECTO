@@ -12,6 +12,7 @@ class MasMenos(Instruccion):
         self.expresion = expresion
         self.fila = fila
         self.columna = columna
+        self.arreglo = False
         self.tipo = None
 
     def interpretar(self, tree, table):
@@ -25,9 +26,9 @@ class MasMenos(Instruccion):
             if self.expresion.getTipo() in (TIPO.ENTERO, TIPO.DECIMAL):
 
                 if self.identificador == OperadorAritmetico.INC:
-                    symbol = Simbolo(self.expresion.getID(),self.expresion.getTipo(),self.fila,self.columna,value+1)
+                    symbol = Simbolo(self.expresion.getID(),self.expresion.getTipo(),self.arreglo,self.fila,self.columna,value+1)
                 elif self.identificador == OperadorAritmetico.DEC:
-                    symbol = Simbolo(self.expresion.getID(),self.expresion.getTipo(),self.fila,self.columna,value-1)
+                    symbol = Simbolo(self.expresion.getID(),self.expresion.getTipo(),self.arreglo,self.fila,self.columna,value-1)
                     
                 result = table.actualizarTabla(symbol)
 

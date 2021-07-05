@@ -44,16 +44,14 @@ class Switch(Instruccion):
         nodo = NodoAST("SWITCH")
         nodo.agregarHijoNodo(self.expresion.getNodo())
 
+        
         casos = NodoAST("SWITCH CASOS")
         for instr in self.casos:
             casos.agregarHijoNodo(instr.getNodo())
         nodo.agregarHijoNodo(casos)
 
-        if self.default != None:
-            default = NodoAST("INSTRUCCIONES ELSE ")
-            for instr in self.default:
-                default.agregarHijoNodo(instr.getNodo())
-            nodo.agregarHijoNodo(default)   
+        default = NodoAST("INSTRUCCIONES DEFAULT ")
+        default.agregarHijoNodo(instr.getNodo())
 
         return nodo        
     

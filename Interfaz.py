@@ -105,11 +105,13 @@ def Anal(): #analiza
 #------------------------------------------------------INTERFAZ CON EL GRAMMY------------------------------
         #f = open("./entrada.txt", "r")
         entrada = caja1.get(1.0,END)
+        #salidatext = caja2.get(1.0,END)
 
         instrucciones = parse(entrada) # ARBOL AST
         ast = Arbol(instrucciones)
         TSGlobal = TablaSimbolos()
         ast.setTSglobal(TSGlobal)
+        #ast.set_SalidaTexto(salidatext)
         crearNativas(ast)
         for error in errores:                   # CAPTURA DE ERRORES LEXICOS Y SINTACTICOS
             ast.getExcepciones().append(error)
@@ -162,18 +164,20 @@ def Anal(): #analiza
         init = NodoAST("RAIZ")
         instr = NodoAST("INSTRUCCIONES")
 
-        #for instruccion in ast.getInstrucciones():
-        #    instr.agregarHijoNodo(instruccion.getNodo())
-        #init.agregarHijoNodo(instr)
-        #grafo = ast.getDot(init)  #DEVUELVE EL CODIGO GRAPGHIZ DEL AST
+        '''
+        for instruccion in ast.getInstrucciones():
+            instr.agregarHijoNodo(instruccion.getNodo())
+        init.agregarHijoNodo(instr)
+        grafo = ast.getDot(init)  #DEVUELVE EL CODIGO GRAPGHIZ DEL AST
+        #print(grafo)
 
-        #dirname = os.path.dirname(__file__)
-        #direcc = os.path.join(dirname, 'ast.dot')
-        #arch = open(direcc, "w+")
-        #arch.write(grafo)
-        #arch.close()
-        #os.system('dot -T pdf -o ast.pdf ast.dot')
-
+        dirname = os.path.dirname(__file__)
+        direcc = os.path.join(dirname, 'ast.dot')
+        arch = open(direcc, "w+")
+        arch.write(grafo)
+        arch.close()
+        os.system('dot -T pdf -o ast.pdf ast.dot')
+        '''
 
         #print(ast.getConsola())
         #analizar1(cadena,nombreArchivo)
