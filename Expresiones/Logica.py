@@ -38,10 +38,10 @@ class Logica(Instruccion):
             nodo = NodoAST("LOGICA")
             if self.OperacionDer != None:
                 nodo.agregarHijoNodo(self.OperacionIzq.getNodo())
-                nodo.agregarHijo(str(self.operador))                         #AGREGAR + - 
+                nodo.agregarHijo(self.Operador_def(self.operador))                         #AGREGAR + - 
                 nodo.agregarHijoNodo(self.OperacionDer.getNodo())
             else:
-                nodo.agregarHijo(str(self.operador))                         #AGREGAR + - 
+                nodo.agregarHijo(self.Operador_def(self.operador))                         #AGREGAR + - 
                 nodo.agregarHijoNodo(self.OperacionIzq.getNodo())
 
             return nodo
@@ -54,4 +54,13 @@ class Logica(Instruccion):
         elif tipo == TIPO.BOOLEANO:
             return bool(val)
         return str(val)
+        
+
+    def Operador_def(self, operador):
+        if operador == OperadorLogico.AND:
+            return '&&'
+        elif operador == OperadorLogico.OR:
+            return '||'
+        elif operador == OperadorLogico.NOT:
+            return '!'
         

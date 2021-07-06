@@ -35,11 +35,11 @@ reservadas = {
     'func'      : 'RFUNC',
     'return'    : 'RRETURN',
     'switch'    : 'RSWITCH',
+    'continue'  : 'RCONTINUE',
     'case'      : 'RCASE',
     'default'   : 'RDEFAULT',
     'var'       : 'RVar',
     'read'      : 'RREAD',
-    'continue'  : 'RCONTINUE',
     'new'       : 'RNEW'
 }
 
@@ -217,7 +217,6 @@ from Instrucciones.Asignacion import Asignacion
 from Instrucciones.If import If
 from Instrucciones.While import While
 from Instrucciones.Break import Break
-from Instrucciones.Continue import Continue
 from Instrucciones.Main import Main
 from Instrucciones.Funcion import Funcion
 from Instrucciones.Llamada import Llamada
@@ -229,6 +228,7 @@ from Expresiones.Casteo import Casteo
 from Instrucciones.DeclaracionArr1 import DeclaracionArr1
 from Expresiones.AccesoArreglo import AccesoArreglo
 from Instrucciones.ModificarArreglo import ModificarArreglo
+from Instrucciones.Continue import Continue
 
 def p_init(t) :
     'init            : instrucciones'
@@ -258,7 +258,6 @@ def p_instruccion(t) :
                         | if_instr
                         | while_instr
                         | break_instr finins
-                        | continue_instr finish
                         | for_instr
                         | switch_instr
                         | main_instr
@@ -267,6 +266,7 @@ def p_instruccion(t) :
                         | inc_decre_instr finins
                         | return_instr finins
                         | declArr_instr finins
+                        | continue_instr finins
                         | modArr_instr finins'''
     t[0] = t[1]
 
@@ -362,11 +362,12 @@ def p_break(t) :
     'break_instr     : RBREAK'
     t[0] = Break(t.lineno(1), find_column(input, t.slice[1]))
 
-#///////////////////////////////////////CONTINUE//////////////////////////////////////////////////
+#///////////////////////////////////////BREAK//////////////////////////////////////////////////
 
 def p_continue(t) :
     'continue_instr     : RCONTINUE'
     t[0] = Continue(t.lineno(1), find_column(input, t.slice[1]))
+
 
 #///////////////////////////////////////FOR//////////////////////////////////////////////////
 
@@ -687,13 +688,13 @@ def crearNativas(ast):          # CREACION Y DECLARACION DE LAS FUNCIONES NATIVA
     ast.addFuncion(truncate)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
 
     nombre = "typeof"
-    parametros = [{'tipo':TIPO,'identificador':'typeof##Param1'}]
+    parametros = [{'tipo':TIPO.CADENA,'identificador':'typeof##Param1'}]
     instrucciones = []
     typeof = TypeOf(nombre, parametros, instrucciones, -1, -1)
     ast.addFuncion(typeof)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
 
     nombre = "round"
-    parametros = [{'tipo':TIPO.DECIMAL,'identificador':'round##Param1'}]
+    parametros = [{'tipo':TIPO.CADENA,'identificador':'round##Param1'}]
     instrucciones = []
     round = Round(nombre, parametros, instrucciones, -1, -1)
     ast.addFuncion(round)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)

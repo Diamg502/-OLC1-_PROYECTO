@@ -39,5 +39,3 @@ class Declaracion(Instruccion):
             vvalue = "NULL"
             nodo.agregarHijoNodo(vvalue)
         return nodo
-
-

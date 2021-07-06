@@ -10,7 +10,7 @@ class Continue(Instruccion):
         self.columna = columna
 
     def interpretar(self, tree, table):
-        return self
+        pass
 
     def getNodo(self):
         nodo = NodoAST("CONTINUE")

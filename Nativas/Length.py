@@ -17,14 +17,14 @@ class Length(Funcion):
         simbolo = table.getTabla("length##param1")
         if simbolo == None: return Excepcion("Semantico", "No se encontro el parametro de length", self.fila, self.columna)
 
-        if simbolo.getTipo() != TIPO.ARREGLO and simbolo.getTipo() != TIPO.CADENA:
-            return Excepcion("Semantico", "Tipo de parametro Length no cnoicnide", self.fila,self.columna)
-
         if simbolo.getTipo() == TIPO.ENTERO:
-            aux = str(simbolo.getValor())
+            aux = str(len(simbolo.getValor()))
+
+        elif simbolo.getTipo() != TIPO.ARREGLO and simbolo.getTipo() != TIPO.CADENA:
+            return Excepcion("Semantico", "Tipo de parametro Length no cnoicnide", self.fila,self.columna)
         else:
-            aux = simbolo.getValor()
+            aux = len(simbolo.getValor())
 
 
         self.tipo = simbolo.getTipo()
-        return len(aux)
+        return aux

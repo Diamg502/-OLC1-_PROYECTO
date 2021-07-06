@@ -19,7 +19,7 @@ herramientasreporte = Menu(menubar)                                      #Accion
 
 cadena = "vacio"
 nombreArchivo = ""
-ficheroactual=""
+ficheroactual="/"
 todaTabla = ""
 
 teeexto=""
@@ -66,7 +66,7 @@ def Abrir(): #abrir archivo
     caja1.delete(1.0,END)
     file = filedialog.askopenfilename(filetypes =[('Archivo TXT', '*.txt'),('Archivo XML', '*.xml'),('Archivo JPR', '*.jpr'),('Archivo RMT', '*.rmt')])
     if file != "":
-        fichero = open(file)
+        fichero = open(file, encoding="utf8")
         ficheroactual=file
         nombreArchivo = file.split("/")[-1]
         muchoTexto = fichero.read()
@@ -160,11 +160,11 @@ def Anal(): #analiza
                     err = Excepcion("Semantico", "Sentencias fuera de Main", instruccion.fila, instruccion.columna)
                     ast.getExcepciones().append(err)
                     ast.updateConsola(err.toString())
-
+        '''
         init = NodoAST("RAIZ")
         instr = NodoAST("INSTRUCCIONES")
 
-        '''
+        
         for instruccion in ast.getInstrucciones():
             instr.agregarHijoNodo(instruccion.getNodo())
         init.agregarHijoNodo(instr)
@@ -187,6 +187,102 @@ def Anal(): #analiza
         for i in range(len(lista)):
             todaTabla = todaTabla +"<tr>\n <td>"+ str(i) + "</td>\n <td>"+ str(lista[i].tipo) +"</td>\n <td>"+ lista[i].descripcion +"</td>\n <td>"+ str(lista[i].fila) + "</td>\n <td>"+ str(lista[i].columna) +"</td>\n </tr>"
         
+
+def Anal2(): #analiza
+    caja2.delete(1.0,END)
+    global nombreArchivo
+    global todaTabla
+    prueba = 0
+    verificarArchivo = nombreArchivo.split(".")[-1]
+    #if verificarArchivo == "txt":
+    if prueba == 0:
+        print("Analizando archivo TXT \n")
+#------------------------------------------------------INTERFAZ CON EL GRAMMY------------------------------
+        #f = open("./entrada.txt", "r")
+        entrada = caja1.get(1.0,END)
+        #salidatext = caja2.get(1.0,END)
+
+        instrucciones = parse(entrada) # ARBOL AST
+        ast = Arbol(instrucciones)
+        TSGlobal = TablaSimbolos()
+        ast.setTSglobal(TSGlobal)
+        #ast.set_SalidaTexto(salidatext)
+        crearNativas(ast)
+        for error in errores:                   # CAPTURA DE ERRORES LEXICOS Y SINTACTICOS
+            ast.getExcepciones().append(error)
+            ast.updateConsola(error.toString())
+            
+        if ast.getInstrucciones() != None:
+            for instruccion in ast.getInstrucciones():      # 1ERA PASADA (DECLARACIONES Y ASIGNACIONES)
+                if isinstance(instruccion, Funcion):
+                    ast.addFuncion(instruccion)     # GUARDAR LA FUNCION EN "MEMORIA" (EN EL ARBOL)
+                if isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion) or isinstance(instruccion, DeclaracionArr1) or isinstance(instruccion, ModificarArreglo):
+                    value = instruccion.interpretar(ast,TSGlobal)
+                    if isinstance(value, Excepcion) :
+                        ast.getExcepciones().append(value)
+                        ast.updateConsola(value.toString())
+                    if isinstance(value, Break): 
+                        err = Excepcion("Semantico", "Sentencia BREAK fuera de ciclo", instruccion.fila, instruccion.columna)
+                        ast.getExcepciones().append(err)
+                        ast.updateConsola(err.toString())
+
+        if ast.getInstrucciones() != None:     
+            for instruccion in ast.getInstrucciones():      # 2DA PASADA (MAIN)
+                contador = 0
+                if isinstance(instruccion, Main):
+                    contador += 1
+                    if contador == 2: # VERIFICAR LA DUPLICIDAD
+                        err = Excepcion("Semantico", "Existen 2 funciones Main", instruccion.fila, instruccion.columna)
+                        ast.getExcepciones().append(err)
+                        ast.updateConsola(err.toString())
+                        break
+                    value = instruccion.interpretar(ast,TSGlobal)
+                    if isinstance(value, Excepcion) :
+                        ast.getExcepciones().append(value)
+                        ast.updateConsola(value.toString())
+                    if isinstance(value, Break): 
+                        err = Excepcion("Semantico", "Sentencia BREAK fuera de ciclo", instruccion.fila, instruccion.columna)
+                        ast.getExcepciones().append(err)
+                        ast.updateConsola(err.toString())
+                    if isinstance(value, Return): 
+                        err = Excepcion("Semantico", "Sentencia RETURN fuera de ciclo", instruccion.fila, instruccion.columna)
+                        ast.getExcepciones().append(err)
+                        ast.updateConsola(err.toString())
+
+        if ast.getInstrucciones() != None:
+            for instruccion in ast.getInstrucciones():    # 3ERA PASADA (SENTENCIAS FUERA DE MAIN)
+                if not (isinstance(instruccion, Main) or isinstance(instruccion, Declaracion) or isinstance(instruccion, Asignacion) or isinstance(instruccion, Funcion) or isinstance(instruccion, DeclaracionArr1) or isinstance(instruccion, ModificarArreglo)):
+                    err = Excepcion("Semantico", "Sentencias fuera de Main", instruccion.fila, instruccion.columna)
+                    ast.getExcepciones().append(err)
+                    ast.updateConsola(err.toString())
+        
+        init = NodoAST("RAIZ")
+        instr = NodoAST("INSTRUCCIONES")
+
+        
+        for instruccion in ast.getInstrucciones():
+            instr.agregarHijoNodo(instruccion.getNodo())
+        init.agregarHijoNodo(instr)
+        grafo = ast.getDot(init)  #DEVUELVE EL CODIGO GRAPGHIZ DEL AST
+        #print(grafo)
+
+        dirname = os.path.dirname(__file__)
+        direcc = os.path.join(dirname, 'ast.dot')
+        arch = open(direcc, "w+")
+        arch.write(grafo)
+        arch.close()
+        os.system('dot -T pdf -o ast.pdf ast.dot')
+        
+
+        #print(ast.getConsola())
+        #analizar1(cadena,nombreArchivo)
+        #txt=analizar1(cadena,nombreArchivo)
+        caja2.insert("insert",ast.getConsola())
+        lista = ast.getExcepciones()
+        for i in range(len(lista)):
+            todaTabla = todaTabla +"<tr>\n <td>"+ str(i) + "</td>\n <td>"+ str(lista[i].tipo) +"</td>\n <td>"+ lista[i].descripcion +"</td>\n <td>"+ str(lista[i].fila) + "</td>\n <td>"+ str(lista[i].columna) +"</td>\n </tr>"
+        
+
 
 def guardarU():
     global nombreArchivo
@@ -355,7 +451,7 @@ def ErroresTb():
     global teeexto
     global ficheroactual
     txtTotal=caja1.get(1.0,END)
-    guardar = filedialog.asksaveasfile(initialdir= "/", title="Selec file",defaultextension=".html"
+    guardar = filedialog.asksaveasfile(initialdir= ficheroactual, title="Selec file",defaultextension=".html"
                     , filetypes = (("Archivo html","*.html"),("Archivo txt","*.txt"),("all files","*.*")))
     teeexto = guardar.name
     if guardar != None:
@@ -380,6 +476,21 @@ def ErroresTb():
     else:
         return
 
+def arbolASTopen():
+    global cadena
+    global teeexto
+    global nombreArchivo
+    #global ficheroactual
+    file = filedialog.askopenfilename(filetypes =[('Archivo PDF', '*.pdf'),('Archivo TXT', '*.txt')])
+    if file != "":
+        fichero = open(file)
+        ficheroactual2=file
+        print(ficheroactual2)
+        webbrowser.open_new_tab(ficheroactual2)
+        fichero.close()
+    else:
+        return
+
 
 #----------------------------------MENU DE ARCHIVO-----------------------------------------------
 filemenu.add_command(label = "Nuevo", command = nuevoA)
@@ -390,14 +501,14 @@ menubar.add_cascade(label="Archivo", menu=filemenu)
 #----------------------------------MENU DE EDICION---------------------------------------------
 menubar.add_command(label = "Edicion", command = raiz.quit)
 #----------------------------------MENU DE HERRAMIENTAS----------------------------------------
-herramientasmenu.add_command(label = "Interpretar", command = raiz.quit)
+herramientasmenu.add_command(label = "Interpretar", command = Anal2)
 herramientasmenu.add_command(label = "Debugger", command = raiz.quit)
 menubar.add_cascade(label="Herramientas", menu=herramientasmenu)
 #-----------------------------------ANALIZAR--------------------------------------------------
 menubar.add_command(label = "Analizar", command=Anal)
 #-------------------------------------REPORTES-------------------------------------------------
 herramientasreporte.add_command(label = "Reportes Errores", command = ErroresTb)
-herramientasreporte.add_command(label = "Reportes ARBOL AST", command=raiz.quit)
+herramientasreporte.add_command(label = "Reportes ARBOL AST", command=arbolASTopen)
 herramientasreporte.add_command(label = "Reportes de Tabla de Simbolos", command=raiz.quit)
 menubar.add_cascade(label="Reportes", menu=herramientasreporte)
 #-------------------------------------------------AYUDA-------------------------------------------

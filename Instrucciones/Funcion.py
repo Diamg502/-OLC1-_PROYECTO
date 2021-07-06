@@ -39,8 +39,8 @@ class Funcion(Instruccion):
         parametros = NodoAST("PARAMETROS")
         for param in self.parametros:
             parametro = NodoAST("PARAMETRO")
-            parametro.agregarHijo(param["Tipo"])
-            parametro.agregarHijo(param["Identificador"])
+            parametro.agregarHijo(param["tipo"])
+            parametro.agregarHijo(param["identificador"])
             parametros.agregarHijoNodo(parametro)
         nodo.agregarHijoNodo(parametros)
 

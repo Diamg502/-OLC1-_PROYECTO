@@ -1,5 +1,5 @@
-from re import A
 from TS.Tipo import TIPO
+from re import A
 from Abstract.NodoAST import NodoAST
 from TS.Excepcion import Excepcion
 from Abstract.Instruccion import Instruccion
@@ -35,10 +35,10 @@ class DeclaracionArr1(Instruccion):
 
     def getNodo(self):
         nodo = NodoAST("DECLARACION ARREGLO")
-        nodo.agregarHijo(str(self.tipo))
+        nodo.agregarHijo(self.get_tipo(self.tipo))
         nodo.agregarHijo(str(self.dimensiones))
         nodo.agregarHijo(str(self.identificador))
-        nodo.agregarHijo(str(self.tipo2))
+        nodo.agregarHijo(self.get_tipo(self.tipo2))
         exp = NodoAST("EXPRESIONES DE LAS DIMENSIONES")
         for expresion in self.expresiones:
             exp.agregarHijoNodo(expresion.getNodo())
@@ -59,3 +59,15 @@ class DeclaracionArr1(Instruccion):
             arr.append(self.crearDimensiones(tree, table, copy.copy(expresiones)))
             contador += 1
         return arr
+
+    def get_tipo(self, tipo):
+        if tipo == TIPO.CADENA:
+            return 'String'
+        elif tipo == TIPO.CHARACTER:
+            return 'Char'
+        elif tipo == TIPO.DECIMAL:
+            return 'Double'
+        elif tipo == TIPO.ENTERO:
+            return 'Int'
+        elif tipo == TIPO.ARREGLO.ENTERO:
+            return 'Arreglo -> Int'

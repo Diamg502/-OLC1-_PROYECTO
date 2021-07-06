@@ -1,3 +1,4 @@
+from Instrucciones.Continue import Continue
 from Abstract.NodoAST import NodoAST
 from Instrucciones.Declaracion import Declaracion
 from Instrucciones.Return import Return
@@ -47,11 +48,12 @@ class For(Instruccion):
                             tree.updateConsola(result.toString())
                         if isinstance(result, Break): return None
                         if isinstance(result, Return): return result
+                        if isinstance(result, Continue): return result
                     Avancex = self.incremento.interpretar(tree,nuevaTabla2)   
                     if isinstance (Avancex,Excepcion): return Avancex 
                 else:
                     break   
-                return Excepcion("Semantico", "Tipo de dato no booleano en IF.", self.fila, self.columna)
+                    return Excepcion("Semantico", "Tipo de dato no booleano en FOR.", self.fila, self.columna)
 
     def getNodo(self):                                      #VERIFICAR DESPUES
         nodo = NodoAST("FOR")

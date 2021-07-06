@@ -139,7 +139,7 @@ class Relacional(Instruccion):
     def getNodo(self):                                             #OBTENCION DE DATOS
         nodo = NodoAST("RELACIONAL")
         nodo.agregarHijoNodo(self.OperacionIzq.getNodo())
-        nodo.agregarHijo(str(self.operador))                         #AGREGAR + - 
+        nodo.agregarHijo(self.Operador_def(self.operador))                         #AGREGAR + - 
         nodo.agregarHijoNodo(self.OperacionDer.getNodo())
 
         return nodo
@@ -153,4 +153,19 @@ class Relacional(Instruccion):
         elif tipo == TIPO.BOOLEANO:
             return bool(val)
         return str(val)
+        
+
+    def Operador_def(self, operador):
+        if operador == OperadorRelacional.IGUALIGUAL:
+            return '=='
+        elif operador == OperadorRelacional.MAYORIGUAL:
+            return '>='
+        elif operador == OperadorRelacional.DIFERENTE:
+            return '!='
+        elif operador == OperadorRelacional.MENORIGUAL:
+            return '<='
+        elif operador == OperadorRelacional.MENORQUE:
+            return '<'
+        elif operador == OperadorRelacional.MAYORQUE:
+            return '>'
         

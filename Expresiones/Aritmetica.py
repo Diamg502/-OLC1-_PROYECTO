@@ -268,10 +268,10 @@ class Aritmetica(Instruccion):
         nodo = NodoAST("ARITMETICA")
         if self.OperacionDer != None:
             nodo.agregarHijoNodo(self.OperacionIzq.getNodo())
-            nodo.agregarHijo(str(self.operador))                         #AGREGAR + - 
+            nodo.agregarHijo(self.Operador_def(self.operador))                         #AGREGAR + - 
             nodo.agregarHijoNodo(self.OperacionDer.getNodo())
         else:
-            nodo.agregarHijo(str(self.operador))                         #AGREGAR + - 
+            nodo.agregarHijo(self.Operador_def(self.operador))                         #AGREGAR + - 
             nodo.agregarHijoNodo(self.OperacionIzq.getNodo())
 
         return nodo
@@ -284,4 +284,22 @@ class Aritmetica(Instruccion):
         elif tipo == TIPO.BOOLEANO:
             return bool(val)
         return str(val)
+
+    def Operador_def(self, operador):
+        if operador == OperadorAritmetico.MAS:
+            return '+'
+        elif operador == OperadorAritmetico.MENOS:
+            return '-'
+        elif operador == OperadorAritmetico.POR:
+            return '*'
+        elif operador == OperadorAritmetico.DIV:
+            return '/'
+        elif operador == OperadorAritmetico.POT:
+            return '**'
+        elif operador == OperadorAritmetico.MOD:
+            return '%'
+        elif operador == OperadorAritmetico.INC:
+            return '++'
+        elif operador == OperadorAritmetico.DEC:
+            return '--'
         

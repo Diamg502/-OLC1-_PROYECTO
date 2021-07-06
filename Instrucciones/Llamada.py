@@ -27,7 +27,7 @@ class Llamada(Instruccion):
                 resultExpresion = expresion.interpretar(tree, table)
                 if isinstance(resultExpresion, Excepcion): return resultExpresion
 
-                if (result.parametros[contador]['identificador'].lower()=="length##param1") or (result.parametros[contador]['identificador'].lower()=="length##param2"):
+                if (result.parametros[contador]['identificador'].lower()=="length##param1") or (result.parametros[contador]['identificador'].lower()=="typeof##param1"):
                     result.parametros[contador]["tipo"] = expresion.tipo
 
                 if result.parametros[contador]["tipo"] == expresion.tipo:  # VERIFICACION DE TIPO

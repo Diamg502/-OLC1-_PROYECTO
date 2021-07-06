@@ -1,3 +1,4 @@
+from Instrucciones.Continue import Continue
 from Abstract.NodoAST import NodoAST
 from Instrucciones.Return import Return
 from Abstract.Instruccion import Instruccion
@@ -28,6 +29,7 @@ class While(Instruccion):
                             tree.updateConsola(result.toString())
                         if isinstance(result, Break): return None
                         if isinstance(result, Return): return result
+                        if isinstance(result, Continue): return result
                 else:
                     break
             else:
